@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev \
     cython python python-numpy python-h5py \
     lcov \
+    curl \
     git \
     pep8 \
     python-pyvtk \
@@ -22,4 +23,5 @@ RUN apt-get update && apt-get install -y \
 RUN useradd -m espresso
 USER espresso
 WORKDIR /home/espresso
+
 
