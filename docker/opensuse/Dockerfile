@@ -7,7 +7,7 @@ RUN zypper -n --gpg-auto-import-keys refresh \
   openmpi-devel Modules \
   fftw3-devel \
   boost-devel libboost_serialization1_54_0 libboost_mpi1_54_0  libboost_filesystem1_54_0 libboost_test1_54_0 \
-  python python-numpy python-numpy-devel python-h5py \
+  python python-numpy python-numpy-devel python-h5py python-enum34 \
   git \
   python-pep8 \
   python-pip \
