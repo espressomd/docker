@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
     openmpi-bin \
+    lcov \
     libfftw3-dev \
     libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev \
     python python-numpy python-h5py python-enum \
