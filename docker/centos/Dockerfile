@@ -10,7 +10,7 @@ RUN yum -y install epel-release && yum -y install \
   git \
   python-pep8 \
   python2-pip \
-  python2-enum \
+  python-enum \
   python-devel \
   hdf5-openmpi-devel \
   zlib-devel \
