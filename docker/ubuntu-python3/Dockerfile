@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
     cython3 python3 python3-numpy python3-h5py \
     lcov \
     git \
-    pep8 \
+    pep8 pylint\
     libhdf5-openmpi-dev \
     libhdf5-openmpi-10:amd64 \
     libhdf5-10:amd64 \

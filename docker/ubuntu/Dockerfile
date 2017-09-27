@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
     lcov \
     curl \
     git \
-    pep8 \
+    pep8 pylint \
     python-pyvtk \
     libhdf5-openmpi-dev \
     libhdf5-openmpi-10:amd64 \
@@ -23,5 +23,3 @@ RUN apt-get update && apt-get install -y \
 RUN useradd -m espresso
 USER espresso
 WORKDIR /home/espresso
-
-
