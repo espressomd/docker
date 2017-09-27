@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
     libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev \
     python python-numpy python-h5py python-enum \
     git \
-    pep8 \
+    pep8 pylint\
     python-pyvtk \
     python-pip \
     libpython-dev \

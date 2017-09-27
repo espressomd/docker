@@ -10,6 +10,7 @@ RUN zypper -n --gpg-auto-import-keys refresh \
   python python-numpy python-numpy-devel python-h5py python-enum34 \
   git \
   python-pep8 \
+  python-pylint \
   python-pip \
   python-Cython \
   python-devel \

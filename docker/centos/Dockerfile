@@ -16,7 +16,7 @@ RUN yum -y install epel-release && yum -y install \
   zlib-devel \
   && yum clean all \
   && ln -s /usr/bin/cmake3 /usr/bin/cmake \
-  && pip install cython
+  && pip install cython pylint
 RUN useradd -m espresso
 USER espresso
 WORKDIR /home/espresso
