@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     git \
     pep8 pylint \
-    python-pyvtk \
+    python-vtk \
     libhdf5-openmpi-dev \
     libhdf5-openmpi-10:amd64 \
     libhdf5-10:amd64 \
