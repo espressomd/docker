@@ -25,6 +25,13 @@ RUN apt-get update && apt-get install -y \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 
+RUN cd /usr/src && \
+    git clone https://github.com/thrust/thrust.git && \
+    rm -r /usr/local/cuda/include/thrust && \
+    ln -s /usr/src/thrust/thrust /usr/local/cuda/include/thrust
+
+ENV CC=/usr/bin/clang-4.0 CXX=/usr/bin/clang++-4.0 NVCC=/usr/bin/clang++-4.0
+
 RUN useradd -m espresso && usermod -a -G www-data espresso
 USER espresso
 WORKDIR /home/espresso
