@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
     python python-numpy python-h5py python-enum \
     git \
     pep8 pylint\
-    python-pyvtk \
+    python-vtk \
     python-pip \
     libpython-dev \
     libhdf5-openmpi-dev \
