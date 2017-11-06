@@ -1,4 +1,4 @@
-FROM nvidia/cuda:7.5-devel-ubuntu14.04
+FROM nvidia/cuda:8.0-devel-ubuntu14.04
 MAINTAINER Florian Weik <fweik@icp.uni-stuttgart.de>
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y \
     libpython-dev \
     libhdf5-openmpi-dev \
     doxygen \
+    vim \
 && pip2 install cython sphinx sphinxcontrib-bibtex numpydoc --upgrade \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
