@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y \
 && pip2 install cython sphinx sphinxcontrib-bibtex numpydoc --upgrade \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* \
-&& rm /usr/lib/pymodules/python2.7/vtk/vtk{Rendering,VolumeRendering,Hybrid,Widgets,Charts,Geovis,Infovis,TextAnalysis,Views,Parallel}Python.so
+&& rm /usr/lib/pymodules/python2.7/vtk/vtkRenderingPython.so /usr/lib/pymodules/python2.7/vtk/vtkVolumeRenderingPython.so /usr/lib/pymodules/python2.7/vtk/vtkHybridPython.so /usr/lib/pymodules/python2.7/vtk/vtkWidgetsPython.so /usr/lib/pymodules/python2.7/vtk/vtkChartsPython.so /usr/lib/pymodules/python2.7/vtk/vtkGeovisPython.so /usr/lib/pymodules/python2.7/vtk/vtkInfovisPython.so /usr/lib/pymodules/python2.7/vtk/vtkViewsPython.so /usr/lib/pymodules/python2.7/vtk/vtkParallelPython.so
 
 RUN cd /usr/local \
 && curl -sL https://cmake.org/files/v3.1/cmake-3.1.0-Linux-x86_64.tar.gz | tar --strip-components=1 -xz
