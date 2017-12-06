@@ -4,8 +4,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
     apt-utils \
     build-essential \
-    clang-4.0 \
-    cmake \
+    clang-4.0 clang-tidy-4.0 \
     curl \
     cython \
     openmpi-bin \
@@ -24,6 +23,9 @@ RUN apt-get update && apt-get install -y \
 && pip2 install sphinx sphinxcontrib-bibtex --upgrade \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
+
+RUN cd /usr/local \
+&& curl -sL https://cmake.org/files/v3.6/cmake-3.6.3-Linux-x86_64.tar.gz | tar --strip-components=1 -xz
 
 RUN cd /usr/src && \
     git clone https://github.com/thrust/thrust.git && \
