@@ -1,0 +1,5 @@
+sudo: required
+services:
+  - docker
+script:
+  - bash test/build_docker_images.sh
