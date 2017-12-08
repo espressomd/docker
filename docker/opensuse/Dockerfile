@@ -10,11 +10,11 @@ RUN zypper -n --gpg-auto-import-keys refresh \
   python python-numpy python-numpy-devel python-h5py python-enum34 \
   git \
   python-pep8 \
-  python-pylint \
   python-pip \
   python-Cython \
   python-devel \
   hdf5-openmpi-devel libhdf5-10-openmpi
+RUN pip2 install --upgrade pip && pip2 install pylint --upgrade
 RUN useradd -m espresso
 USER espresso
 WORKDIR /home/espresso

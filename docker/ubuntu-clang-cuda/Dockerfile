@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
     libpython-dev \
     libhdf5-openmpi-dev \
     doxygen \
-&& pip2 install sphinx sphinxcontrib-bibtex --upgrade \
+&& pip2 install --upgrade pip; pip2 install sphinx sphinxcontrib-bibtex --upgrade \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 
