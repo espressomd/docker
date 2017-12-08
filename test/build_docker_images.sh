@@ -7,7 +7,7 @@ for i in $(find -maxdepth 1 -mindepth 1 -type d -printf '%f\n');
 do
     cd $i
     echo $i
-    docker build -t test_${i} . 
+    docker build -q -t test_${i} . 
     docker build --build-arg image=test_${i} ${root_dir}/test
     cd ..
 done
