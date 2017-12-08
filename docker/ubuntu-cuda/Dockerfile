@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
     libhdf5-openmpi-dev \
     doxygen \
     vim \
-&& pip install --upgrade pip; pip2 install cython sphinx sphinxcontrib-bibtex numpydoc --upgrade \
+&& pip2 install --upgrade pip; pip2 install cython sphinx sphinxcontrib-bibtex numpydoc --upgrade \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* \
 && rm /usr/lib/pymodules/python2.7/vtk/vtkRenderingPython.so /usr/lib/pymodules/python2.7/vtk/vtkVolumeRenderingPython.so /usr/lib/pymodules/python2.7/vtk/vtkHybridPython.so /usr/lib/pymodules/python2.7/vtk/vtkWidgetsPython.so /usr/lib/pymodules/python2.7/vtk/vtkChartsPython.so /usr/lib/pymodules/python2.7/vtk/vtkGeovisPython.so /usr/lib/pymodules/python2.7/vtk/vtkInfovisPython.so /usr/lib/pymodules/python2.7/vtk/vtkViewsPython.so /usr/lib/pymodules/python2.7/vtk/vtkParallelPython.so
