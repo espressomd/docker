@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -y \
 && rm -rf /var/lib/apt/lists/*
 
 RUN cd /usr/local \
-&& curl -sL https://cmake.org/files/v3.6/cmake-3.6.3-Linux-x86_64.tar.gz | tar --strip-components=1 -xz
+&& curl -sL https://cmake.org/files/v3.8/cmake-3.8.2-Linux-x86_64.tar.gz | tar --strip-components=1 -xz
 
 RUN cd /usr/src && \
     git clone https://github.com/thrust/thrust.git && \
