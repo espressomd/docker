@@ -34,6 +34,9 @@ RUN cd /usr/src && \
 
 ENV CC=/usr/bin/clang-4.0 CXX=/usr/bin/clang++-4.0 NVCC=/usr/bin/clang++-4.0
 
+COPY boost.patch /tmp/
+RUN cd /usr/include/boost && patch -p1 < /tmp/boost.patch
+
 RUN useradd -m espresso && usermod -a -G www-data espresso
 USER espresso
 WORKDIR /home/espresso
