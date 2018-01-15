@@ -1,0 +1,17 @@
+--- thrust/system/cuda/detail/bulk/detail/synchronize.hpp	2017-10-19 10:57:38.732756117 +0200
++++ thrust/system/cuda/detail/bulk/detail/synchronize.hpp	2018-01-15 09:54:49.375321978 +0100
+@@ -44,14 +44,8 @@
+ inline __host__ __device__
+ void synchronize_if_enabled(const char* message = "")
+ {
+-// XXX we rely on __THRUST_SYNCHRONOUS here
+-//     note we always have to synchronize in __device__ code
+-#if __THRUST_SYNCHRONOUS || defined(__CUDA_ARCH__)
+-  synchronize(message);
+-#else
+   // WAR "unused parameter" warning
+   (void) message;
+-#endif
+ }
+ 
+ 

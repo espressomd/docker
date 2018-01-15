@@ -26,6 +26,9 @@ RUN apt-get update && apt-get install -y \
 RUN cd /usr/local \
 && curl -sL https://cmake.org/files/v3.1/cmake-3.1.0-Linux-x86_64.tar.gz | tar --strip-components=1 -xz
 
+COPY thrust.patch /tmp/
+RUN cd /usr/local/cuda/include/thrust && patch -p1 < /tmp/thrust.patch
+
 RUN useradd -m espresso && usermod -a -G www-data espresso
 USER espresso
 WORKDIR /home/espresso
