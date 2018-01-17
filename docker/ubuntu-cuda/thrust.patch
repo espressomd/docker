@@ -1,17 +1,23 @@
 --- thrust/system/cuda/detail/bulk/detail/synchronize.hpp	2017-10-19 10:57:38.732756117 +0200
-+++ thrust/system/cuda/detail/bulk/detail/synchronize.hpp	2018-01-15 09:54:49.375321978 +0100
-@@ -44,14 +44,8 @@
- inline __host__ __device__
- void synchronize_if_enabled(const char* message = "")
++++ thrust/system/cuda/detail/bulk/detail/synchronize.hpp	2018-01-17 11:58:29.284258193 +0100
+@@ -46,7 +46,7 @@
  {
--// XXX we rely on __THRUST_SYNCHRONOUS here
--//     note we always have to synchronize in __device__ code
+ // XXX we rely on __THRUST_SYNCHRONOUS here
+ //     note we always have to synchronize in __device__ code
 -#if __THRUST_SYNCHRONOUS || defined(__CUDA_ARCH__)
--  synchronize(message);
--#else
++#if defined(__CUDA_ARCH__)
+   synchronize(message);
+ #else
    // WAR "unused parameter" warning
-   (void) message;
--#endif
- }
- 
- 
+diff -ru /usr/local/cuda-8.0/include/thrust/system/cuda/detail/synchronize.inl /tmp/thrust/system/cuda/detail/synchronize.inl
+--- thrust/system/cuda/detail/synchronize.inl	2017-10-19 10:57:38.676757471 +0200
++++ thrust/system/cuda/detail/synchronize.inl	2018-01-17 11:58:39.876329874 +0100
+@@ -51,7 +51,7 @@
+ {
+ // XXX this could potentially be a runtime decision
+ //     note we always have to synchronize in __device__ code
+-#if __THRUST_SYNCHRONOUS || defined(__CUDA_ARCH__)
++#if defined(__CUDA_ARCH__)
+   synchronize(message);
+ #else
+   // WAR "unused parameter" warning
