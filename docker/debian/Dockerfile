@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     python-pip \
     libpython-dev \
     libhdf5-openmpi-dev \
+    vim \
 && pip2 install --upgrade pip; pip2 install cython \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*

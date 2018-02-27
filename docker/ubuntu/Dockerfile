@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y \
     libhdf5-openmpi-dev \
     libhdf5-openmpi-10:amd64 \
     libhdf5-10:amd64 \
+    vim \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 
