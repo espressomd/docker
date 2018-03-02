@@ -13,7 +13,8 @@ RUN zypper -n --gpg-auto-import-keys refresh \
   python-pip \
   python-Cython \
   python-devel \
-  hdf5-openmpi-devel libhdf5-10-openmpi
+  hdf5-openmpi-devel libhdf5-10-openmpi \
+  vim
 RUN pip2 install --upgrade pip && pip2 install pylint --upgrade
 RUN useradd -m espresso
 USER espresso

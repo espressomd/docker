@@ -15,6 +15,7 @@ RUN yum -y install epel-release && yum -y install \
   hdf5-openmpi-devel \
   zlib-devel \
   which \
+  vim \
   && yum clean all \
   && ln -s /usr/bin/cmake3 /usr/bin/cmake \
   && pip2 install --upgrade pip; pip2 install cython pylint
