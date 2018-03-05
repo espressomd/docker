@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
     pep8 pylint\
     python-vtk \
     python-pip \
+    python-pyface \
     libpython-dev \
     libhdf5-openmpi-dev \
     doxygen \

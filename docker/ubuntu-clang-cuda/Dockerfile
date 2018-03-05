@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y \
     python-numpydoc \
     python-pyvtk \
     python-pip \
+    python-pyface \
     libpython-dev \
     libhdf5-openmpi-dev \
     doxygen \
