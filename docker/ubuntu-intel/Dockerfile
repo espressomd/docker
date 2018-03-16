@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y \
 
 # CMake
 RUN cd /usr/local \
-&& curl -sL https://cmake.org/files/v3.6/cmake-3.6.3-Linux-x86_64.tar.gz | tar --strip-components=1 -xz
+&& curl -sL https://cmake.org/files/v3.10/cmake-3.10.3-Linux-x86_64.tar.gz | tar --strip-components=1 -xz
 
 # Intel Compiler
 COPY intel.cfg /tmp/
@@ -35,7 +35,7 @@ RUN cd /tmp \
  && cd \
  && rm -r /tmp/intel
 
-ENV CC=/opt/intel/bin/icc CXX=/opt/intel/bin/icpc PATH="/opt/intel/bin:${PATH}"
+ENV CC=/opt/intel/bin/icc CXX=/opt/intel/bin/icpc PATH="/opt/intel/bin:${PATH}" LD_LIBRARY_PATH="/opt/intel/lib/intel64:${LD_LIBRARY_PATH}"
 
 # Intel MPI
 COPY intel-mpi.cfg /tmp/
@@ -54,11 +54,11 @@ ENV PATH="/opt/intel-mpi/compilers_and_libraries_2018.1.163/linux/mpi/intel64/bi
 RUN cd /tmp \
  && mkdir boost \
  && cd boost \
- && curl -sL http://downloads.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.tar.bz2 | tar xj \
- && cd boost_1_61_0 \
+ && curl -sL https://dl.bintray.com/boostorg/release/1.65.0/source/boost_1_65_0.tar.bz2 | tar xj \
+ && cd boost_1_65_0 \
  && echo 'using mpi ;' > tools/build/src/user-config.jam \
  && ./bootstrap.sh \
- && ./b2 -j $(nproc) toolset=intel install --prefix=/opt/boost \
+ && ./b2 -j $(nproc) -d0 toolset=intel install --prefix=/opt/boost \
  && cd \
  && rm -r /tmp/boost
 
