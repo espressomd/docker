@@ -54,7 +54,7 @@ ENV PATH="/opt/intel-mpi/compilers_and_libraries_2018.1.163/linux/mpi/intel64/bi
 RUN cd /tmp \
  && mkdir boost \
  && cd boost \
- && curl -L http://downloads.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.tar.bz2 | tar xj \
+ && curl -sL http://downloads.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.tar.bz2 | tar xj \
  && cd boost_1_61_0 \
  && echo 'using mpi ;' > tools/build/src/user-config.jam \
  && ./bootstrap.sh \

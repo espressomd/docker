@@ -2,18 +2,36 @@ image: docker:latest
 services:
   - docker:dind
 
+stages:
+  - build
+  - test
+
 .build_template: &build_definition
   stage: build
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:latest || true
   script:
     - cd docker/$CI_JOB_NAME
-    - docker pull $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:latest || true
     - docker build --pull -t $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:latest --cache-from $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:latest .
     - test "$CI_COMMIT_REF_NAME" != "master" || docker push $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:latest
   tags:
     - docker
     - privileged
+
+.test_template: &test_definition
+  stage: test
+  before_script:
+    - docker pull $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:latest
+  script:
+    - git clone https://github.com/espressomd/espresso
+    - cd espresso
+    - maintainer/travis/build_cmake.sh
+  variables:
+    make_check: "false"
+    myconfig: "maxset"
+  tags:
+    - docker
 
 centos:
   <<: *build_definition
@@ -31,3 +49,21 @@ ubuntu-intel:
   <<: *build_definition
 ubuntu-python3:
   <<: *build_definition
+
+centos-test:
+  <<: *test_definition
+debian-test:
+  <<: *test_definition
+opensuse-test:
+  <<: *test_definition
+ubuntu-test:
+  <<: *test_definition
+ubuntu-clang-cuda-test:
+  <<: *test_definition
+ubuntu-cuda-test:
+  <<: *test_definition
+ubuntu-intel-test:
+  <<: *test_definition
+ubuntu-python3-test:
+  <<: *test_definition
+
