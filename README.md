@@ -1,2 +1,2 @@
 # docker
-Docker containers for testing espresso.
+Docker containers for testing espresso
