@@ -62,7 +62,7 @@ RUN cd /tmp \
  && cd \
  && rm -r /tmp/boost
 
-ENV BOOST_ROOT=/opt/boost
+ENV BOOST_ROOT=/opt/boost LD_LIBRARY_PATH="/opt/boost/lib:${LD_LIBRARY_PATH}"
 
 RUN useradd -m espresso && usermod -a -G www-data espresso
 USER espresso
