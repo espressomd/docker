@@ -1,0 +1,71 @@
+image: docker:latest
+
+stages:
+  - build
+  - test
+
+.build_template: &build_definition
+  stage: build
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:latest || true
+  script:
+    - cd docker/$CI_JOB_NAME
+    - docker build --pull -t $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME-test:$CI_COMMIT_SHA --cache-from $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:latest .
+    - docker push $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME-test:$CI_COMMIT_SHA
+    - test "$CI_COMMIT_REF_NAME" != "master" || docker tag $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME-test:$CI_COMMIT_SHA $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:latest
+    - test "$CI_COMMIT_REF_NAME" != "master" || docker push $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:latest
+  tags:
+    - docker-docker
+
+.test_template: &test_definition
+  stage: test
+  image: $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:$CI_COMMIT_SHA
+  script:
+    - git clone https://github.com/espressomd/espresso
+    - cd espresso
+    - maintainer/CI/build_cmake.sh
+  variables:
+    make_check: "false"
+    myconfig: "maxset"
+  tags:
+    - docker
+
+centos:
+  <<: *build_definition
+debian:
+  <<: *build_definition
+opensuse:
+  <<: *build_definition
+ubuntu:
+  <<: *build_definition
+ubuntu-clang-cuda:
+  <<: *build_definition
+ubuntu-cuda:
+  <<: *build_definition
+ubuntu-intel:
+  <<: *build_definition
+ubuntu-python3:
+  <<: *build_definition
+
+centos-test:
+  <<: *test_definition
+debian-test:
+  <<: *test_definition
+opensuse-test:
+  <<: *test_definition
+ubuntu-test:
+  <<: *test_definition
+ubuntu-clang-cuda-test:
+  <<: *test_definition
+ubuntu-cuda-test:
+  <<: *test_definition
+ubuntu-intel-test:
+  <<: *test_definition
+ubuntu-python3-test:
+  <<: *test_definition
+  variables:
+    make_check: "false"
+    myconfig: "maxset"
+    python_version: "3"
+
