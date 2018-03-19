@@ -3,6 +3,7 @@ image: docker:latest
 stages:
   - build
   - test
+  - status
 
 .build_template: &build_definition
   stage: build
@@ -69,3 +70,18 @@ ubuntu-python3-test:
     myconfig: "maxset"
     python_version: "3"
 
+status_success:
+  stage: status
+  image: $CI_REGISTRY/espressomd/docker/ubuntu:latest
+  script: bash maintainer/gh_post_status.sh success
+  when: on_success
+  tags:
+    - docker
+
+status_failure:
+  stage: status
+  image: $CI_REGISTRY/espressomd/docker/ubuntu:latest
+  script: bash maintainer/gh_post_status.sh failure
+  when: on_failure
+  tags:
+    - docker
