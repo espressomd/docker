@@ -72,7 +72,7 @@ stages:
 
 status_success:
   stage: status
-  image: $CI_REGISTRY/ubuntu:latest
+  image: $CI_REGISTRY/espressomd/docker/ubuntu:latest
   script: bash maintainer/gh_post_status.sh success
   when: on_success
   tags:
@@ -80,7 +80,7 @@ status_success:
 
 status_failure:
   stage: status
-  image: $CI_REGISTRY/ubuntu:latest
+  image: $CI_REGISTRY/espressomd/docker/ubuntu:latest
   script: bash maintainer/gh_post_status.sh failure
   when: on_failure
   tags:
