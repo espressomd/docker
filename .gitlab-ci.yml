@@ -32,38 +32,38 @@ stages:
   tags:
     - docker
 
-.centos:
+centos:
   <<: *build_definition
-.debian:
+debian:
   <<: *build_definition
-.opensuse:
+opensuse:
   <<: *build_definition
-.ubuntu:
+ubuntu:
   <<: *build_definition
-.ubuntu-clang-cuda:
+ubuntu-clang-cuda:
   <<: *build_definition
-.ubuntu-cuda:
+ubuntu-cuda:
   <<: *build_definition
-.ubuntu-intel:
+ubuntu-intel:
   <<: *build_definition
-.ubuntu-python3:
+ubuntu-python3:
   <<: *build_definition
 
-.centos-test:
+centos-test:
   <<: *test_definition
-.debian-test:
+debian-test:
   <<: *test_definition
-.opensuse-test:
+opensuse-test:
   <<: *test_definition
-.ubuntu-test:
+ubuntu-test:
   <<: *test_definition
-.ubuntu-clang-cuda-test:
+ubuntu-clang-cuda-test:
   <<: *test_definition
-.ubuntu-cuda-test:
+ubuntu-cuda-test:
   <<: *test_definition
-.ubuntu-intel-test:
+ubuntu-intel-test:
   <<: *test_definition
-.ubuntu-python3-test:
+ubuntu-python3-test:
   <<: *test_definition
   variables:
     make_check: "false"
