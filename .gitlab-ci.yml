@@ -72,10 +72,12 @@ ubuntu-python3-test:
 
 status_success:
   stage: status
+  image: ubuntu:xenial
   script: bash maintainer/gh_post_status.sh success
   when: on_success
 
 status_failure:
   stage: status
+  image: ubuntu:xenial
   script: bash maintainer/gh_post_status.sh failure
   when: on_failure
