@@ -12,9 +12,9 @@ stages:
     - docker pull $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:latest || true
   script:
     - cd docker/$CI_JOB_NAME
-    - docker build --pull -t $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME-test:$CI_COMMIT_SHA --cache-from $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:latest .
-    - docker push $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME-test:$CI_COMMIT_SHA
-    - test "$CI_COMMIT_REF_NAME" != "master" || docker tag $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME-test:$CI_COMMIT_SHA $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:latest
+    - docker build --pull -t $CI_REGISTRY/$CI_PROJECT_PATH/test/$CI_JOB_NAME:$CI_COMMIT_SHA --cache-from $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:latest .
+    - docker push $CI_REGISTRY/$CI_PROJECT_PATH/test/$CI_JOB_NAME:$CI_COMMIT_SHA
+    - test "$CI_COMMIT_REF_NAME" != "master" || docker tag $CI_REGISTRY/$CI_PROJECT_PATH/test/$CI_JOB_NAME:$CI_COMMIT_SHA $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:latest
     - test "$CI_COMMIT_REF_NAME" != "master" || docker push $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:latest
   tags:
     - docker-docker
@@ -49,21 +49,21 @@ ubuntu-intel:
 ubuntu-python3:
   <<: *build_definition
 
-centos-test:
+test/centos:
   <<: *test_definition
-debian-test:
+test/debian:
   <<: *test_definition
-opensuse-test:
+test/opensuse:
   <<: *test_definition
-ubuntu-test:
+test/ubuntu:
   <<: *test_definition
-ubuntu-clang-cuda-test:
+test/ubuntu-clang-cuda:
   <<: *test_definition
-ubuntu-cuda-test:
+test/ubuntu-cuda:
   <<: *test_definition
-ubuntu-intel-test:
+test/ubuntu-intel:
   <<: *test_definition
-ubuntu-python3-test:
+test/ubuntu-python3:
   <<: *test_definition
   variables:
     make_check: "false"
@@ -85,3 +85,4 @@ status_failure:
   when: on_failure
   tags:
     - docker
+
