@@ -9,19 +9,19 @@ stages:
   stage: build
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker pull $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:latest || true
+    - docker pull $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME || true
   script:
-    - cd docker/$CI_JOB_NAME
-    - docker build --pull -t $CI_REGISTRY/$CI_PROJECT_PATH/test/$CI_JOB_NAME:$CI_COMMIT_SHA --cache-from $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:latest .
-    - docker push $CI_REGISTRY/$CI_PROJECT_PATH/test/$CI_JOB_NAME:$CI_COMMIT_SHA
-    - test "$CI_COMMIT_REF_NAME" != "master" || docker tag $CI_REGISTRY/$CI_PROJECT_PATH/test/$CI_JOB_NAME:$CI_COMMIT_SHA $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:latest
-    - test "$CI_COMMIT_REF_NAME" != "master" || docker push $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:latest
+    - cd docker/${CI_JOB_NAME%:*}
+    - docker build -f Dockerfile-${CI_JOB_NAME#*:} --pull -t $CI_REGISTRY/$CI_PROJECT_PATH/test/$CI_JOB_NAME-$CI_COMMIT_SHA --cache-from $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME .
+    - docker push $CI_REGISTRY/$CI_PROJECT_PATH/test/$CI_JOB_NAME-$CI_COMMIT_SHA
+    - test "$CI_COMMIT_REF_NAME" != "master" && docker tag $CI_REGISTRY/$CI_PROJECT_PATH/test/$CI_JOB_NAME-$CI_COMMIT_SHA $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME
+    - test "$CI_COMMIT_REF_NAME" != "master" && docker push $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME
   tags:
     - docker-docker
 
 .test_template: &test_definition
   stage: test
-  image: $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME:$CI_COMMIT_SHA
+  image: $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME-$CI_COMMIT_SHA
   script:
     - git clone https://github.com/espressomd/espresso
     - cd espresso
@@ -32,38 +32,38 @@ stages:
   tags:
     - docker
 
-centos:
+centos:7:
   <<: *build_definition
-debian:
+debian:8:
   <<: *build_definition
-opensuse:
+opensuse:42.3:
   <<: *build_definition
-ubuntu:
+ubuntu:16.04:
   <<: *build_definition
-ubuntu-clang-cuda:
+clang:4.0:
   <<: *build_definition
-ubuntu-cuda:
+cuda:8.0:
   <<: *build_definition
-ubuntu-intel:
+intel:15:
   <<: *build_definition
-ubuntu-python3:
+ubuntu-python3:16.04:
   <<: *build_definition
 
-test/centos:
+test/centos:7:
   <<: *test_definition
-test/debian:
+test/debian:8:
   <<: *test_definition
-test/opensuse:
+test/opensuse:42.3:
   <<: *test_definition
-test/ubuntu:
+test/ubuntu:16.04:
   <<: *test_definition
-test/ubuntu-clang-cuda:
+test/clang:4.0:
   <<: *test_definition
-test/ubuntu-cuda:
+test/cuda:8.0:
   <<: *test_definition
-test/ubuntu-intel:
+test/intel:15:
   <<: *test_definition
-test/ubuntu-python3:
+test/ubuntu-python3:16.04:
   <<: *test_definition
   variables:
     make_check: "false"
