@@ -1,10 +1,10 @@
-FROM nvidia/cuda:8.0-devel-ubuntu16.04
+FROM nvidia/cuda:9.0-devel-ubuntu16.04
 MAINTAINER Florian Weik <fweik@icp.uni-stuttgart.de>
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
     apt-utils \
     build-essential \
-    clang-4.0 clang-tidy-4.0 \
+    clang-6.0 clang-tidy-6.0 \
     curl \
     cython \
     openmpi-bin \
@@ -33,7 +33,7 @@ RUN cd /usr/src && \
     rm -r /usr/local/cuda/include/thrust && \
     ln -s /usr/src/thrust/thrust /usr/local/cuda/include/thrust
 
-ENV CC=/usr/bin/clang-4.0 CXX=/usr/bin/clang++-4.0 NVCC=/usr/bin/clang++-4.0
+ENV CC=/usr/bin/clang-6.0 CXX=/usr/bin/clang++-6.0 NVCC=/usr/bin/clang++-6.0
 
 COPY boost.patch /tmp/
 RUN cd /usr/include/boost && patch -p1 < /tmp/boost.patch

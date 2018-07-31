@@ -26,7 +26,7 @@ RUN cd /usr/local \
 && curl -sL https://cmake.org/files/v3.10/cmake-3.10.3-Linux-x86_64.tar.gz | tar --strip-components=1 -xz
 
 # Intel Compiler
-COPY intel.cfg /tmp/
+COPY intel-15.cfg /tmp/intel.cfg
 RUN cd /tmp \
  && mkdir intel \
  && cd intel \

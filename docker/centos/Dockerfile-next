@@ -1,0 +1,23 @@
+FROM fedora:latest
+MAINTAINER Florian Weik <fweik@icp.uni-stuttgart.de>
+RUN yum -y install \
+  gcc gcc-c++ make \
+  cmake \
+  openmpi-devel \
+  fftw-devel \
+  boost-devel boost-openmpi-devel \
+  python numpy h5py\
+  git \
+  python-pep8 \
+  python2-Cython \
+  python2-pylint \
+  python2-enum \
+  python-devel \
+  hdf5-openmpi-devel \
+  zlib-devel \
+  which \
+  vim \
+  && yum clean all
+RUN useradd -m espresso
+USER espresso
+WORKDIR /home/espresso
