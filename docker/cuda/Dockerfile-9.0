@@ -10,20 +10,18 @@ RUN apt-get update && apt-get install -y \
     libfftw3-dev \
     libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev \
     libgsl-dev \
-    cython python python-numpy python-h5py python-enum \
+    cython3 python3 python3-numpy python3-h5py \
     lcov \
     curl \
     git \
-    pep8 pylint \
-    python-vtk \
-    python-pyface \
+    pep8 pylint3 \
+#   python3-vtk7 \ # not available in 16.04
     libhdf5-openmpi-dev \
     libhdf5-openmpi-10:amd64 \
     libhdf5-10:amd64 \
     vim \
 && apt-get clean \
-&& rm -rf /var/lib/apt/lists/* \
-&& rm /usr/lib/python2.7/dist-packages/vtk/vtkRenderingPython.so /usr/lib/python2.7/dist-packages/vtk/vtkVolumeRenderingPython.so /usr/lib/python2.7/dist-packages/vtk/vtkHybridPython.so /usr/lib/python2.7/dist-packages/vtk/vtkWidgetsPython.so /usr/lib/python2.7/dist-packages/vtk/vtkChartsPython.so /usr/lib/python2.7/dist-packages/vtk/vtkGeovisPython.so /usr/lib/python2.7/dist-packages/vtk/vtkInfovisPython.so /usr/lib/python2.7/dist-packages/vtk/vtkViewsPython.so /usr/lib/python2.7/dist-packages/vtk/vtkParallelPython.so
+&& rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m espresso && usermod -a -G www-data espresso
 USER espresso
