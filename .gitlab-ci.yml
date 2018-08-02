@@ -19,6 +19,7 @@ stages:
     - test "$CI_COMMIT_REF_NAME" != "master" || docker push $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME
   tags:
     - docker-docker
+    - linux
 
 .test_template: &test_definition
   stage: test
@@ -32,6 +33,7 @@ stages:
     myconfig: "maxset"
   tags:
     - docker
+    - linux
 
 .test_py3_template: &test_py3_definition
   <<: *test_definition
@@ -104,17 +106,17 @@ test/ubuntu-python3:18.04:
 
 status_success:
   stage: status
-  image: $CI_REGISTRY/espressomd/docker/ubuntu:latest
+  image: $CI_REGISTRY/espressomd/docker/ubuntu:18.04
   script: bash maintainer/gh_post_status.sh success
   when: on_success
   tags:
-    - docker
+    - linux
 
 status_failure:
   stage: status
-  image: $CI_REGISTRY/espressomd/docker/ubuntu:latest
+  image: $CI_REGISTRY/espressomd/docker/ubuntu:18.04
   script: bash maintainer/gh_post_status.sh failure
   when: on_failure
   tags:
-    - docker
+    - linux
 
