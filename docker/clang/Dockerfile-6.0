@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install -y \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* \
 && ln -s /usr/bin/llvm-symbolizer-6.0 /usr/bin/llvm-symbolizer \
+&& ln -s /usr/bin/clang-format-6.0 /usr/bin/clang-format \
 && curl -Lo /usr/local/bin/git-clang-format https://llvm.org/svn/llvm-project/cfe/trunk/tools/clang-format/git-clang-format \
 && chmod +x /usr/local/bin/git-clang-format
 
