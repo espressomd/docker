@@ -64,6 +64,9 @@ RUN cd /tmp \
 
 ENV BOOST_ROOT=/opt/boost LD_LIBRARY_PATH="/opt/boost/lib:${LD_LIBRARY_PATH}"
 
+COPY thrust.patch /tmp/
+RUN cd /usr/local/cuda/include/thrust && patch -p1 < /tmp/thrust.patch
+
 RUN useradd -m espresso && usermod -a -G www-data espresso
 USER espresso
 WORKDIR /home/espresso
