@@ -17,6 +17,7 @@ RUN yum -y install \
   zlib-devel \
   which \
   vim \
+  ccache \
   && yum clean all
 RUN useradd -m espresso
 USER espresso

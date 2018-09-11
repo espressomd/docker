@@ -24,6 +24,7 @@ RUN apt-get update && apt-get install -y \
     libhdf5-100:amd64 \
     autoconf automake \
     vim \
+    ccache \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 

@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     libpython-dev \
     doxygen \
     vim \
+    ccache \
 && pip2 install cython sphinx sphinxcontrib-bibtex numpydoc --upgrade \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* \

@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     libpython-dev \
     doxygen \
     vim \
+    ccache \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* \
 && rm /usr/lib/python2.7/dist-packages/vtk/vtkRenderingPython.so /usr/lib/python2.7/dist-packages/vtk/vtkVolumeRenderingPython.so /usr/lib/python2.7/dist-packages/vtk/vtkHybridPython.so /usr/lib/python2.7/dist-packages/vtk/vtkWidgetsPython.so /usr/lib/python2.7/dist-packages/vtk/vtkChartsPython.so /usr/lib/python2.7/dist-packages/vtk/vtkGeovisPython.so /usr/lib/python2.7/dist-packages/vtk/vtkInfovisPython.so /usr/lib/python2.7/dist-packages/vtk/vtkViewsPython.so /usr/lib/python2.7/dist-packages/vtk/vtkParallelPython.so
