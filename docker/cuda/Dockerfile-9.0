@@ -25,6 +25,7 @@ RUN apt-get update && apt-get install -y \
     libhdf5-10:amd64 \
     doxygen \
     vim \
+    ccache \
 && pip3 install --upgrade sphinx sphinxcontrib-bibtex \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*

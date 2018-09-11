@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y \
     libhdf5-openmpi-100:amd64 \
     libhdf5-100:amd64 \
     vim \
+    ccache \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 
