@@ -22,7 +22,6 @@ RUN apt-get update && apt-get install -y \
     libhdf5-openmpi-dev \
     doxygen \
     vim \
-    autoconf \
 && pip2 install --upgrade pip; pip2 install sphinx sphinxcontrib-bibtex --upgrade \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* \
@@ -31,8 +30,13 @@ RUN apt-get update && apt-get install -y \
 && curl -Lo /usr/local/bin/git-clang-format https://llvm.org/svn/llvm-project/cfe/trunk/tools/clang-format/git-clang-format \
 && chmod +x /usr/local/bin/git-clang-format
 
-RUN git clone https://github.com/ccache/ccache -b v3.4.3 && \
-    cd ccache && bash autogen.sh && ./configure && make -j 2 && mv ccache /usr/local/bin
+RUN cd /tmp \
+ && curl https://www.samba.org/ftp/ccache/ccache-3.4.3.tar.xz | tar xJ \
+ && cd ccache-3.4.3 \
+ && ./configure --prefix=/usr/local \
+ && make && make install \
+ && cd \
+ && rm -r /tmp/ccache-3.4.3
 
 RUN cd /usr/local \
 && curl -sL https://cmake.org/files/v3.8/cmake-3.8.2-Linux-x86_64.tar.gz | tar --strip-components=1 -xz
