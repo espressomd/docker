@@ -16,6 +16,7 @@ RUN zypper -n --gpg-auto-import-keys refresh \
   vim \
   which \
   ccache \
+  curl \
   && update-alternatives --install /usr/bin/pycodestyle pycodestyle /usr/bin/pycodestyle-2.7 1
 RUN useradd -m espresso
 USER espresso
