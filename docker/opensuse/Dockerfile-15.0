@@ -15,6 +15,7 @@ RUN zypper -n --gpg-auto-import-keys refresh \
 #  hdf5-openmpi-devel libhdf5-101-openmpi \ # depends on OpenMPI 1.10, while Boost::MPI comes with OpenMPI 2.1
   vim \
   which \
+  curl \
   && update-alternatives --install /usr/bin/pycodestyle pycodestyle /usr/bin/pycodestyle-2.7 1
 RUN useradd -m espresso
 USER espresso
