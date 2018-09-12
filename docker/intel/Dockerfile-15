@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     libpython-dev \
     doxygen \
     vim \
+    ccache \
 && pip2 install cython sphinx sphinxcontrib-bibtex numpydoc --upgrade \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* \
@@ -63,6 +64,9 @@ RUN cd /tmp \
  && rm -r /tmp/boost
 
 ENV BOOST_ROOT=/opt/boost LD_LIBRARY_PATH="/opt/boost/lib:${LD_LIBRARY_PATH}"
+
+COPY thrust.patch /tmp/
+RUN cd /usr/local/cuda/include/thrust && patch -p1 < /tmp/thrust.patch
 
 RUN useradd -m espresso && usermod -a -G www-data espresso
 USER espresso

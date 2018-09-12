@@ -16,6 +16,7 @@ RUN yum -y install epel-release && yum -y install \
   zlib-devel \
   which \
   vim \
+  ccache \
   && yum clean all \
   && ln -s /usr/bin/cmake3 /usr/bin/cmake \
   && pip2 install --upgrade pip; pip2 install cython pylint
