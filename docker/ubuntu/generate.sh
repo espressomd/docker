@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 base=$(ls Dockerfile-[0-9\.]* | tail -n 1)
 img=$(grep FROM $base | awk '{print $2}')
 
@@ -26,6 +28,11 @@ for os_arch in $*; do
 	echo "ARG img=$img" >> $df
 
 	cat Dockerfile-arch | grep -v '^ARG .*=' >> $df
-	cat $base | grep -v ':amd64' | grep -v '^FROM ' >> $df
+
+	if [ "$os_arch" = "armhf" ]; then
+		cat $base | grep -v ':amd64' | grep -v '^FROM ' | grep -v scafacos >> $df
+	else
+		cat $base | grep -v ':amd64' | grep -v '^FROM ' >> $df
+	fi
 
 done

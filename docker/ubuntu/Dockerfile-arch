@@ -10,3 +10,4 @@ FROM ${arch}/${img}
 ARG arch
 ARG qemu_arch
 COPY --from=qemu /usr/bin/qemu-${qemu_arch}-static /usr/bin/qemu-${qemu_arch}-static
+
