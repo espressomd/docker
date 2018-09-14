@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
     lcov \
     curl \
     git \
-    pep8 pylint \
+    pycodestyle pylint \
     python-vtk6 \
     python-pyface \
     libhdf5-openmpi-dev \
