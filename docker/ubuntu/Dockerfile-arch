@@ -1,0 +1,12 @@
+ARG arch=ppc64le
+ARG qemu_arch=ppc64le
+ARG img=ubuntu:bionic
+
+FROM ubuntu AS qemu
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends qemu-user-static
+
+FROM ${arch}/${img}
+ARG arch
+ARG qemu_arch
+COPY --from=qemu /usr/bin/qemu-${qemu_arch}-static /usr/bin/qemu-${qemu_arch}-static
