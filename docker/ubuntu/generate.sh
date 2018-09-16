@@ -30,9 +30,9 @@ for os_arch in $*; do
 	echo "ARG img=$img" >> $df
 
 	if [ "$os_arch" != "amd64" -a "$os_arch" != "i386" ]; then
-		cat Dockerfile-arch | grep -v '^ARG .*=' >> $df
+		cat Dockerfile-qemu-head | grep -v '^ARG .*=' >> $df
 	else
-		cat Dockerfile-arch | grep 'FROM.*arch.*img' >> $df
+		cat Dockerfile-qemu-head | grep 'FROM.*arch.*img' >> $df
 	fi
 
 	if [ "$os_arch" != "amd64" -a "$os_arch" != "i386" ]; then
@@ -41,4 +41,7 @@ for os_arch in $*; do
 		cat $base | grep -v ':amd64' | grep -v '^FROM ' >> $df
 	fi
 
+	if [ "$os_arch" != "amd64" -a "$os_arch" != "i386" ]; then
+		cat Dockerfile-qemu-tail >> $df
+	fi
 done

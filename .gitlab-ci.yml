@@ -73,13 +73,15 @@ ubuntu-python3:16.04:
   <<: *build_definition
 ubuntu-python3:18.04:
   <<: *build_definition
-ubuntu:s390x:
-  <<: *build_definition
-ubuntu:i386:
-  <<: *build_definition
 ubuntu:arm64:
   <<: *build_definition
 ubuntu:armhf:
+  <<: *build_definition
+ubuntu:i386:
+  <<: *build_definition
+ubuntu:ppc64le:
+  <<: *build_definition
+ubuntu:s390x:
   <<: *build_definition
 
 test/centos:7:
