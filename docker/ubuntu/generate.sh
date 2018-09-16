@@ -24,12 +24,18 @@ for os_arch in $*; do
 	df=Dockerfile-$os_arch.tmp
 
 	echo "ARG arch=$arch" > $df
-	echo "ARG qemu_arch=$qemu_arch" >> $df
+	if [ "$os_arch" != "amd64" -a "$os_arch" != "i386" ]; then
+		echo "ARG qemu_arch=$qemu_arch" >> $df
+	fi
 	echo "ARG img=$img" >> $df
 
-	cat Dockerfile-arch | grep -v '^ARG .*=' >> $df
+	if [ "$os_arch" != "amd64" -a "$os_arch" != "i386" ]; then
+		cat Dockerfile-arch | grep -v '^ARG .*=' >> $df
+	else
+		cat Dockerfile-arch | grep 'FROM.*arch.*img' >> $df
+	fi
 
-	if [ "$os_arch" = "armhf" ]; then
+	if [ "$os_arch" != "amd64" -a "$os_arch" != "i386" ]; then
 		cat $base | grep -v ':amd64' | grep -v '^FROM ' | grep -v scafacos >> $df
 	else
 		cat $base | grep -v ':amd64' | grep -v '^FROM ' >> $df
