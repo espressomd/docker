@@ -1,0 +1,17 @@
+FROM gitlab.icp.uni-stuttgart.de:4567/espressomd/docker/ubuntu:16.04
+
+USER root
+
+RUN apt-get update && apt-get install -y \
+    gnuplot \
+    ipython ipython3 \
+    ipython-notebook \
+    firefox \
+    python-enum34 python-cryptography python-openssl python-twisted-core python-twisted python-autobahn python-vtk6 mayavi2 \
+    python-opengl python3-opengl \
+    python-matplotlib python3-matplotlib \
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/*
+
+USER espresso
+WORKDIR /home/espresso
