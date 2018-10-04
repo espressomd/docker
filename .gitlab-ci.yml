@@ -56,6 +56,8 @@ opensuse:15.0:
   <<: *build_definition
 ubuntu:16.04:
   <<: *build_definition
+ubuntu:summerschool:
+  <<: *build_definition
 ubuntu:18.04:
   <<: *build_definition
 clang:6.0:
