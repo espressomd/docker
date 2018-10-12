@@ -66,6 +66,8 @@ cuda:8.0:
   <<: *build_definition
 cuda:9.0:
   <<: *build_definition
+rocm:latest:
+  <<: *build_definition
 intel:15:
   <<: *build_definition
 intel:17:
@@ -97,6 +99,8 @@ test/cuda:8.0:
   <<: *test_definition
 test/cuda:9.0:
   <<: *test_py3_definition
+test/rocm:latest:
+  <<: *test_definition
 test/intel:15:
   <<: *test_definition
 test/intel:17:
