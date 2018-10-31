@@ -101,6 +101,11 @@ test/cuda:9.0:
   <<: *test_py3_definition
 test/rocm:latest:
   <<: *test_definition
+  variables:
+    make_check: "false"
+    myconfig: "maxset"
+    HIP_PLATFORM: "hcc"
+    HCC_AMDGPU_TARGET: "gfx900"
 test/intel:15:
   <<: *test_definition
 test/intel:17:
