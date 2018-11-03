@@ -34,6 +34,14 @@ RUN cd /tmp \
  && cp -r Thrust-6e31840ed4ac5e158e485c5cc22558a601a86ae8/thrust /opt/rocm/include/ \
  && rm -r Thrust-6e31840ed4ac5e158e485c5cc22558a601a86ae8
 
+RUN apt-get remove -y rocfft \
+ && cd /tmp \
+ && git clone -b r2c https://github.com/mkuron/rocFFT.git \
+ && cd rocFFT \
+ && mkdir build && cd build \
+ && CXX=/opt/rocm/bin/hcc cmake .. && make -j 4 install \
+ && cd ../.. && rm -r rocFFT
+
 RUN useradd -m espresso
 USER espresso
 WORKDIR /home/espresso
