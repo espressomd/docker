@@ -34,7 +34,7 @@ RUN cd /tmp \
  && cp -r Thrust-6e31840ed4ac5e158e485c5cc22558a601a86ae8/thrust /opt/rocm/include/ \
  && rm -r Thrust-6e31840ed4ac5e158e485c5cc22558a601a86ae8
 
-RUN apt-get remove -y rocfft \
+RUN sync && apt-get remove -y rocfft \
  && cd /tmp \
  && git clone -b r2c https://github.com/mkuron/rocFFT.git \
  && cd rocFFT \
