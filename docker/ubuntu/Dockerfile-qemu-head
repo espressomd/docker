@@ -1,0 +1,9 @@
+ARG arch=ppc64le
+ARG qemu_arch=ppc64le
+ARG img=ubuntu:bionic
+
+FROM ${arch}/${img}
+ARG arch
+ARG qemu_arch
+ADD qemu-${qemu_arch}-static /usr/bin/qemu-${qemu_arch}-static
+
