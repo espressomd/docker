@@ -33,6 +33,16 @@ for os_arch in $*; do
 	fi
 	echo "ARG img=$img" >> $df
 
+    echo $qemu_ver | grep -q v3
+    if [ "$?" = "0" -a "$qemu_arch" = "s390x" ]; then # QEMU too old to support STCK instruction
+        wget -O Dockerfile-qemu-$qemu_arch.tmp https://github.com/qemu/qemu/raw/master/tests/docker/dockerfiles/ubuntu.docker
+        echo "RUN git clone https://github.com/patchew-project/qemu && cd qemu && git checkout tags/patchew/20181130192216.26987-1-richard.henderson@linaro.org && ./configure --static --disable-system --enable-linux-user --target-list=$qemu_arch-linux-user --disable-glusterfs --disable-gtk --disable-vte --disable-vnc --disable-opengl --disable-gnutls --disable-nettle --prefix=/usr/local && make -j 8 && make install && cd .. && rm -r qemu" >> Dockerfile-qemu-$qemu_arch.tmp
+        docker build -t qemu-$qemu_arch -f Dockerfile-qemu-$qemu_arch.tmp .
+        id=$(docker create qemu-$qemu_arch)
+        docker cp $id:/usr/local/bin/qemu-$qemu_arch ./qemu-$qemu_arch-static
+        docker rm -v $id
+    fi
+
 	if [ "$os_arch" != "amd64" -a "$os_arch" != "i386" ]; then
 		cat Dockerfile-qemu-head | grep -v '^ARG .*=' >> $df
 	else
