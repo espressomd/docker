@@ -8,13 +8,11 @@ RUN apt-get update && apt-get install -y \
     curl \
     pkg-config \
     openmpi-bin libopenmpi-dev \
-    lcov \
     libfftw3-dev \
     libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev \
     libgsl-dev \
     cython python python-numpy python-h5py python-enum \
     lcov \
-    curl \
     git \
     pep8 pylint \
     python-vtk \
@@ -24,7 +22,6 @@ RUN apt-get update && apt-get install -y \
     libhdf5-10:amd64 \
     vim \
     ccache \
-    rocfft \
     rocrand \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
@@ -34,8 +31,7 @@ RUN cd /tmp \
  && cp -r Thrust-6e31840ed4ac5e158e485c5cc22558a601a86ae8/thrust /opt/rocm/include/ \
  && rm -r Thrust-6e31840ed4ac5e158e485c5cc22558a601a86ae8
 
-RUN apt-get remove -y rocfft \
- && cd /tmp \
+RUN cd /tmp \
  && git clone -b r2c https://github.com/mkuron/rocFFT.git \
  && cd rocFFT \
  && mkdir build && cd build \
