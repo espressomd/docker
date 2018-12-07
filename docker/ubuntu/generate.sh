@@ -5,7 +5,7 @@ set -e
 base=$(ls Dockerfile-[0-9\.]* | tail -n 1)
 img=$(grep FROM $base | awk '{print $2}')
 
-qemu_ver=$(curl -Ls "https://api.github.com/repos/multiarch/qemu-user-static/releases/latest" | grep '"tag_name":' |sed -E 's/.*"([^"]+)".*/\1/')
+qemu_ver=$(wget -qO - "https://api.github.com/repos/multiarch/qemu-user-static/releases/latest" | grep '"tag_name":' |sed -E 's/.*"([^"]+)".*/\1/')
 
 for os_arch in $*; do
 
@@ -28,7 +28,7 @@ for os_arch in $*; do
 	echo "ARG arch=$arch" > $df
 	if [ "$os_arch" != "amd64" -a "$os_arch" != "i386" ]; then
 		echo "ARG qemu_arch=$qemu_arch" >> $df
-		curl -LsO https://github.com/multiarch/qemu-user-static/releases/download/$qemu_ver/qemu-$qemu_arch-static
+		wget -q https://github.com/multiarch/qemu-user-static/releases/download/$qemu_ver/qemu-$qemu_arch-static
 		chmod +x qemu-$qemu_arch-static
 	fi
 	echo "ARG img=$img" >> $df

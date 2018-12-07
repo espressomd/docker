@@ -12,17 +12,16 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     libfftw3-dev \
     libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev \
     libgsl-dev \
-    cython python python-numpy python-h5py python-enum34 \
+    cython python python-numpy python-h5py python-enum34 libpython-dev \
     lcov \
-    curl \
+    curl ca-certificates \
     git \
     pep8 pylint \
     python-vtk6 \
-    python-pyface \
     libhdf5-openmpi-dev \
     libhdf5-openmpi-100:amd64 \
     libhdf5-100:amd64 \
-    autoconf automake \
+    autoconf automake libtool \
     vim \
     ccache \
 && apt-get clean \
@@ -33,3 +32,5 @@ RUN bash /tmp/build-and-install-scafacos.sh
 RUN useradd -m espresso
 USER espresso
 WORKDIR /home/espresso
+ENV OMPI_MCA_plm=isolated
+
