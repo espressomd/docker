@@ -61,6 +61,8 @@ ubuntu:summerschool:
   <<: *build_definition
 ubuntu:18.04:
   <<: *build_definition
+ubuntu:wo-dependencies:
+  <<: *build_definition
 clang:6.0:
   <<: *build_definition
 cuda:8.0:
