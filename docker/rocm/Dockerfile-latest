@@ -32,11 +32,11 @@ RUN cd /tmp \
  && rm -r Thrust-6e31840ed4ac5e158e485c5cc22558a601a86ae8
 
 RUN cd /tmp \
- && git clone -b r2c https://github.com/mkuron/rocFFT.git \
- && cd rocFFT \
+ && curl -Ls https://github.com/ROCmSoftwarePlatform/rocFFT/archive/f024b94.tar.gz | tar xz \
+ && cd rocFFT-* \
  && mkdir build && cd build \
  && CXX=/opt/rocm/bin/hcc cmake .. && make -j 4 install \
- && cd ../.. && rm -r rocFFT
+ && cd ../.. && rm -r rocFFT-*
 
 RUN useradd -m espresso
 USER espresso
