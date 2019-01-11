@@ -31,7 +31,7 @@ for os_arch in $*; do
 		wget -q https://github.com/multiarch/qemu-user-static/releases/download/$qemu_ver/qemu-$qemu_arch-static
 		chmod +x qemu-$qemu_arch-static
 	fi
-	echo "ARG img=$img" >> $df
+	echo "ARG img=$(echo $img | sed 's/bionic/cosmic/')" >> $df
 
     echo $qemu_ver | grep -q v3
     if [ "$?" = "0" -a "$qemu_arch" = "s390x" ]; then # QEMU too old to support STCK instruction
