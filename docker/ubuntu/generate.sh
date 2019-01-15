@@ -31,7 +31,14 @@ for os_arch in $*; do
 		wget -q https://github.com/multiarch/qemu-user-static/releases/download/$qemu_ver/qemu-$qemu_arch-static
 		chmod +x qemu-$qemu_arch-static
 	fi
-	echo "ARG img=$(echo $img | sed 's/bionic/cosmic/')" >> $df
+
+	if [ "$arch" != "ppc64le" ]; then
+		# bionic has Boost.MPI package that doesn't work on 32-bit architectures (https://github.com/boostorg/mpi/commit/e3b0d08c7e1cf1d4df2ce348f65dd2fa59d97cb2)
+		# cosmic has OpenMPI with race condition triggered reliably by QEMU's ppc64le emulation (https://github.com/open-mpi/ompi/issues/2921)
+		echo "ARG img=$(echo $img | sed 's/bionic/cosmic/')" >> $df
+	else
+		echo "ARG img=$img" >> $df
+	fi
 
     echo $qemu_ver | grep -q v3
     if [ "$?" = "0" -a "$qemu_arch" = "s390x" ]; then # QEMU too old to support STCK instruction
