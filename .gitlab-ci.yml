@@ -92,8 +92,6 @@ test/centos:7:
   <<: *test_definition
 test/centos:next:
   <<: *test_definition
-test/debian:8:
-  <<: *test_definition
 test/debian:9:
   <<: *test_definition
 test/opensuse:42.3:
