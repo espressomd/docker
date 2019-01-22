@@ -47,8 +47,6 @@ centos:7:
   <<: *build_definition
 centos:next:
   <<: *build_definition
-debian:8:
-  <<: *build_definition
 debian:9:
   <<: *build_definition
 opensuse:42.3:
@@ -93,8 +91,6 @@ ubuntu:s390x:
 test/centos:7:
   <<: *test_definition
 test/centos:next:
-  <<: *test_definition
-test/debian:8:
   <<: *test_definition
 test/debian:9:
   <<: *test_definition
