@@ -47,8 +47,6 @@ centos:7:
   <<: *build_definition
 centos:next:
   <<: *build_definition
-debian:8:
-  <<: *build_definition
 debian:9:
   <<: *build_definition
 opensuse:42.3:
