@@ -21,6 +21,6 @@ RUN yum -y install epel-release && yum -y install \
   && yum clean all \
   && ln -s /usr/bin/cmake3 /usr/bin/cmake \
   && pip2 install --upgrade pip; pip2 install cython pylint
-RUN useradd -m espresso
-USER espresso
+RUN useradd -m espresso -u 1000
+USER 1000
 WORKDIR /home/espresso

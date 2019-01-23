@@ -19,5 +19,5 @@ RUN zypper -n --gpg-auto-import-keys refresh \
   curl \
   && update-alternatives --install /usr/bin/pycodestyle pycodestyle /usr/bin/pycodestyle-2.7 1
 RUN useradd -m espresso
-USER espresso
+USER 1000
 WORKDIR /home/espresso

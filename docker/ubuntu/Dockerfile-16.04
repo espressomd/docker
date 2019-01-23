@@ -31,5 +31,5 @@ RUN apt-get update && apt-get install -y \
 RUN bash /tmp/build-and-install-scafacos.sh
 
 RUN useradd -m espresso
-USER espresso
+USER 1000
 WORKDIR /home/espresso
