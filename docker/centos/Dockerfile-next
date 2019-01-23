@@ -20,5 +20,5 @@ RUN yum -y install \
   ccache \
   && yum clean all
 RUN useradd -m espresso
-USER espresso
+USER 1000
 WORKDIR /home/espresso

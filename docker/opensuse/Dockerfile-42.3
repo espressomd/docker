@@ -19,5 +19,5 @@ RUN zypper -n --gpg-auto-import-keys refresh \
   curl
 RUN pip2 install --upgrade pip && pip2 install pylint --upgrade
 RUN useradd -m espresso
-USER espresso
+USER 1000
 WORKDIR /home/espresso
