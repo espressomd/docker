@@ -71,9 +71,7 @@ cuda:9.0:
   <<: *build_definition
 rocm:latest:
   <<: *build_definition
-intel:15:
-  <<: *build_definition
-intel:17:
+intel:18:
   <<: *build_definition
 ubuntu-python3:16.04:
   <<: *build_definition
@@ -119,9 +117,7 @@ test/rocm:latest:
     myconfig: "maxset"
     HIP_PLATFORM: "hcc"
     HCC_AMDGPU_TARGET: "gfx900"
-test/intel:15:
-  <<: *test_definition
-test/intel:17:
+test/intel:18:
   <<: *test_definition
 test/ubuntu-python3:16.04:
   <<: *test_py3_definition

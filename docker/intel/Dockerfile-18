@@ -26,12 +26,12 @@ RUN cd /usr/local \
 && curl -sL https://cmake.org/files/v3.11/cmake-3.11.0-Linux-x86_64.tar.gz | tar --strip-components=1 -xz
 
 # Intel Compiler
-COPY intel-18.cfg /tmp/
+COPY intel.cfg /tmp/
 RUN cd /tmp \
  && mkdir intel \
  && cd intel \
  && curl -sL http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/13717/parallel_studio_xe_2018_update4_cluster_edition_online.tgz | tar --strip-components=1 -xz \
- && USER=root ./install.sh --silent /tmp/intel-18.cfg \
+ && USER=root ./install.sh --silent /tmp/intel.cfg \
  && cd \
  && rm -r /tmp/intel
 
