@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 RUN bash /tmp/build-and-install-scafacos.sh
 
 RUN useradd -m espresso
-USER espresso
+USER 1000
 WORKDIR /home/espresso
 ENV OMPI_MCA_plm=isolated
 
