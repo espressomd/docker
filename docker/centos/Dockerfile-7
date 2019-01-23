@@ -1,11 +1,12 @@
-FROM centos:7
+FROM centos/devtoolset-6-toolchain-centos7
+USER root
 MAINTAINER Florian Weik <fweik@icp.uni-stuttgart.de>
 RUN yum -y install epel-release && yum -y install \
-  gcc gcc-c++ make \
+  make \
   cmake3 \
   openmpi-devel \
   fftw-devel \
-  boost-devel boost-serialization-devel boost-openmpi-devel boost-filesystem-devel boost-test-devel \
+  boost-devel boost-openmpi-devel \
   python numpy h5py\
   git \
   python-pep8 \
