@@ -1,4 +1,4 @@
-FROM nvidia/cuda:9.0-devel-ubuntu16.04
+FROM nvidia/cuda:10.0-devel-ubuntu16.04
 MAINTAINER Florian Weik <fweik@icp.uni-stuttgart.de>
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
@@ -30,25 +30,15 @@ COPY intel.cfg /tmp/
 RUN cd /tmp \
  && mkdir intel \
  && cd intel \
- && curl -sL http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/11541/parallel_studio_xe_2017_update4_composer_edition.tgz | tar --strip-components=1 -xz \
+ && curl -sL http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/13717/parallel_studio_xe_2018_update4_cluster_edition_online.tgz | tar --strip-components=1 -xz \
  && USER=root ./install.sh --silent /tmp/intel.cfg \
  && cd \
  && rm -r /tmp/intel
 
 ENV CC=/opt/intel/bin/icc CXX=/opt/intel/bin/icpc PATH="/opt/intel/bin:${PATH}" LD_LIBRARY_PATH="/opt/intel/lib/intel64:${LD_LIBRARY_PATH}"
+ENV PATH="/opt/intel/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin:${PATH}" I_MPI_ROOT=/opt/intel/compilers_and_libraries_2018.5.274/linux/mpi
+RUN ln -s /opt/intel/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicxx /opt/intel/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpic++
 
-# Intel MPI
-COPY intel-mpi.cfg /tmp/
-RUN cd /tmp \
- && mkdir intel-mpi \
- && cd intel-mpi \
- && curl -sL http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12748/l_mpi_2018.2.199.tgz | tar --strip-components=1 -xz \
- && ./install.sh --silent /tmp/intel-mpi.cfg \
- && ln -s /opt/intel-mpi/compilers_and_libraries_2018.2.199/linux/mpi/intel64/bin/mpicxx /opt/intel-mpi/compilers_and_libraries_2018.2.199/linux/mpi/intel64/bin/mpic++ \
- && cd \
- && rm -r /tmp/intel-mpi
-
-ENV PATH="/opt/intel-mpi/compilers_and_libraries_2018.2.199/linux/mpi/intel64/bin:${PATH}" I_MPI_ROOT=/opt/intel-mpi/compilers_and_libraries_2018.2.199/linux/mpi
 
 # Boost
 RUN cd /tmp \
@@ -56,7 +46,7 @@ RUN cd /tmp \
  && cd boost \
  && curl -sL https://dl.bintray.com/boostorg/release/1.66.0/source/boost_1_66_0.tar.bz2 | tar xj \
  && cd boost_1_66_0 \
- && echo 'using mpi ;' > tools/build/src/user-config.jam \
+ && echo 'using mpi : mpiicpc ;' > tools/build/src/user-config.jam \
  && ./bootstrap.sh \
  && ./b2 -j $(nproc) -d0 toolset=intel install --prefix=/opt/boost \
  && cd \
