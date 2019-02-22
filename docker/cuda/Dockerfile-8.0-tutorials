@@ -1,0 +1,59 @@
+FROM nvidia/cuda:8.0-devel-ubuntu16.04
+MAINTAINER Jean-Noel Grad <jgrad@icp.uni-stuttgart.de>
+ENV DEBIAN_FRONTEND noninteractive
+### start of modified Dockerfile-8.0
+RUN apt-get update && apt-get install -y \
+    apt-utils \
+    build-essential \
+    curl \
+    cmake \
+    openmpi-bin \
+    lcov \
+    libfftw3-dev \
+    libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev \
+    python python-numpy python-h5py python-enum \
+    git \
+    pep8 pylint\
+    python-vtk \
+    python-pip \
+    python-pyface \
+    libpython-dev \
+    libhdf5-openmpi-dev \
+    doxygen \
+    vim \
+    ccache \
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/*
+
+COPY thrust.patch /tmp/
+RUN cd /usr/local/cuda/include/thrust && patch -p1 < /tmp/thrust.patch
+### end of modified Dockerfile-8.0
+
+# install Python packages required for testing tutorials and samples
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    python3-dev python3-pip \
+    python-dev python-pip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && python3 -m pip install --upgrade pip \
+    && python2 -m pip install --upgrade pip \
+    && pip3 install --upgrade setuptools \
+    && pip2 install --upgrade setuptools \
+    && pip3 install --upgrade cython numpy scipy matplotlib ipython nbconvert sphinx sphinxcontrib-bibtex numpydoc \
+    && pip2 install --upgrade cython numpy scipy matplotlib ipython nbconvert sphinx sphinxcontrib-bibtex numpydoc mock
+
+# install CMake 3.7.0
+RUN cd /tmp \
+ && mkdir cmake \
+ && cd cmake \
+ && curl -sL https://cmake.org/files/v3.7/cmake-3.7.0.tar.gz | tar --strip-components=1 -xz \
+ && ./bootstrap \
+ && make -j$(nproc) \
+ && make install \
+ && cd \
+ && rm -rf /tmp/cmake
+
+RUN useradd -m espresso && usermod -a -G www-data espresso
+USER 1000
+WORKDIR /home/espresso

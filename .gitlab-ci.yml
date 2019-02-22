@@ -65,6 +65,8 @@ clang:6.0:
   <<: *build_definition
 cuda:8.0:
   <<: *build_definition
+cuda:8.0-tutorials:
+  <<: *build_definition
 cuda:9.0:
   <<: *build_definition
 rocm:latest:
@@ -104,6 +106,8 @@ test/clang:6.0:
   <<: *test_definition
 test/cuda:8.0:
   <<: *test_definition
+test/cuda:8.0-tutorials:
+  <<: *test_py3_definition
 test/cuda:9.0:
   <<: *test_py3_definition
 test/rocm:latest:
