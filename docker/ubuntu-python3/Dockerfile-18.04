@@ -21,8 +21,10 @@ RUN apt-get update && apt-get install -y \
     curl \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
-
 RUN useradd -m espresso
 USER 1000
+run cd /home/espresso && \
+  git clone https://gitlab.icp.uni-stuttgart.de/espressomd/walberla_for_es walberla && \
+  cd walberla && cmake .
 WORKDIR /home/espresso
 
