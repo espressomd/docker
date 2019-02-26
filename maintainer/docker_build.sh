@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # execute and output a command
 function cmd {
