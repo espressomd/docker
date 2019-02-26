@@ -59,7 +59,7 @@ clang:6.0:
   <<: *build_definition
 cuda:8.0:
   <<: *build_definition
-cuda:8.0-tutorials:
+cuda:tutorials:
   <<: *build_definition
 cuda:9.0:
   <<: *build_definition
@@ -100,7 +100,7 @@ test/clang:6.0:
   <<: *test_definition
 test/cuda:8.0:
   <<: *test_definition
-test/cuda:8.0-tutorials:
+test/cuda:tutorials:
   <<: *test_py3_definition
 test/cuda:9.0:
   <<: *test_py3_definition
