@@ -11,13 +11,7 @@ stages:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker pull $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME || true
   script:
-    - cd docker/${CI_JOB_NAME%:*}
-    - echo "ACTIVATION_LICENSE_FILE=$INTEL_LICENSE_SERVER" >> intel.cfg
-    - test -f Dockerfile-${CI_JOB_NAME#*:} || ./generate.sh ${CI_JOB_NAME#*:}
-    - docker build -f Dockerfile-${CI_JOB_NAME#*:}* --pull -t $CI_REGISTRY/$CI_PROJECT_PATH/test/$CI_JOB_NAME-$CI_COMMIT_SHA --cache-from $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME .
-    - docker push $CI_REGISTRY/$CI_PROJECT_PATH/test/$CI_JOB_NAME-$CI_COMMIT_SHA
-    - test "$CI_COMMIT_REF_NAME" != "master" || docker tag $CI_REGISTRY/$CI_PROJECT_PATH/test/$CI_JOB_NAME-$CI_COMMIT_SHA $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME
-    - test "$CI_COMMIT_REF_NAME" != "master" || docker push $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME
+    - bash maintainer/docker_build.sh
   tags:
     - docker-docker
     - linux
