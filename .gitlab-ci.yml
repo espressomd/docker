@@ -43,8 +43,6 @@ centos:next:
   <<: *build_definition
 debian:9:
   <<: *build_definition
-opensuse:42.3:
-  <<: *build_definition
 opensuse:15.0:
   <<: *build_definition
 ubuntu:16.04:
@@ -85,8 +83,6 @@ test/centos:7:
 test/centos:next:
   <<: *test_definition
 test/debian:9:
-  <<: *test_definition
-test/opensuse:42.3:
   <<: *test_definition
 test/opensuse:15.0:
   <<: *test_definition
