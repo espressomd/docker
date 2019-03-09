@@ -29,6 +29,7 @@ stages:
   tags:
     - docker
     - linux
+    - cuda
 
 .test_py3_template: &test_py3_definition
   <<: *test_definition
