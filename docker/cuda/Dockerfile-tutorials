@@ -1,47 +1,48 @@
-FROM nvidia/cuda:8.0-devel-ubuntu16.04
+FROM nvidia/cuda:9.0-devel-ubuntu16.04
 MAINTAINER Jean-Noel Grad <jgrad@icp.uni-stuttgart.de>
 ENV DEBIAN_FRONTEND noninteractive
-### start of modified Dockerfile-8.0
+### start of modified Dockerfile-9.0
 RUN apt-get update && apt-get install -y \
     apt-utils \
+    cmake \
     build-essential \
     curl \
-    cmake \
-    openmpi-bin \
+    pkg-config \
+    openmpi-bin libopenmpi-dev \
     lcov \
     libfftw3-dev \
     libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev \
-    python python-numpy python-h5py python-enum \
+    libgsl-dev \
+#   cython3 # use pip instead
+    python3 python3-numpy python3-h5py \
+    lcov \
+    curl \
     git \
-    pep8 pylint\
-    python-vtk \
-    python-pip \
-    python-pyface \
+    pep8 pylint3 \
+#   python3-vtk7 \ # not available in 16.04
+    python3-sphinx python3-numpydoc python3-pip \
     libpython-dev \
     libhdf5-openmpi-dev \
+    libhdf5-openmpi-10:amd64 \
+    libhdf5-10:amd64 \
     doxygen \
     vim \
     ccache \
+#&& pip3 install --upgrade sphinx sphinxcontrib-bibtex \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 
-COPY thrust.patch /tmp/
-RUN cd /usr/local/cuda/include/thrust && patch -p1 < /tmp/thrust.patch
-### end of modified Dockerfile-8.0
+### end of modified Dockerfile-9.0
 
-# install Python packages required for testing tutorials and samples
+# install Python3 packages required for testing tutorials and samples
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     python3-dev python3-pip \
-    python-dev python-pip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && python3 -m pip install --upgrade pip \
-    && python2 -m pip install --upgrade pip \
     && pip3 install --upgrade setuptools \
-    && pip2 install --upgrade setuptools \
-    && pip3 install --upgrade cython numpy scipy matplotlib ipython nbconvert sphinx sphinxcontrib-bibtex numpydoc \
-    && pip2 install --upgrade cython numpy scipy matplotlib ipython nbconvert sphinx sphinxcontrib-bibtex numpydoc mock
+    && pip3 install --upgrade six cython numpy scipy matplotlib ipython nbconvert sphinx sphinxcontrib-bibtex numpydoc
 
 # install CMake 3.7.0
 RUN cd /tmp \
