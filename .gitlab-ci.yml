@@ -29,6 +29,7 @@ stages:
   tags:
     - docker
     - linux
+    - cuda
 
 .test_py3_template: &test_py3_definition
   <<: *test_definition
@@ -43,8 +44,6 @@ centos:next:
   <<: *build_definition
 debian:9:
   <<: *build_definition
-opensuse:42.3:
-  <<: *build_definition
 opensuse:15.0:
   <<: *build_definition
 ubuntu:16.04:
@@ -56,8 +55,6 @@ ubuntu:18.04:
 ubuntu:wo-dependencies:
   <<: *build_definition
 clang:6.0:
-  <<: *build_definition
-cuda:8.0:
   <<: *build_definition
 cuda:tutorials:
   <<: *build_definition
@@ -88,8 +85,6 @@ test/centos:next:
   <<: *test_definition
 test/debian:9:
   <<: *test_definition
-test/opensuse:42.3:
-  <<: *test_definition
 test/opensuse:15.0:
   <<: *test_definition
 test/ubuntu:16.04:
@@ -97,8 +92,6 @@ test/ubuntu:16.04:
 test/ubuntu:18.04:
   <<: *test_definition
 test/clang:6.0:
-  <<: *test_definition
-test/cuda:8.0:
   <<: *test_definition
 test/cuda:tutorials:
   <<: *test_py3_definition
