@@ -37,7 +37,7 @@ stages:
   script:
     - git clone --recursive https://github.com/espressomd/espresso
     - cd espresso
-    - git checkout 4.0.1
+    - git checkout 4.0
     - maintainer/CI/build_cmake.sh
   variables:
     make_check: "false"
