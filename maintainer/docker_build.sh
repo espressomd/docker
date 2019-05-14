@@ -4,9 +4,10 @@
 function cmd {
     echo ">$1"
     eval $1
-    if [ "$?" != "0" ]; then
+    ret=$?
+    if [ "$ret" != "0" ]; then
         echo "Command failed" >&2
-        exit
+        exit $ret
     fi
 }
 
