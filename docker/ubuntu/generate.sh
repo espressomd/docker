@@ -28,7 +28,11 @@ for os_arch in $*; do
 	echo "ARG arch=$arch" > $df
 	if [ "$os_arch" != "amd64" -a "$os_arch" != "i386" ]; then
 		echo "ARG qemu_arch=$qemu_arch" >> $df
-		wget -q https://github.com/multiarch/qemu-user-static/releases/download/$qemu_ver/qemu-$qemu_arch-static
+		qemu_download_ver=$qemu_ver
+		if [ "$os_arch" = "ppc64le" -a "$qemu_ver" = "v4.0.0" ]; then
+			qemu_download_ver="v3.1.0-3"
+		fi
+		wget -q https://github.com/multiarch/qemu-user-static/releases/download/$qemu_download_ver/qemu-$qemu_arch-static
 		chmod +x qemu-$qemu_arch-static
 	fi
 
