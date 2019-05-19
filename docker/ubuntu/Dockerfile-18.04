@@ -1,7 +1,7 @@
 FROM ubuntu:bionic
 MAINTAINER Florian Weik <fweik@icp.uni-stuttgart.de>
 ENV DEBIAN_FRONTEND noninteractive
-COPY build-and-install-scafacos.sh /tmp
+COPY build-and-install-scafacos.sh /tmp/
 RUN apt-get update && apt-get install --no-install-recommends -y \
     apt-utils \
     cmake \

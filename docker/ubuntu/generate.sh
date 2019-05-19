@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/busybox/sh
 
 set -e
 
 base=$(ls Dockerfile-[0-9\.]* | tail -n 1)
 img=$(grep FROM $base | awk '{print $2}')
 
-qemu_ver=$(wget -qO - "https://api.github.com/repos/multiarch/qemu-user-static/releases/latest" | grep '"tag_name":' |sed -E 's/.*"([^"]+)".*/\1/')
+qemu_ver=$(wget -qO - "https://api.github.com/repos/multiarch/qemu-user-static/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
 
 for os_arch in $*; do
 
