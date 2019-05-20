@@ -24,6 +24,7 @@ RUN apt-get update && apt-get install -y \
     vim \
     ccache \
     curl \
+    jq \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 RUN bash /tmp/build-and-install-scafacos.sh
