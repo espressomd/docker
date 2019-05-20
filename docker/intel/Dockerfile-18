@@ -33,9 +33,9 @@ RUN cd /tmp \
  && curl -sL http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/13717/parallel_studio_xe_2018_update4_cluster_edition_online.tgz | tar --strip-components=1 -xz \
  && USER=root ./install.sh --silent /tmp/intel.cfg \
  && cd \
- && rm -r /tmp/intel
-
-RUN /opt/intel/ism/uninstall.sh --silent
+ && rm -r /tmp/intel \
+ && /opt/intel/ism/uninstall.sh --silent \
+ && rm -f /tmp/intelremotemonfifo.*
 
 ENV CC=/opt/intel/bin/icc CXX=/opt/intel/bin/icpc PATH="/opt/intel/bin:${PATH}" LD_LIBRARY_PATH="/opt/intel/lib/intel64:${LD_LIBRARY_PATH}"
 ENV PATH="/opt/intel/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin:${PATH}" I_MPI_ROOT=/opt/intel/compilers_and_libraries_2018.5.274/linux/mpi

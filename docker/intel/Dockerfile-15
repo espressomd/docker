@@ -34,9 +34,9 @@ RUN cd /tmp \
  && curl -sL http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/4933/l_compxe_2015.1.133.tgz | tar --strip-components=1 -xz \
  && USER=root ./install.sh --silent /tmp/intel.cfg \
  && cd \
- && rm -r /tmp/intel
-
-RUN /opt/intel/ism/uninstall.sh --silent
+ && rm -r /tmp/intel \
+ && /opt/intel/ism/uninstall.sh --silent \
+ && rm -f /tmp/intelremotemonfifo.*
 
 ENV CC=/opt/intel/bin/icc CXX=/opt/intel/bin/icpc PATH="/opt/intel/bin:${PATH}" LD_LIBRARY_PATH="/opt/intel/lib/intel64:${LD_LIBRARY_PATH}"
 
