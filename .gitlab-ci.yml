@@ -1,5 +1,3 @@
-image: docker:latest
-
 stages:
   - build
   - test
@@ -7,14 +5,17 @@ stages:
 
 .build_template: &build_definition
   stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
   before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker pull $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME || true
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
   script:
     - sh maintainer/docker_build.sh
   tags:
-    - docker-docker
+    - docker
     - linux
+    - nofirewall
 
 .test_template: &test_definition
   stage: test
@@ -29,15 +30,13 @@ stages:
   tags:
     - docker
     - linux
-    - cuda
 
 .test_template: &test_v40_definition
   stage: test
   image: $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME-$CI_COMMIT_SHA
   script:
-    - git clone --recursive https://github.com/espressomd/espresso
+    - git clone -b 4.0 --recursive https://github.com/espressomd/espresso
     - cd espresso
-    - git checkout 4.0
     - maintainer/CI/build_cmake.sh
   variables:
     make_check: "false"
@@ -45,7 +44,6 @@ stages:
   tags:
     - docker
     - linux
-    - cuda
 
 .test_py3_template: &test_py3_definition
   <<: *test_definition
@@ -82,8 +80,18 @@ rocm:latest:
   <<: *build_definition
 intel:15:
   <<: *build_definition
+  tags:
+    - docker
+    - linux
+    - nofirewall
+    - icp
 intel:18:
   <<: *build_definition
+  tags:
+    - docker
+    - linux
+    - nofirewall
+    - icp
 ubuntu-python3:16.04:
   <<: *build_definition
 ubuntu-python3:18.04:
@@ -128,8 +136,16 @@ test/rocm:latest:
     HCC_AMDGPU_TARGET: "gfx900"
 test/intel:15:
   <<: *test_v40_definition
+  tags:
+    - docker
+    - linux
+    - icp
 test/intel:18:
   <<: *test_definition
+  tags:
+    - docker
+    - linux
+    - icp
 test/ubuntu-python3:16.04:
   <<: *test_py3_definition
 test/ubuntu-python3:18.04:

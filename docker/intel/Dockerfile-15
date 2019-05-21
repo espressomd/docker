@@ -24,7 +24,8 @@ RUN apt-get update && apt-get install -y \
 
 # CMake
 RUN cd /usr/local \
-&& curl -sL https://cmake.org/files/v3.10/cmake-3.10.3-Linux-x86_64.tar.gz | tar --strip-components=1 -xz
+&& curl -sL https://cmake.org/files/v3.10/cmake-3.10.3-Linux-x86_64.tar.gz | tar --strip-components=1 -xz \
+&& rm -r /usr/local/man
 
 # Intel Compiler
 COPY intel-15.cfg /tmp/intel.cfg
@@ -34,7 +35,9 @@ RUN cd /tmp \
  && curl -sL http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/4933/l_compxe_2015.1.133.tgz | tar --strip-components=1 -xz \
  && USER=root ./install.sh --silent /tmp/intel.cfg \
  && cd \
- && rm -r /tmp/intel
+ && rm -r /tmp/intel \
+ && /opt/intel/ism/uninstall.sh --silent \
+ && rm -f /tmp/intelremotemonfifo.*
 
 ENV CC=/opt/intel/bin/icc CXX=/opt/intel/bin/icpc PATH="/opt/intel/bin:${PATH}" LD_LIBRARY_PATH="/opt/intel/lib/intel64:${LD_LIBRARY_PATH}"
 
