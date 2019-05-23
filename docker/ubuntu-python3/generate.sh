@@ -36,13 +36,7 @@ for os_arch in $*; do
 		chmod +x qemu-$qemu_arch-static
 	fi
 
-	if [ "$arch" != "ppc64le" ]; then
-		# bionic has Boost.MPI package that doesn't work on 32-bit architectures (https://github.com/boostorg/mpi/commit/e3b0d08c7e1cf1d4df2ce348f65dd2fa59d97cb2)
-		# cosmic has OpenMPI with race condition triggered reliably by QEMU's ppc64le emulation (https://github.com/open-mpi/ompi/issues/2921)
-		echo "ARG img=$(echo $img | sed 's/bionic/cosmic/')" >> $df
-	else
-		echo "ARG img=$img" >> $df
-	fi
+	echo "ARG img=$img" >> $df
 
 	if [ "$os_arch" != "amd64" -a "$os_arch" != "i386" ]; then
 		cat Dockerfile-qemu-head | grep -v '^ARG .*=' >> $df

@@ -5,6 +5,9 @@
 #include <dlfcn.h>
 #include <errno.h>
 
+/* Patch an interaction between OpenMPI and QEMU
+ * (fixed in https://github.com/open-mpi/ompi/pull/5716)
+ */
 int getsockopt(int sockfd, int level, int optname, void *optval, socklen_t *optlen)
 {
 	if (level == SOL_SOCKET && optname == SO_RCVTIMEO)
