@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM ubuntu:disco
 MAINTAINER Florian Weik <fweik@icp.uni-stuttgart.de>
 ENV DEBIAN_FRONTEND noninteractive
 COPY build-and-install-scafacos.sh /tmp/
@@ -18,8 +18,8 @@ RUN apt-get update && apt-get install -y \
     pycodestyle pylint3 \
     python3-vtk7 \
     libhdf5-openmpi-dev \
-    libhdf5-openmpi-100:amd64 \
-    libhdf5-100:amd64 \
+    libhdf5-openmpi-103:amd64 \
+    libhdf5-103:amd64 \
     autoconf \
     vim \
     ccache \
