@@ -96,6 +96,8 @@ ubuntu-python3:16.04:
   <<: *build_definition
 ubuntu-python3:18.04:
   <<: *build_definition
+ubuntu-python3:min_boost:
+  <<: *build_definition
 ubuntu:arm64:
   <<: *build_definition
 ubuntu:armhf:
@@ -149,6 +151,8 @@ test/intel:18:
 test/ubuntu-python3:16.04:
   <<: *test_py3_definition
 test/ubuntu-python3:18.04:
+  <<: *test_py3_definition
+test/ubuntu-python3:min_boost:
   <<: *test_py3_definition
 
 status_success:

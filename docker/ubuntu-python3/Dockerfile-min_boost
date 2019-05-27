@@ -1,0 +1,44 @@
+FROM ubuntu:bionic
+MAINTAINER Florian Weik <fweik@icp.uni-stuttgart.de>
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update && apt-get install -y \
+    apt-utils \
+    cmake \
+    build-essential \
+    pkg-config \
+    openmpi-bin libopenmpi-dev \
+    gfortran \
+    libfftw3-dev \
+    libgsl-dev \
+    cython3 python3 python3-numpy python3-h5py \
+    lcov \
+    git \
+    pycodestyle pylint3 \
+    python3-vtk7 \
+    libhdf5-openmpi-dev \
+    libhdf5-openmpi-100:amd64 \
+    libhdf5-100:amd64 \
+    autoconf \
+    vim \
+    ccache \
+    curl \
+    libbz2-dev \
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/*
+
+#boost
+RUN cd /tmp \
+    && mkdir boost \
+    && cd boost \
+    && curl -sL https://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.gz/download | tar xz \
+    && cd boost_1_55_0 \
+    && ./bootstrap.sh \
+    && echo "using mpi ;" >> project-config.jam \
+    && ./b2 -j $(nproc) install --prefix=/opt/boost \
+    && cd \
+    && rm -r /tmp/boost
+
+ENV BOOST_ROOT=/opt/boost LD_LIBRARY_PATH="/opt/boost/lib:${LD_LIBRARY_PATH}"
+RUN useradd -m espresso
+USER 1000
+WORKDIR /home/espresso
