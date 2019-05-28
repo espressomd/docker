@@ -54,13 +54,19 @@ stages:
 
 centos:7:
   <<: *build_definition
+centos-python3:7:
+  <<: *build_definition
 centos:next:
+  <<: *build_definition
+centos-python3:next:
   <<: *build_definition
 debian:9:
   <<: *build_definition
 opensuse:42.3:
   <<: *build_definition
 opensuse:15.0:
+  <<: *build_definition
+opensuse:15.1:
   <<: *build_definition
 ubuntu:16.04:
   <<: *build_definition
@@ -110,15 +116,21 @@ ubuntu:s390x:
   <<: *build_definition
 
 test/centos:7:
-  <<: *test_definition
+  <<: *test_v40_definition
+test/centos-python3:7:
+  <<: *test_py3_definition
 test/centos:next:
-  <<: *test_definition
+  <<: *test_v40_definition
+test/centos-python3:next:
+  <<: *test_py3_definition
 test/debian:9:
   <<: *test_definition
 test/opensuse:42.3:
   <<: *test_v40_definition
 test/opensuse:15.0:
-  <<: *test_definition
+  <<: *test_v40_definition
+test/opensuse:15.1:
+  <<: *test_py3_definition
 test/ubuntu:16.04:
   <<: *test_definition
 test/ubuntu:18.04:
