@@ -18,5 +18,11 @@ cmd "cd docker/$docker_src"
 echo "ACTIVATION_LICENSE_FILE=$INTEL_LICENSE_SERVER" >> intel.cfg
 echo "ACTIVATION_LICENSE_FILE=$INTEL_LICENSE_SERVER" >> intel-15.cfg
 test -f Dockerfile-$docker_tag || cmd "sh generate.sh $docker_tag"
-cmd "/kaniko/executor --context $PWD --dockerfile Dockerfile-$docker_tag* --destination $CI_REGISTRY/$CI_PROJECT_PATH/test/$CI_JOB_NAME-$CI_COMMIT_SHA"
-test "$CI_COMMIT_REF_NAME" != "master" || cmd "/kaniko/executor --context $PWD --dockerfile Dockerfile-$docker_tag* --destination $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME"
+
+if [ "$CI_JOB_STAGE" = "deploy" ]; then
+    dest=$CI_JOB_NAME
+else
+    dest=test/$CI_JOB_NAME-$CI_COMMIT_SHA
+fi
+
+cmd "/kaniko/executor --context $PWD --dockerfile Dockerfile-$docker_tag* --destination $CI_REGISTRY/$CI_PROJECT_PATH/$dest"
