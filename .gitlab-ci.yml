@@ -1,10 +1,25 @@
 stages:
   - build
   - test
+  - deploy
   - status
 
 .build_template: &build_definition
   stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  before_script:
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+  script:
+    - sh maintainer/docker_build.sh
+  tags:
+    - docker
+    - linux
+    - nofirewall
+
+deploy_template: &deploy_definition
+  stage: deploy
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
@@ -166,6 +181,69 @@ test/ubuntu-python3:18.04:
   <<: *test_py3_definition
 test/ubuntu-python3:min_boost:
   <<: *test_py3_definition
+
+centos:7:
+  <<: *deploy_definition
+centos-python3:7:
+  <<: *deploy_definition
+centos:next:
+  <<: *deploy_definition
+centos-python3:next:
+  <<: *deploy_definition
+debian:9:
+  <<: *deploy_definition
+opensuse:42.3:
+  <<: *deploy_definition
+opensuse:15.0:
+  <<: *deploy_definition
+opensuse:15.1:
+  <<: *deploy_definition
+ubuntu:16.04:
+  <<: *deploy_definition
+ubuntu:summerschool:
+  <<: *deploy_definition
+ubuntu:18.04:
+  <<: *deploy_definition
+ubuntu:wo-dependencies:
+  <<: *deploy_definition
+clang:6.0:
+  <<: *deploy_definition
+cuda:tutorials:
+  <<: *deploy_definition
+cuda:9.0:
+  <<: *deploy_definition
+rocm:latest:
+  <<: *deploy_definition
+intel:15:
+  <<: *deploy_definition
+  tags:
+    - docker
+    - linux
+    - nofirewall
+    - icp
+intel:18:
+  <<: *deploy_definition
+  tags:
+    - docker
+    - linux
+    - nofirewall
+    - icp
+ubuntu-python3:16.04:
+  <<: *deploy_definition
+ubuntu-python3:18.04:
+  <<: *deploy_definition
+ubuntu-python3:min_boost:
+  <<: *deploy_definition
+ubuntu:arm64:
+  <<: *deploy_definition
+ubuntu:armhf:
+  <<: *deploy_definition
+ubuntu:i386:
+  <<: *deploy_definition
+ubuntu:ppc64le:
+  <<: *deploy_definition
+ubuntu:s390x:
+  <<: *deploy_definition
 
 status_success:
   stage: status
