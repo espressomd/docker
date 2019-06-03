@@ -31,6 +31,8 @@ deploy_template: &deploy_definition
     - docker
     - linux
     - nofirewall
+  only:
+    - master
 
 .test_template: &test_definition
   stage: test
