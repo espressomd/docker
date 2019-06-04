@@ -11,8 +11,9 @@ function cmd {
     fi
 }
 
-docker_src=${CI_JOB_NAME%:*}
-docker_tag=${CI_JOB_NAME#*:}
+job_name=${CI_JOB_NAME%:test}
+docker_src=${job_name%:*}
+docker_tag=${job_name#*:}
 test -f "docker/$docker_src/Dockerfile-$docker_tag" || docker_src="ubuntu-python3"
 cmd "cd docker/$docker_src"
 echo "ACTIVATION_LICENSE_FILE=$INTEL_LICENSE_SERVER" >> intel.cfg
