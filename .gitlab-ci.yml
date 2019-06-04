@@ -54,7 +54,7 @@ stages:
 .test_template_nobuild:
   extends: .test_template
   script:
-    - true
+    - "true"
 
 centos:7:build:
   extends: .build_template
