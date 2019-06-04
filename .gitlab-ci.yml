@@ -165,68 +165,68 @@ ubuntu:s390x:
 #test/ubuntu-python3:min_boost:
 #  extends: .test_py3_template
 
-centos:7:
-  extends: .deploy_template
-centos-python3:7:
-  extends: .deploy_template
-centos:next:
-  extends: .deploy_template
-centos-python3:next:
-  extends: .deploy_template
-debian:9:
-  extends: .deploy_template
-opensuse:42.3:
-  extends: .deploy_template
-opensuse:15.0:
-  extends: .deploy_template
-opensuse:15.1:
-  extends: .deploy_template
-ubuntu:16.04:
-  extends: .deploy_template
-ubuntu:summerschool:
-  extends: .deploy_template
-ubuntu:18.04:
-  extends: .deploy_template
-ubuntu:wo-dependencies:
-  extends: .deploy_template
-clang:6.0:
-  extends: .deploy_template
-cuda:tutorials:
-  extends: .deploy_template
-cuda:9.0:
-  extends: .deploy_template
-rocm:latest:
-  extends: .deploy_template
-intel:15:
-  extends: .deploy_template
-  tags:
-    - docker
-    - linux
-    - nofirewall
-    - icp
-intel:18:
-  extends: .deploy_template
-  tags:
-    - docker
-    - linux
-    - nofirewall
-    - icp
-ubuntu-python3:16.04:
-  extends: .deploy_template
-ubuntu-python3:18.04:
-  extends: .deploy_template
-ubuntu-python3:min_boost:
-  extends: .deploy_template
-ubuntu:arm64:
-  extends: .deploy_template
-ubuntu:armhf:
-  extends: .deploy_template
-ubuntu:i386:
-  extends: .deploy_template
-ubuntu:ppc64le:
-  extends: .deploy_template
-ubuntu:s390x:
-  extends: .deploy_template
+#centos:7:
+#  extends: .deploy_template
+#centos-python3:7:
+#  extends: .deploy_template
+#centos:next:
+#  extends: .deploy_template
+#centos-python3:next:
+#  extends: .deploy_template
+#debian:9:
+#  extends: .deploy_template
+#opensuse:42.3:
+#  extends: .deploy_template
+#opensuse:15.0:
+#  extends: .deploy_template
+#opensuse:15.1:
+#  extends: .deploy_template
+#ubuntu:16.04:
+#  extends: .deploy_template
+#ubuntu:summerschool:
+#  extends: .deploy_template
+#ubuntu:18.04:
+#  extends: .deploy_template
+#ubuntu:wo-dependencies:
+#  extends: .deploy_template
+#clang:6.0:
+#  extends: .deploy_template
+#cuda:tutorials:
+#  extends: .deploy_template
+#cuda:9.0:
+#  extends: .deploy_template
+#rocm:latest:
+#  extends: .deploy_template
+#intel:15:
+#  extends: .deploy_template
+#  tags:
+#    - docker
+#    - linux
+#    - nofirewall
+#    - icp
+#intel:18:
+#  extends: .deploy_template
+#  tags:
+#    - docker
+#    - linux
+#    - nofirewall
+#    - icp
+#ubuntu-python3:16.04:
+#  extends: .deploy_template
+#ubuntu-python3:18.04:
+#  extends: .deploy_template
+#ubuntu-python3:min_boost:
+#  extends: .deploy_template
+#ubuntu:arm64:
+#  extends: .deploy_template
+#ubuntu:armhf:
+#  extends: .deploy_template
+#ubuntu:i386:
+#  extends: .deploy_template
+#ubuntu:ppc64le:
+#  extends: .deploy_template
+#ubuntu:s390x:
+#  extends: .deploy_template
 
 status_success:
   stage: status
