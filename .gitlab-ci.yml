@@ -50,6 +50,12 @@ stages:
   variables:
     python_version: "3"
 
+
+.test_template_nobuild:
+  extends: .test_template
+  script:
+    - true
+
 centos:7:build:
   extends: .build_template
 centos-python3:7:build:
@@ -164,6 +170,16 @@ test/ubuntu-python3:18.04:
   extends: .test_py3_template
 test/ubuntu-python3:min_boost:
   extends: .test_py3_template
+test/ubuntu:arm64:
+  extends: .test_template_nobuild
+test/ubuntu:armhf:
+  extends: .test_template_nobuild
+test/ubuntu:i386:
+  extends: .test_template
+test/ubuntu:ppc64le:
+  extends: .test_template_nobuild
+test/ubuntu:s390x:
+  extends: .test_template_nobuild
 
 centos:7:
   extends: .deploy_template
