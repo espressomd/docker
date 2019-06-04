@@ -11,7 +11,7 @@ function cmd {
     fi
 }
 
-job_name=${CI_JOB_NAME%:test}
+job_name=${CI_JOB_NAME%:build}
 docker_src=${job_name%:*}
 docker_tag=${job_name#*:}
 test -f "docker/$docker_src/Dockerfile-$docker_tag" || docker_src="ubuntu-python3"

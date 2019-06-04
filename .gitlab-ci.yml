@@ -50,67 +50,67 @@ stages:
   variables:
     python_version: "3"
 
-centos:7:test:
+centos:7:build:
   extends: .build_template
-centos-python3:7:test:
+centos-python3:7:build:
   extends: .build_template
-centos:next:test:
+centos:next:build:
   extends: .build_template
-centos-python3:next:test:
+centos-python3:next:build:
   extends: .build_template
-debian:9:test:
+debian:9:build:
   extends: .build_template
-opensuse:42.3:test:
+opensuse:42.3:build:
   extends: .build_template
-opensuse:15.0:test:
+opensuse:15.0:build:
   extends: .build_template
-opensuse:15.1:test:
+opensuse:15.1:build:
   extends: .build_template
-ubuntu:16.04:test:
+ubuntu:16.04:build:
   extends: .build_template
-ubuntu:summerschool:test:
+ubuntu:summerschool:build:
   extends: .build_template
-ubuntu:18.04:test:
+ubuntu:18.04:build:
   extends: .build_template
-ubuntu:wo-dependencies:test:
+ubuntu:wo-dependencies:build:
   extends: .build_template
-clang:6.0:test:
+clang:6.0:build:
   extends: .build_template
-cuda:tutorials:test:
+cuda:tutorials:build:
   extends: .build_template
-cuda:9.0:test:
+cuda:9.0:build:
   extends: .build_template
-rocm:latest:test:
+rocm:latest:build:
   extends: .build_template
-intel:15:test:
-  extends: .build_template
-  tags:
-    - docker
-    - linux
-    - nofirewall
-    - icp
-intel:18:test:
+intel:15:build:
   extends: .build_template
   tags:
     - docker
     - linux
     - nofirewall
     - icp
-ubuntu-python3:16.04:test:
+intel:18:build:
   extends: .build_template
-ubuntu-python3:18.04:test:
+  tags:
+    - docker
+    - linux
+    - nofirewall
+    - icp
+ubuntu-python3:16.04:build:
   extends: .build_template
-ubuntu-python3:min_boost:test:
+ubuntu-python3:18.04:build:
   extends: .build_template
-ubuntu:arm64:test:
+ubuntu-python3:min_boost:build:
   extends: .build_template
-ubuntu:armhf:test:
+ubuntu:arm64:build:
   extends: .build_template
-ubuntu:i386:test:
+ubuntu:armhf:build:
   extends: .build_template
-ubuntu:ppc64le:test:
+ubuntu:i386:build:
   extends: .build_template
-ubuntu:s390x:test:
+ubuntu:ppc64le:build:
+  extends: .build_template
+ubuntu:s390x:build:
   extends: .build_template
 
 test/centos:7:
