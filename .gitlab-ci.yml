@@ -1,9 +1,10 @@
 stages:
   - build
   - test
+  - deploy
   - status
 
-.build_template: &build_definition
+.build_template:
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:debug
@@ -17,7 +18,13 @@ stages:
     - linux
     - nofirewall
 
-.test_template: &test_definition
+.deploy_template:
+  extends: .build_template
+  stage: deploy
+  only:
+    - master
+
+.test_template:
   stage: test
   image: $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME-$CI_COMMIT_SHA
   script:
@@ -31,141 +38,195 @@ stages:
     - docker
     - linux
 
-.test_template: &test_v40_definition
-  stage: test
-  image: $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME-$CI_COMMIT_SHA
+.test_template_v40:
+  extends: .test_template
   script:
     - git clone -b 4.0 --depth=1 --recursive https://github.com/espressomd/espresso
     - cd espresso
     - maintainer/CI/build_cmake.sh
-  variables:
-    make_check: "false"
-    myconfig: "maxset"
-  tags:
-    - docker
-    - linux
 
-.test_py3_template: &test_py3_definition
-  <<: *test_definition
+.test_py3_template:
+  extends: .test_template
   variables:
-    make_check: "false"
-    myconfig: "maxset"
     python_version: "3"
 
-centos:7:
-  <<: *build_definition
-centos-python3:7:
-  <<: *build_definition
-centos:next:
-  <<: *build_definition
-centos-python3:next:
-  <<: *build_definition
-debian:9:
-  <<: *build_definition
-opensuse:42.3:
-  <<: *build_definition
-opensuse:15.0:
-  <<: *build_definition
-opensuse:15.1:
-  <<: *build_definition
-ubuntu:16.04:
-  <<: *build_definition
-ubuntu:summerschool:
-  <<: *build_definition
-ubuntu:18.04:
-  <<: *build_definition
-ubuntu:wo-dependencies:
-  <<: *build_definition
-clang:6.0:
-  <<: *build_definition
-cuda:tutorials:
-  <<: *build_definition
-cuda:9.0:
-  <<: *build_definition
-rocm:latest:
-  <<: *build_definition
-intel:15:
-  <<: *build_definition
+centos:7:build:
+  extends: .build_template
+centos-python3:7:build:
+  extends: .build_template
+centos:next:build:
+  extends: .build_template
+centos-python3:next:build:
+  extends: .build_template
+debian:9:build:
+  extends: .build_template
+opensuse:42.3:build:
+  extends: .build_template
+opensuse:15.0:build:
+  extends: .build_template
+opensuse:15.1:build:
+  extends: .build_template
+ubuntu:16.04:build:
+  extends: .build_template
+ubuntu:summerschool:build:
+  extends: .build_template
+ubuntu:18.04:build:
+  extends: .build_template
+ubuntu:wo-dependencies:build:
+  extends: .build_template
+clang:6.0:build:
+  extends: .build_template
+cuda:tutorials:build:
+  extends: .build_template
+cuda:9.0:build:
+  extends: .build_template
+rocm:latest:build:
+  extends: .build_template
+intel:15:build:
+  extends: .build_template
   tags:
     - docker
     - linux
     - nofirewall
     - icp
-intel:18:
-  <<: *build_definition
+intel:18:build:
+  extends: .build_template
   tags:
     - docker
     - linux
     - nofirewall
     - icp
-ubuntu-python3:16.04:
-  <<: *build_definition
-ubuntu-python3:18.04:
-  <<: *build_definition
-ubuntu-python3:min_boost:
-  <<: *build_definition
-ubuntu:arm64:
-  <<: *build_definition
-ubuntu:armhf:
-  <<: *build_definition
-ubuntu:i386:
-  <<: *build_definition
-ubuntu:ppc64le:
-  <<: *build_definition
-ubuntu:s390x:
-  <<: *build_definition
+ubuntu-python3:16.04:build:
+  extends: .build_template
+ubuntu-python3:18.04:build:
+  extends: .build_template
+ubuntu-python3:min_boost:build:
+  extends: .build_template
+ubuntu:arm64:build:
+  extends: .build_template
+ubuntu:armhf:build:
+  extends: .build_template
+ubuntu:i386:build:
+  extends: .build_template
+ubuntu:ppc64le:build:
+  extends: .build_template
+ubuntu:s390x:build:
+  extends: .build_template
 
 test/centos:7:
-  <<: *test_v40_definition
+  extends: .test_template_v40
 test/centos-python3:7:
-  <<: *test_py3_definition
+  extends: .test_py3_template
 test/centos:next:
-  <<: *test_v40_definition
+  extends: .test_template_v40
 test/centos-python3:next:
-  <<: *test_py3_definition
+  extends: .test_py3_template
 test/debian:9:
-  <<: *test_definition
+  extends: .test_template
 test/opensuse:42.3:
-  <<: *test_v40_definition
+  extends: .test_template_v40
 test/opensuse:15.0:
-  <<: *test_v40_definition
+  extends: .test_template_v40
 test/opensuse:15.1:
-  <<: *test_py3_definition
+  extends: .test_py3_template
 test/ubuntu:16.04:
-  <<: *test_definition
+  extends: .test_template
 test/ubuntu:18.04:
-  <<: *test_definition
+  extends: .test_template
 test/clang:6.0:
-  <<: *test_definition
+  extends: .test_template
 test/cuda:tutorials:
-  <<: *test_py3_definition
+  extends: .test_py3_template
 test/cuda:9.0:
-  <<: *test_py3_definition
+  extends: .test_py3_template
 test/rocm:latest:
-  <<: *test_definition
+  extends: .test_template
   variables:
     make_check: "false"
     myconfig: "maxset"
     HIP_PLATFORM: "hcc"
     HCC_AMDGPU_TARGET: "gfx900"
 test/intel:15:
-  <<: *test_v40_definition
+  extends: .test_template_v40
   tags:
     - docker
     - linux
     - icp
 test/intel:18:
-  <<: *test_definition
+  extends: .test_template
   tags:
     - docker
     - linux
     - icp
 test/ubuntu-python3:16.04:
-  <<: *test_py3_definition
+  extends: .test_py3_template
 test/ubuntu-python3:18.04:
-  <<: *test_py3_definition
+  extends: .test_py3_template
 test/ubuntu-python3:min_boost:
-  <<: *test_py3_definition
+  extends: .test_py3_template
+
+centos:7:
+  extends: .deploy_template
+centos-python3:7:
+  extends: .deploy_template
+centos:next:
+  extends: .deploy_template
+centos-python3:next:
+  extends: .deploy_template
+debian:9:
+  extends: .deploy_template
+opensuse:42.3:
+  extends: .deploy_template
+opensuse:15.0:
+  extends: .deploy_template
+opensuse:15.1:
+  extends: .deploy_template
+ubuntu:16.04:
+  extends: .deploy_template
+ubuntu:summerschool:
+  extends: .deploy_template
+ubuntu:18.04:
+  extends: .deploy_template
+ubuntu:wo-dependencies:
+  extends: .deploy_template
+clang:6.0:
+  extends: .deploy_template
+cuda:tutorials:
+  extends: .deploy_template
+cuda:9.0:
+  extends: .deploy_template
+rocm:latest:
+  extends: .deploy_template
+intel:15:
+  extends: .deploy_template
+  tags:
+    - docker
+    - linux
+    - nofirewall
+    - icp
+intel:18:
+  extends: .deploy_template
+  tags:
+    - docker
+    - linux
+    - nofirewall
+    - icp
+ubuntu-python3:16.04:
+  extends: .deploy_template
+ubuntu-python3:18.04:
+  extends: .deploy_template
+ubuntu-python3:min_boost:
+  extends: .deploy_template
+ubuntu:arm64:
+  extends: .deploy_template
+ubuntu:armhf:
+  extends: .deploy_template
+ubuntu:i386:
+  extends: .deploy_template
+ubuntu:ppc64le:
+  extends: .deploy_template
+ubuntu:s390x:
+  extends: .deploy_template
 
 status_success:
   stage: status
@@ -182,4 +243,3 @@ status_failure:
   when: on_failure
   tags:
     - linux
-
