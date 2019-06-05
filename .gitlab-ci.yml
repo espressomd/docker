@@ -175,7 +175,7 @@ test/ubuntu:arm64:
 test/ubuntu:armhf:
   extends: .test_template_nobuild
 test/ubuntu:i386:
-  extends: .test_template
+  extends: .test_py3_template
 test/ubuntu:ppc64le:
   extends: .test_template_nobuild
 test/ubuntu:s390x:
