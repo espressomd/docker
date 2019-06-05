@@ -30,6 +30,7 @@ for os_arch in $*; do
 		echo "ARG qemu_arch=$qemu_arch" >> $df
 		qemu_download_ver=$qemu_ver
 		if [ "$os_arch" = "ppc64le" -a "${qemu_ver:0:6}" = "v4.0.0" ]; then
+			# arithmetic seems to be broken in this version
 			qemu_download_ver="v3.1.0-3"
 		fi
 		wget -q https://github.com/multiarch/qemu-user-static/releases/download/$qemu_download_ver/qemu-$qemu_arch-static
