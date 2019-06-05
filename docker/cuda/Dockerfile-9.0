@@ -27,8 +27,7 @@ RUN apt-get update && apt-get install -y \
     vim \
     ccache \
     graphviz \
-&& pip3 install --upgrade sphinxcontrib-bibtex \
-&& pip3 install 'sphinx<2.1.0' \
+&& pip3 install --upgrade sphinxcontrib-bibtex 'sphinx!=2.1.0'\
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 
