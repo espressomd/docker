@@ -140,7 +140,7 @@ test/cuda:tutorials:
 test/cuda:9.0:
   extends: .test_py3_template
 test/rocm:latest:
-  extends: .test_template
+  extends: .test_py3_template
   variables:
     make_check: "false"
     myconfig: "maxset"
