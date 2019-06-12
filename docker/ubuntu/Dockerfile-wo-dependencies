@@ -1,0 +1,23 @@
+FROM ubuntu:bionic
+MAINTAINER Florian Weik <fweik@icp.uni-stuttgart.de>
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update && apt-get install -y \
+    apt-utils \
+    cmake \
+    build-essential \
+    openmpi-bin libopenmpi-dev \
+    libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev \
+    cython python python-numpy python-h5py python-enum34 \
+    curl \
+    git \
+    pycodestyle pylint \
+    python-vtk6 \
+    python-pyface \
+    vim \
+    ccache \
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/*
+
+RUN useradd -m espresso
+USER 1000
+WORKDIR /home/espresso
