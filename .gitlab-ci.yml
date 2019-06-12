@@ -72,6 +72,8 @@ ubuntu:summerschool:build:
   extends: .build_template
 ubuntu:18.04:build:
   extends: .build_template
+ubuntu:wo-dependencies:build:
+  extends: .build_template
 ubuntu-python3:wo-dependencies:build:
   extends: .build_template
 clang:6.0:build:
@@ -174,6 +176,8 @@ test/ubuntu:ppc64le:
   extends: .test_py3_template
 test/ubuntu:s390x:
   extends: .test_py3_template
+test/ubuntu:wo-dependencies:
+  extends: .test_template_v40
 test/ubuntu-python3:wo-dependencies:
   extends: .test_py3_template
 
