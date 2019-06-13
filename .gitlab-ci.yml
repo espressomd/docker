@@ -4,7 +4,18 @@ stages:
   - deploy
   - status
 
+.run_only_if_file_changed_template:
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - .gitlab_ci.yml
+      - maintainer/docker_build.sh
+      - maintainer/generate.sh
+      - docker/${${CI_JOB_NAME%:build}%:*}/Dockerfile-${${CI_JOB_NAME%:build}#*:}
+
 .build_template:
+  extends: .run_only_if_file_changed_template
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:debug
@@ -25,6 +36,7 @@ stages:
     - master
 
 .test_template:
+  extends: .run_only_if_file_changed_template
   stage: test
   image: $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME-$CI_COMMIT_SHA
   script:
