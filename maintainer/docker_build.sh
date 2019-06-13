@@ -20,7 +20,6 @@ echo "ACTIVATION_LICENSE_FILE=$INTEL_LICENSE_SERVER" >> intel.cfg
 echo "ACTIVATION_LICENSE_FILE=$INTEL_LICENSE_SERVER" >> intel-15.cfg
 test -f Dockerfile-$docker_tag || cmd "sh generate.sh $docker_tag"
 
-
 if [ "$CI_JOB_STAGE" = "deploy" ]; then
     dest=$job_name
 else
