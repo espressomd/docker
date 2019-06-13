@@ -6,8 +6,6 @@ stages:
 
 .run_only_if_file_changed_template:
   only:
-    refs:
-      - merge_requests
     changes:
       - maintainer/docker_build.sh
       - maintainer/generate.sh
