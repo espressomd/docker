@@ -9,7 +9,6 @@ stages:
     refs:
       - merge_requests
     changes:
-      - .gitlab_ci.yml
       - maintainer/docker_build.sh
       - maintainer/generate.sh
       - docker/${${CI_JOB_NAME%:build}%:*}/Dockerfile-${${CI_JOB_NAME%:build}#*:}
