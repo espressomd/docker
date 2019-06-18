@@ -60,6 +60,8 @@ centos-python3:next:build:
   extends: .build_template
 debian:9:build:
   extends: .build_template
+debian-python3:9:build:
+  extends: .build_template
 opensuse:42.3:build:
   extends: .build_template
 opensuse:15.0:build:
@@ -75,6 +77,8 @@ ubuntu:18.04:build:
 ubuntu:wo-dependencies:build:
   extends: .build_template
 clang:6.0:build:
+  extends: .build_template
+clang-python3:6.0:build:
   extends: .build_template
 cuda:tutorials:build:
   extends: .build_template
@@ -96,9 +100,18 @@ intel:18:build:
     - linux
     - nofirewall
     - icp
+intel-python3:18:build:
+  extends: .build_template
+  tags:
+    - docker
+    - linux
+    - nofirewall
+    - icp
 ubuntu-python3:16.04:build:
   extends: .build_template
 ubuntu-python3:18.04:build:
+  extends: .build_template
+ubuntu-python3:wo-dependencies:build:
   extends: .build_template
 ubuntu-python3:min_boost:build:
   extends: .build_template
@@ -122,7 +135,9 @@ test/centos:next:
 test/centos-python3:next:
   extends: .test_py3_template
 test/debian:9:
-  extends: .test_template
+  extends: .test_template_v40
+test/debian-python3:9:
+  extends: .test_py3_template
 test/opensuse:42.3:
   extends: .test_template_v40
 test/opensuse:15.0:
@@ -134,7 +149,9 @@ test/ubuntu:16.04:
 test/ubuntu:18.04:
   extends: .test_template
 test/clang:6.0:
-  extends: .test_template
+  extends: .test_template_v40
+test/clang-python3:6.0:
+  extends: .test_py3_template
 test/cuda:tutorials:
   extends: .test_py3_template
 test/cuda:9.0:
@@ -158,6 +175,12 @@ test/intel:18:
     - docker
     - linux
     - icp
+test/intel-python3:18:
+  extends: .test_py3_template
+  tags:
+    - docker
+    - linux
+    - icp
 test/ubuntu-python3:16.04:
   extends: .test_py3_template
 test/ubuntu-python3:18.04:
@@ -175,6 +198,8 @@ centos-python3:next:
   extends: .deploy_template
 debian:9:
   extends: .deploy_template
+debian-python3:9:
+  extends: .deploy_template
 opensuse:42.3:
   extends: .deploy_template
 opensuse:15.0:
@@ -190,6 +215,8 @@ ubuntu:18.04:
 ubuntu:wo-dependencies:
   extends: .deploy_template
 clang:6.0:
+  extends: .deploy_template
+clang-python3:6.0:
   extends: .deploy_template
 cuda:tutorials:
   extends: .deploy_template
@@ -211,9 +238,18 @@ intel:18:
     - linux
     - nofirewall
     - icp
+intel-python3:18:
+  extends: .deploy_template
+  tags:
+    - docker
+    - linux
+    - nofirewall
+    - icp
 ubuntu-python3:16.04:
   extends: .deploy_template
 ubuntu-python3:18.04:
+  extends: .deploy_template
+ubuntu-python3:wo-dependencies:
   extends: .deploy_template
 ubuntu-python3:min_boost:
   extends: .deploy_template
