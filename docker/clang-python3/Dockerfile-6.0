@@ -14,7 +14,6 @@ RUN apt-get update && apt-get install -y \
     git \
     pep8 pylint3 \
 #   python3-vtk7 \ # not available in 16.04
-    python3-sphinx python3-numpydoc \
     python3-pip \
     libpython3-dev \
     libhdf5-openmpi-dev \
@@ -42,9 +41,6 @@ RUN cd /usr/src && \
     ln -s /usr/src/thrust/thrust /usr/local/cuda/include/thrust
 
 ENV CC=/usr/bin/clang-6.0 CXX=/usr/bin/clang++-6.0 NVCC=/usr/bin/clang++-6.0
-
-COPY boost.patch /tmp/
-RUN cd /usr/include/boost && patch -p1 < /tmp/boost.patch
 
 RUN useradd -m espresso && usermod -a -G www-data espresso
 USER 1000
