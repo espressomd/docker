@@ -191,6 +191,10 @@ test/ubuntu:arm64:
   extends: .test_py3_template
 test/ubuntu:armhf:
   extends: .test_py3_template
+  tags:
+    - docker
+    - linux
+    - icp
 test/ubuntu:i386:
   extends: .test_py3_template
 test/ubuntu:ppc64le:
