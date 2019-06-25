@@ -84,20 +84,6 @@ cuda:9.0:build:
   extends: .build_template
 rocm:latest:build:
   extends: .build_template
-intel:15:build:
-  extends: .build_template
-  tags:
-    - docker
-    - linux
-    - nofirewall
-    - icp
-intel:18:build:
-  extends: .build_template
-  tags:
-    - docker
-    - linux
-    - nofirewall
-    - icp
 ubuntu-python3:16.04:build:
   extends: .build_template
 ubuntu-python3:18.04:build:
@@ -148,18 +134,6 @@ test/rocm:latest:
     myconfig: "maxset"
     HIP_PLATFORM: "hcc"
     HCC_AMDGPU_TARGET: "gfx900"
-test/intel:15:
-  extends: .test_template_v40
-  tags:
-    - docker
-    - linux
-    - icp
-test/intel:18:
-  extends: .test_template
-  tags:
-    - docker
-    - linux
-    - icp
 test/ubuntu-python3:16.04:
   extends: .test_py3_template
 test/ubuntu-python3:18.04:
@@ -214,20 +188,6 @@ cuda:9.0:
   extends: .deploy_template
 rocm:latest:
   extends: .deploy_template
-intel:15:
-  extends: .deploy_template
-  tags:
-    - docker
-    - linux
-    - nofirewall
-    - icp
-intel:18:
-  extends: .deploy_template
-  tags:
-    - docker
-    - linux
-    - nofirewall
-    - icp
 ubuntu-python3:16.04:
   extends: .deploy_template
 ubuntu-python3:18.04:
