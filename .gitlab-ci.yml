@@ -5,8 +5,7 @@ stages:
   - status
 
 .manual_template:
-  when:
-    - manual
+  when: manual
 
 .build_template:
   stage: build
