@@ -68,8 +68,6 @@ opensuse:15.1:build:
   extends: .build_template
 ubuntu:16.04:build:
   extends: .build_template
-ubuntu:summerschool:build:
-  extends: .build_template
 ubuntu:18.04:build:
   extends: .build_template
 ubuntu:wo-dependencies:build:
@@ -199,8 +197,6 @@ opensuse:15.0:
 opensuse:15.1:
   extends: .deploy_template
 ubuntu:16.04:
-  extends: .deploy_template
-ubuntu:summerschool:
   extends: .deploy_template
 ubuntu:18.04:
   extends: .deploy_template
