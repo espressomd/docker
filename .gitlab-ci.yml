@@ -4,6 +4,10 @@ stages:
   - deploy
   - status
 
+.manual_template:
+  when:
+    - manual
+
 .build_template:
   stage: build
   image:
@@ -83,14 +87,18 @@ cuda:9.0:build:
 rocm:latest:build:
   extends: .build_template
 intel:15:build:
-  extends: .build_template
+  extends:
+    - .build_template
+    - .manual_template
   tags:
     - docker
     - linux
     - nofirewall
     - icp
 intel:18:build:
-  extends: .build_template
+  extends:
+    - .build_template
+    - .manual_template
   tags:
     - docker
     - linux
@@ -103,15 +111,25 @@ ubuntu-python3:18.04:build:
 ubuntu-python3:min_boost:build:
   extends: .build_template
 ubuntu:arm64:build:
-  extends: .build_template
+  extends:
+    - .build_template
+    - .manual_template
 ubuntu:armhf:build:
-  extends: .build_template
+  extends:
+    - .build_template
+    - .manual_template
 ubuntu:i386:build:
-  extends: .build_template
+  extends:
+    - .build_template
+    - .manual_template
 ubuntu:ppc64le:build:
-  extends: .build_template
+  extends:
+    - .build_template
+    - .manual_template
 ubuntu:s390x:build:
-  extends: .build_template
+  extends:
+    - .build_template
+    - .manual_template
 
 test/centos:7:
   extends: .test_template_v40
@@ -147,13 +165,17 @@ test/rocm:latest:
     HIP_PLATFORM: "hcc"
     HCC_AMDGPU_TARGET: "gfx900"
 test/intel:15:
-  extends: .test_template_v40
+  extends:
+    - .test_template_v40
+    - .manual_template
   tags:
     - docker
     - linux
     - icp
 test/intel:18:
-  extends: .test_template
+  extends:
+    - .test_template
+    - .manual_template
   tags:
     - docker
     - linux
@@ -165,15 +187,25 @@ test/ubuntu-python3:18.04:
 test/ubuntu-python3:min_boost:
   extends: .test_py3_template
 test/ubuntu:arm64:
-  extends: .test_py3_template
+  extends:
+    - .test_py3_template
+    - .manual_template
 test/ubuntu:armhf:
-  extends: .test_py3_template
+  extends:
+    - .test_py3_template
+    - .manual_template
 test/ubuntu:i386:
-  extends: .test_py3_template
+  extends:
+    - .test_py3_template
+    - .manual_template
 test/ubuntu:ppc64le:
-  extends: .test_py3_template
+  extends:
+    - .test_py3_template
+    - .manual_template
 test/ubuntu:s390x:
-  extends: .test_py3_template
+  extends:
+    - .test_py3_template
+    - .manual_template
 test/ubuntu:wo-dependencies:
   extends: .test_template_v40
 test/ubuntu-python3:wo-dependencies:
@@ -211,14 +243,18 @@ cuda:9.0:
 rocm:latest:
   extends: .deploy_template
 intel:15:
-  extends: .deploy_template
+  extends:
+    - .deploy_template
+    - .manual_template
   tags:
     - docker
     - linux
     - nofirewall
     - icp
 intel:18:
-  extends: .deploy_template
+  extends:
+    - .deploy_template
+    - .manual_template
   tags:
     - docker
     - linux
@@ -231,15 +267,25 @@ ubuntu-python3:18.04:
 ubuntu-python3:min_boost:
   extends: .deploy_template
 ubuntu:arm64:
-  extends: .deploy_template
+  extends:
+    - .deploy_template
+    - .manual_template
 ubuntu:armhf:
-  extends: .deploy_template
+  extends:
+    - .deploy_template
+    - .manual_template
 ubuntu:i386:
-  extends: .deploy_template
+  extends:
+    - .deploy_template
+    - .manual_template
 ubuntu:ppc64le:
-  extends: .deploy_template
+  extends:
+    - .deploy_template
+    - .manual_template
 ubuntu:s390x:
-  extends: .deploy_template
+  extends:
+    - .deploy_template
+    - .manual_template
 
 status_success:
   stage: status
