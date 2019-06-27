@@ -87,8 +87,6 @@ cuda:tutorials:build:
   extends: .build_template
 cuda:9.0:build:
   extends: .build_template
-rocm:latest:build:
-  extends: .build_template
 rocm-python3:latest:build:
   extends: .build_template
 intel:15:build:
@@ -176,13 +174,6 @@ test/cuda:tutorials:
   extends: .test_py3_template
 test/cuda:9.0:
   extends: .test_py3_template
-test/rocm:latest:
-  extends: .test_py_template
-  variables:
-    make_check: "false"
-    myconfig: "maxset"
-    HIP_PLATFORM: "hcc"
-    HCC_AMDGPU_TARGET: "gfx900"
 test/rocm-python3:latest:
   extends: .test_py3_template
   variables:
@@ -280,8 +271,6 @@ clang-python3:6.0:
 cuda:tutorials:
   extends: .deploy_template
 cuda:9.0:
-  extends: .deploy_template
-rocm:latest:
   extends: .deploy_template
 rocm-python3:latest:
   extends: .deploy_template
