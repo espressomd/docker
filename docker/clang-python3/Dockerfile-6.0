@@ -3,7 +3,6 @@ MAINTAINER Florian Weik <fweik@icp.uni-stuttgart.de>
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
     apt-utils \
-    cmake \
     build-essential \
     clang-6.0 clang-tidy-6.0 clang-format-6.0 \
     curl \
@@ -35,12 +34,21 @@ RUN cd /tmp \
  && cd \
  && rm -r /tmp/ccache-3.4.3
 
+# more recent version of CMake required for Clang-tidy
+RUN cd /usr/local \
+&& curl -sL https://cmake.org/files/v3.8/cmake-3.8.2-Linux-x86_64.tar.gz | tar --strip-components=1 -xz \
+&& rm -r /usr/local/man
+
 RUN cd /usr/src && \
     git clone https://github.com/thrust/thrust.git && \
     rm -r /usr/local/cuda/include/thrust && \
     ln -s /usr/src/thrust/thrust /usr/local/cuda/include/thrust
 
 ENV CC=/usr/bin/clang-6.0 CXX=/usr/bin/clang++-6.0 NVCC=/usr/bin/clang++-6.0
+
+# removes superfluous Clang-tidy warnings from the boost libraries
+COPY boost.patch /tmp/
+RUN cd /usr/include/boost && patch -p1 < /tmp/boost.patch
 
 RUN useradd -m espresso && usermod -a -G www-data espresso
 USER 1000
