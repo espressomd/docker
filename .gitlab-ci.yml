@@ -304,6 +304,7 @@ intel:18:
     - nofirewall
     - icp
 intel-python3:18:
+  extends:
     - .deploy_template
     - .manual_template
   tags:
