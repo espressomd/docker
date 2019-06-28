@@ -29,7 +29,7 @@ for os_arch in $*; do
 	if [ "$os_arch" != "amd64" -a "$os_arch" != "i386" ]; then
 		echo "ARG qemu_arch=$qemu_arch" >> $df
 		qemu_download_ver=$qemu_ver
-		if [ "$os_arch" = "ppc64le" -a "${qemu_ver:0:6}" = "v4.0.0" ]; then
+		if [ "$os_arch" = "ppc64le" -a "$(echo $qemu_ver | cut -d - -f 1)" = "v4.0.0" ]; then
 			# arithmetic seems to be broken in this version
 			qemu_download_ver="v3.1.0-3"
 		fi
@@ -45,7 +45,7 @@ for os_arch in $*; do
 		cat Dockerfile-qemu-head | grep 'FROM.*arch.*img' >> $df
 	fi
 
-	if [ "$os_arch" != "amd64" -a "$os_arch" != "i386" ]; then
+	if [ "$os_arch" != "amd64" ]; then
 		cat $base | grep -v ':amd64' | grep -v '^FROM ' | grep -v scafacos >> $df
 	else
 		cat $base | grep -v ':amd64' | grep -v '^FROM ' >> $df
@@ -53,5 +53,9 @@ for os_arch in $*; do
 
 	if [ "$os_arch" != "amd64" -a "$os_arch" != "i386" ]; then
 		cat Dockerfile-qemu-tail >> $df
+	fi
+
+	if [ "$os_arch" = "armhf" -o "$os_arch" = "i386" ]; then
+		cat Dockerfile-inode-tail >> $df
 	fi
 done

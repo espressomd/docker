@@ -1,0 +1,9 @@
+
+COPY inode64.c /tmp
+RUN ( uname -m | grep arm \
+	&& echo "GLIBC_2.4 {\n  global:\n    readdir;\n    __fxstat;\n    __xstat;\n    __lxstat;\n};" > /tmp/vers \
+	|| echo "GLIBC_2.0 {\n  global:\n    readdir;\n    __fxstat;\n    __xstat;\n    __lxstat;\n};" > /tmp/vers ) \
+	&& gcc -fno-stack-protector -c -fPIC /tmp/inode64.c -o /tmp/inode64.o \
+	&& ld -shared --version-script /tmp/vers -o /home/espresso/inode64.so /tmp/inode64.o
+ENV LD_PRELOAD=${LD_PRELOAD}:/home/espresso/inode64.so
+
