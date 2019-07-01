@@ -120,6 +120,7 @@ ubuntu:armhf:build:
 ubuntu:i386:build:
   extends:
     - .build_template
+    - .manual_template
 ubuntu:ppc64le:build:
   extends:
     - .build_template
@@ -195,6 +196,7 @@ test/ubuntu:armhf:
 test/ubuntu:i386:
   extends:
     - .test_py3_template
+    - .manual_template
 test/ubuntu:ppc64le:
   extends:
     - .test_py3_template
@@ -274,6 +276,7 @@ ubuntu:armhf:
 ubuntu:i386:
   extends:
     - .deploy_template
+    - .manual_template
 ubuntu:ppc64le:
   extends:
     - .deploy_template
