@@ -219,10 +219,6 @@ test/ubuntu:armhf:
   extends:
     - .test_py3_template
     - .manual_template
-  tags:
-    - docker
-    - linux
-    - icp
 test/ubuntu:i386:
   extends:
     - .test_py3_template
