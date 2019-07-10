@@ -6,23 +6,19 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     clang-6.0 clang-tidy-6.0 clang-format-6.0 \
     curl \
-    cython \
     openmpi-bin \
     libfftw3-dev \
     libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev \
-    python python-numpy python-h5py python-enum \
+    cython3 python3 python3-numpy python3-h5py \
     git \
-    pep8 pylint\
-    python-numpydoc \
-    python-pyvtk \
-    python-pip \
-    python-pyface \
-    python-autopep8 python-pep8 \
-    libpython-dev \
+    pep8 pylint3 \
+#   python3-vtk7 \ # not available in 16.04
+    python3-pip \
+    libpython3-dev \
     libhdf5-openmpi-dev \
     doxygen \
     vim \
-&& pip2 install requests \
+&& pip3 install requests autopep8==0.9.1 \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* \
 && ln -s /usr/bin/llvm-symbolizer-6.0 /usr/bin/llvm-symbolizer \
