@@ -164,9 +164,9 @@ test/opensuse:15.0:
 test/opensuse:15.1:
   extends: .test_py3_template
 test/ubuntu:16.04:
-  extends: .test_template
+  extends: .test_template_v40
 test/ubuntu:18.04:
-  extends: .test_template
+  extends: .test_template_v40
 test/clang:6.0:
   extends: .test_template_v40
 test/clang-python3:6.0:
