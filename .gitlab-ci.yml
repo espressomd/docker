@@ -98,15 +98,6 @@ intel:15:build:
     - linux
     - nofirewall
     - icp
-intel:18:build:
-  extends:
-    - .build_template
-    - .manual_template
-  tags:
-    - docker
-    - linux
-    - nofirewall
-    - icp
 intel-python3:18:build:
   extends:
     - .build_template
@@ -190,14 +181,6 @@ test/intel:15:
     - docker
     - linux
     - icp
-test/intel:18:
-  extends:
-    - .test_template
-    - .manual_template
-  tags:
-    - docker
-    - linux
-    - icp
 test/intel-python3:18:
   extends:
     - .test_py3_template
@@ -273,15 +256,6 @@ cuda:9.0:
 rocm-python3:latest:
   extends: .deploy_template
 intel:15:
-  extends:
-    - .deploy_template
-    - .manual_template
-  tags:
-    - docker
-    - linux
-    - nofirewall
-    - icp
-intel:18:
   extends:
     - .deploy_template
     - .manual_template
