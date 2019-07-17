@@ -41,40 +41,15 @@ stages:
     - docker
     - linux
 
-.test_template_v40:
-  extends: .test_template
-  script:
-    - git clone -b 4.0 --depth=1 --recursive https://github.com/espressomd/espresso
-    - cd espresso
-    - maintainer/CI/build_cmake.sh
-
-centos:7:build:
-  extends: .build_template
 centos-python3:7:build:
-  extends: .build_template
-centos:next:build:
   extends: .build_template
 centos-python3:next:build:
   extends: .build_template
-debian:9:build:
-  extends: .build_template
 debian-python3:9:build:
-  extends: .build_template
-opensuse:42.3:build:
-  extends: .build_template
-opensuse:15.0:build:
   extends: .build_template
 opensuse:15.1:build:
   extends: .build_template
-ubuntu:16.04:build:
-  extends: .build_template
-ubuntu:18.04:build:
-  extends: .build_template
-ubuntu:wo-dependencies:build:
-  extends: .build_template
 ubuntu-python3:wo-dependencies:build:
-  extends: .build_template
-clang:6.0:build:
   extends: .build_template
 clang-python3:6.0:build:
   extends: .build_template
@@ -84,15 +59,6 @@ cuda:9.0:build:
   extends: .build_template
 rocm-python3:latest:build:
   extends: .build_template
-intel:15:build:
-  extends:
-    - .build_template
-    - .manual_template
-  tags:
-    - docker
-    - linux
-    - nofirewall
-    - icp
 intel-python3:18:build:
   extends:
     - .build_template
@@ -131,30 +97,14 @@ ubuntu:s390x:build:
     - .build_template
     - .manual_template
 
-test/centos:7:
-  extends: .test_template_v40
 test/centos-python3:7:
   extends: .test_template
-test/centos:next:
-  extends: .test_template_v40
 test/centos-python3:next:
   extends: .test_template
-test/debian:9:
-  extends: .test_template_v40
 test/debian-python3:9:
   extends: .test_template
-test/opensuse:42.3:
-  extends: .test_template_v40
-test/opensuse:15.0:
-  extends: .test_template_v40
 test/opensuse:15.1:
   extends: .test_template
-test/ubuntu:16.04:
-  extends: .test_template_v40
-test/ubuntu:18.04:
-  extends: .test_template_v40
-test/clang:6.0:
-  extends: .test_template_v40
 test/clang-python3:6.0:
   extends: .test_template
 test/cuda:tutorials:
@@ -168,14 +118,6 @@ test/rocm-python3:latest:
     myconfig: "maxset"
     HIP_PLATFORM: "hcc"
     HCC_AMDGPU_TARGET: "gfx900"
-test/intel:15:
-  extends:
-    - .test_template_v40
-    - .manual_template
-  tags:
-    - docker
-    - linux
-    - icp
 test/intel-python3:18:
   extends:
     - .test_template
@@ -210,37 +152,17 @@ test/ubuntu:s390x:
   extends:
     - .test_template
     - .manual_template
-test/ubuntu:wo-dependencies:
-  extends: .test_template_v40
 test/ubuntu-python3:wo-dependencies:
   extends: .test_template
 
 
-centos:7:
-  extends: .deploy_template
 centos-python3:7:
-  extends: .deploy_template
-centos:next:
   extends: .deploy_template
 centos-python3:next:
   extends: .deploy_template
-debian:9:
-  extends: .deploy_template
 debian-python3:9:
   extends: .deploy_template
-opensuse:42.3:
-  extends: .deploy_template
-opensuse:15.0:
-  extends: .deploy_template
 opensuse:15.1:
-  extends: .deploy_template
-ubuntu:16.04:
-  extends: .deploy_template
-ubuntu:18.04:
-  extends: .deploy_template
-ubuntu:wo-dependencies:
-  extends: .deploy_template
-clang:6.0:
   extends: .deploy_template
 clang-python3:6.0:
   extends: .deploy_template
@@ -250,15 +172,6 @@ cuda:9.0:
   extends: .deploy_template
 rocm-python3:latest:
   extends: .deploy_template
-intel:15:
-  extends:
-    - .deploy_template
-    - .manual_template
-  tags:
-    - docker
-    - linux
-    - nofirewall
-    - icp
 intel-python3:18:
   extends:
     - .deploy_template
@@ -299,7 +212,7 @@ ubuntu:s390x:
 
 status_success:
   stage: status
-  image: $CI_REGISTRY/espressomd/docker/ubuntu:18.04
+  image: $CI_REGISTRY/espressomd/docker/ubuntu-python3:18.04
   script: bash maintainer/gh_post_status.sh success
   when: on_success
   tags:
@@ -307,7 +220,7 @@ status_success:
 
 status_failure:
   stage: status
-  image: $CI_REGISTRY/espressomd/docker/ubuntu:18.04
+  image: $CI_REGISTRY/espressomd/docker/ubuntu-python3:18.04
   script: bash maintainer/gh_post_status.sh failure
   when: on_failure
   tags:
