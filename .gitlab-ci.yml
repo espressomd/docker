@@ -48,11 +48,6 @@ stages:
     - cd espresso
     - maintainer/CI/build_cmake.sh
 
-.test_py3_template:
-  extends: .test_template
-  variables:
-    python_version: "3"
-
 centos:7:build:
   extends: .build_template
 centos-python3:7:build:
@@ -90,15 +85,6 @@ cuda:9.0:build:
 rocm-python3:latest:build:
   extends: .build_template
 intel:15:build:
-  extends:
-    - .build_template
-    - .manual_template
-  tags:
-    - docker
-    - linux
-    - nofirewall
-    - icp
-intel:18:build:
   extends:
     - .build_template
     - .manual_template
@@ -148,35 +134,35 @@ ubuntu:s390x:build:
 test/centos:7:
   extends: .test_template_v40
 test/centos-python3:7:
-  extends: .test_py3_template
+  extends: .test_template
 test/centos:next:
   extends: .test_template_v40
 test/centos-python3:next:
-  extends: .test_py3_template
+  extends: .test_template
 test/debian:9:
   extends: .test_template_v40
 test/debian-python3:9:
-  extends: .test_py3_template
+  extends: .test_template
 test/opensuse:42.3:
   extends: .test_template_v40
 test/opensuse:15.0:
   extends: .test_template_v40
 test/opensuse:15.1:
-  extends: .test_py3_template
+  extends: .test_template
 test/ubuntu:16.04:
-  extends: .test_template
+  extends: .test_template_v40
 test/ubuntu:18.04:
-  extends: .test_template
+  extends: .test_template_v40
 test/clang:6.0:
   extends: .test_template_v40
 test/clang-python3:6.0:
-  extends: .test_py3_template
+  extends: .test_template
 test/cuda:tutorials:
-  extends: .test_py3_template
+  extends: .test_template
 test/cuda:9.0:
-  extends: .test_py3_template
+  extends: .test_template
 test/rocm-python3:latest:
-  extends: .test_py3_template
+  extends: .test_template
   variables:
     make_check: "false"
     myconfig: "maxset"
@@ -190,7 +176,7 @@ test/intel:15:
     - docker
     - linux
     - icp
-test/intel:18:
+test/intel-python3:18:
   extends:
     - .test_template
     - .manual_template
@@ -198,44 +184,36 @@ test/intel:18:
     - docker
     - linux
     - icp
-test/intel-python3:18:
-  extends:
-    - .test_py3_template
-    - .manual_template
-  tags:
-    - docker
-    - linux
-    - icp
 test/ubuntu-python3:16.04:
-  extends: .test_py3_template
+  extends: .test_template
 test/ubuntu-python3:18.04:
-  extends: .test_py3_template
+  extends: .test_template
 test/ubuntu-python3:min_boost:
-  extends: .test_py3_template
+  extends: .test_template
 test/ubuntu:arm64:
   extends:
-    - .test_py3_template
+    - .test_template
     - .manual_template
 test/ubuntu:armhf:
   extends:
-    - .test_py3_template
+    - .test_template
     - .manual_template
 test/ubuntu:i386:
   extends:
-    - .test_py3_template
+    - .test_template
     - .manual_template
 test/ubuntu:ppc64le:
   extends:
-    - .test_py3_template
+    - .test_template
     - .manual_template
 test/ubuntu:s390x:
   extends:
-    - .test_py3_template
+    - .test_template
     - .manual_template
 test/ubuntu:wo-dependencies:
   extends: .test_template_v40
 test/ubuntu-python3:wo-dependencies:
-  extends: .test_py3_template
+  extends: .test_template
 
 
 centos:7:
@@ -273,15 +251,6 @@ cuda:9.0:
 rocm-python3:latest:
   extends: .deploy_template
 intel:15:
-  extends:
-    - .deploy_template
-    - .manual_template
-  tags:
-    - docker
-    - linux
-    - nofirewall
-    - icp
-intel:18:
   extends:
     - .deploy_template
     - .manual_template
