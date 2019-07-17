@@ -1,5 +1,0 @@
-
-COPY sockopt.c /tmp
-RUN gcc -Wall -fpic -shared -o /home/espresso/sockopt.so /tmp/sockopt.c -ldl
-ENV LD_PRELOAD=/home/espresso/sockopt.so
-
