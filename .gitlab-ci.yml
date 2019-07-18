@@ -31,7 +31,7 @@ stages:
   stage: test
   image: $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME-$CI_COMMIT_SHA
   script:
-    - git clone --depth=1 --recursive https://github.com/espressomd/espresso
+    - git clone -b 4.0 --depth=1 --recursive https://github.com/espressomd/espresso
     - cd espresso
     - maintainer/CI/build_cmake.sh
   variables:
@@ -41,48 +41,21 @@ stages:
     - docker
     - linux
 
-.test_template_v40:
-  extends: .test_template
-  script:
-    - git clone -b 4.0 --depth=1 --recursive https://github.com/espressomd/espresso
-    - cd espresso
-    - maintainer/CI/build_cmake.sh
-
 centos:7:build:
-  extends: .build_template
-centos-python3:7:build:
   extends: .build_template
 centos:next:build:
   extends: .build_template
-centos-python3:next:build:
-  extends: .build_template
 debian:9:build:
-  extends: .build_template
-debian-python3:9:build:
   extends: .build_template
 opensuse:42.3:build:
   extends: .build_template
 opensuse:15.0:build:
   extends: .build_template
-opensuse:15.1:build:
-  extends: .build_template
-ubuntu:16.04:build:
-  extends: .build_template
 ubuntu:18.04:build:
   extends: .build_template
 ubuntu:wo-dependencies:build:
   extends: .build_template
-ubuntu-python3:wo-dependencies:build:
-  extends: .build_template
 clang:6.0:build:
-  extends: .build_template
-clang-python3:6.0:build:
-  extends: .build_template
-cuda:tutorials:build:
-  extends: .build_template
-cuda:9.0:build:
-  extends: .build_template
-rocm-python3:latest:build:
   extends: .build_template
 intel:15:build:
   extends:
@@ -93,162 +66,48 @@ intel:15:build:
     - linux
     - nofirewall
     - icp
-intel-python3:18:build:
-  extends:
-    - .build_template
-    - .manual_template
-  tags:
-    - docker
-    - linux
-    - nofirewall
-    - icp
-ubuntu-python3:16.04:build:
-  extends: .build_template
-ubuntu-python3:18.04:build:
-  extends: .build_template
-ubuntu-python3:wo-dependencies:build:
-  extends: .build_template
-ubuntu-python3:min_boost:build:
-  extends: .build_template
-ubuntu:arm64:build:
-  extends:
-    - .build_template
-    - .manual_template
-ubuntu:armhf:build:
-  extends:
-    - .build_template
-    - .manual_template
-ubuntu:i386:build:
-  extends:
-    - .build_template
-    - .manual_template
-ubuntu:ppc64le:build:
-  extends:
-    - .build_template
-    - .manual_template
-ubuntu:s390x:build:
-  extends:
-    - .build_template
-    - .manual_template
 
 test/centos:7:
-  extends: .test_template_v40
-test/centos-python3:7:
   extends: .test_template
 test/centos:next:
-  extends: .test_template_v40
-test/centos-python3:next:
   extends: .test_template
 test/debian:9:
-  extends: .test_template_v40
-test/debian-python3:9:
   extends: .test_template
 test/opensuse:42.3:
-  extends: .test_template_v40
+  extends: .test_template
 test/opensuse:15.0:
-  extends: .test_template_v40
-test/opensuse:15.1:
   extends: .test_template
-test/ubuntu:16.04:
-  extends: .test_template_v40
 test/ubuntu:18.04:
-  extends: .test_template_v40
+  extends: .test_template
 test/clang:6.0:
-  extends: .test_template_v40
-test/clang-python3:6.0:
   extends: .test_template
-test/cuda:tutorials:
-  extends: .test_template
-test/cuda:9.0:
-  extends: .test_template
-test/rocm-python3:latest:
-  extends: .test_template
-  variables:
-    make_check: "false"
-    myconfig: "maxset"
-    HIP_PLATFORM: "hcc"
-    HCC_AMDGPU_TARGET: "gfx900"
 test/intel:15:
   extends:
-    - .test_template_v40
-    - .manual_template
-  tags:
-    - docker
-    - linux
-    - icp
-test/intel-python3:18:
-  extends:
     - .test_template
     - .manual_template
   tags:
     - docker
     - linux
     - icp
-test/ubuntu-python3:16.04:
-  extends: .test_template
-test/ubuntu-python3:18.04:
-  extends: .test_template
-test/ubuntu-python3:min_boost:
-  extends: .test_template
-test/ubuntu:arm64:
-  extends:
-    - .test_template
-    - .manual_template
-test/ubuntu:armhf:
-  extends:
-    - .test_template
-    - .manual_template
-test/ubuntu:i386:
-  extends:
-    - .test_template
-    - .manual_template
-test/ubuntu:ppc64le:
-  extends:
-    - .test_template
-    - .manual_template
-test/ubuntu:s390x:
-  extends:
-    - .test_template
-    - .manual_template
 test/ubuntu:wo-dependencies:
-  extends: .test_template_v40
-test/ubuntu-python3:wo-dependencies:
   extends: .test_template
 
 
 centos:7:
   extends: .deploy_template
-centos-python3:7:
-  extends: .deploy_template
 centos:next:
   extends: .deploy_template
-centos-python3:next:
-  extends: .deploy_template
 debian:9:
-  extends: .deploy_template
-debian-python3:9:
   extends: .deploy_template
 opensuse:42.3:
   extends: .deploy_template
 opensuse:15.0:
-  extends: .deploy_template
-opensuse:15.1:
-  extends: .deploy_template
-ubuntu:16.04:
   extends: .deploy_template
 ubuntu:18.04:
   extends: .deploy_template
 ubuntu:wo-dependencies:
   extends: .deploy_template
 clang:6.0:
-  extends: .deploy_template
-clang-python3:6.0:
-  extends: .deploy_template
-cuda:tutorials:
-  extends: .deploy_template
-cuda:9.0:
-  extends: .deploy_template
-rocm-python3:latest:
   extends: .deploy_template
 intel:15:
   extends:
@@ -259,43 +118,6 @@ intel:15:
     - linux
     - nofirewall
     - icp
-intel-python3:18:
-  extends:
-    - .deploy_template
-    - .manual_template
-  tags:
-    - docker
-    - linux
-    - nofirewall
-    - icp
-ubuntu-python3:16.04:
-  extends: .deploy_template
-ubuntu-python3:18.04:
-  extends: .deploy_template
-ubuntu-python3:wo-dependencies:
-  extends: .deploy_template
-ubuntu-python3:min_boost:
-  extends: .deploy_template
-ubuntu:arm64:
-  extends:
-    - .deploy_template
-    - .manual_template
-ubuntu:armhf:
-  extends:
-    - .deploy_template
-    - .manual_template
-ubuntu:i386:
-  extends:
-    - .deploy_template
-    - .manual_template
-ubuntu:ppc64le:
-  extends:
-    - .deploy_template
-    - .manual_template
-ubuntu:s390x:
-  extends:
-    - .deploy_template
-    - .manual_template
 
 status_success:
   stage: status
