@@ -58,6 +58,8 @@ cuda:tutorials:build:
   extends: .build_template
 cuda:9.0:build:
   extends: .build_template
+cuda:10.1:build:
+  extends: .build_template
 rocm-python3:latest:build:
   extends: .build_template
 intel-python3:18:build:
@@ -109,6 +111,8 @@ test/clang-python3:6.0:
 test/cuda:tutorials:
   extends: .test_template
 test/cuda:9.0:
+  extends: .test_template
+test/cuda:10.1:
   extends: .test_template
 test/rocm-python3:latest:
   extends: .test_template
@@ -166,6 +170,8 @@ clang-python3:6.0:
 cuda:tutorials:
   extends: .deploy_template
 cuda:9.0:
+  extends: .deploy_template
+cuda:10.1:
   extends: .deploy_template
 rocm-python3:latest:
   extends: .deploy_template
