@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install -y \
 # install Python3 packages required for tutorials
 RUN python3 -m pip install --upgrade pip \
     && pip3 install --upgrade setuptools \
-    && pip3 install --upgrade six scipy matplotlib jupyter ipython nbconvert 'sphinx!=2.1.0' sphinxcontrib-bibtex numpydoc
+    && pip3 install --upgrade six scipy matplotlib jupyter ipython nbconvert lxml 'sphinx!=2.1.0' sphinxcontrib-bibtex numpydoc
 
 # install TeXlive 2019 from a PPA
 RUN apt-get install -y --no-install-recommends software-properties-common \
