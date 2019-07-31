@@ -46,7 +46,8 @@ USER espresso
 
 # install extra LaTeX packages locally
 RUN tlmgr init-usertree \
-    && tlmgr install pgf tikz-3dplot revtex units mhchem chemgreek todonotes upquote framed subfigure cleveref \
+    && tlmgr install pgf tikz-3dplot revtex units mhchem chemgreek todonotes upquote framed subfigure cleveref 2>&1 | tee $HOME/tlmgr.log \
+    && if [ "$(grep 'TLPDB::from_file could not download' $HOME/tlmgr.log)" != "" ]; then exit 1; else rm $HOME/tlmgr.log; fi \
     && tlmgr install lm stmaryrd 2>&1 || : \
     && updmap -user
 
