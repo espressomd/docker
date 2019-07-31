@@ -26,7 +26,8 @@ RUN apt-get update && apt-get install -y \
     curl \
     wget \
     jq \
-    ffmpeg
+    ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
 
 # install Python3 packages required for tutorials
 RUN python3 -m pip install --upgrade pip \
@@ -34,12 +35,11 @@ RUN python3 -m pip install --upgrade pip \
     && pip3 install --upgrade six scipy matplotlib jupyter ipython nbconvert lxml 'sphinx!=2.1.0' sphinxcontrib-bibtex numpydoc
 
 # install TeXlive 2019 from a PPA
-RUN apt-get install -y --no-install-recommends software-properties-common \
+RUN apt-get update && apt-get install -y --no-install-recommends software-properties-common \
     && add-apt-repository -y ppa:jonathonf/texlive \
     && apt-get update \
-    && apt-get install -y --no-install-recommends texlive-latex-recommended texlive-fonts-recommended
-
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+    && apt-get install -y --no-install-recommends texlive-latex-recommended texlive-fonts-recommended \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m espresso && usermod -a -G www-data espresso
 USER espresso
