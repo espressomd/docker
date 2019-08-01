@@ -46,6 +46,7 @@ USER espresso
 
 # install extra LaTeX packages locally
 RUN tlmgr init-usertree \
+    && tlmgr option repository http://ftp.fau.de/ctan/systems/texlive/tlnet \
     && tlmgr install pgf tikz-3dplot revtex units mhchem chemgreek todonotes upquote framed subfigure cleveref \
     && tlmgr install lm stmaryrd 2>&1 || : \
     && updmap -user
