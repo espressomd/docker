@@ -1,5 +1,4 @@
 FROM opensuse/leap:15.1
-MAINTAINER Jean-Noel Grad <jgrad@icp.uni-stuttgart.de>
 RUN ln -s /usr/sbin/update-alternatives /usr/bin
 RUN zypper -n --gpg-auto-import-keys refresh \
 && zypper -n --gpg-auto-import-keys install \

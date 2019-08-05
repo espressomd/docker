@@ -1,6 +1,5 @@
 FROM centos/devtoolset-6-toolchain-centos7
 USER root
-MAINTAINER Jean-Noel Grad <jgrad@icp.uni-stuttgart.de>
 RUN yum -y install epel-release && yum -y install \
   make \
   cmake3 \
