@@ -26,11 +26,6 @@ RUN apt-get update && apt-get install -y \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 
-# fix rocprim namespace issue in rocthrust v2.7
-# https://github.com/ROCmSoftwarePlatform/rocPRIM/pull/91
-COPY rocm.patch /tmp/
-RUN cd /opt/rocm && patch -p1 < /tmp/rocm.patch
-
 RUN useradd -m espresso
 USER 1000
 WORKDIR /home/espresso
