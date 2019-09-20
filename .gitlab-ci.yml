@@ -48,6 +48,8 @@ centos-python3:next:build:
   extends: .build_template
 debian-python3:9:build:
   extends: .build_template
+debian-python3:10:build:
+  extends: .build_template
 opensuse:15.1:build:
   extends: .build_template
 ubuntu-python3:wo-dependencies:build:
@@ -103,6 +105,8 @@ test/centos-python3:7:
 test/centos-python3:next:
   extends: .test_template
 test/debian-python3:9:
+  extends: .test_template
+test/debian-python3:10:
   extends: .test_template
 test/opensuse:15.1:
   extends: .test_template
@@ -162,6 +166,8 @@ centos-python3:7:
 centos-python3:next:
   extends: .deploy_template
 debian-python3:9:
+  extends: .deploy_template
+debian-python3:10:
   extends: .deploy_template
 opensuse:15.1:
   extends: .deploy_template
