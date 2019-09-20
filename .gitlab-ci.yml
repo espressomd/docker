@@ -52,8 +52,6 @@ debian-python3:10:build:
   extends: .build_template
 opensuse:15.1:build:
   extends: .build_template
-ubuntu-python3:wo-dependencies:build:
-  extends: .build_template
 clang-python3:6.0:build:
   extends: .build_template
 cuda:tutorials:build:
@@ -102,6 +100,7 @@ ubuntu:s390x:build:
     - .build_template
     - .manual_template
 
+
 test/centos-python3:7:
   extends: .test_template
 test/centos-python3:next:
@@ -137,6 +136,8 @@ test/intel-python3:18:
     - icp
 test/ubuntu-python3:18.04:
   extends: .test_template
+test/ubuntu-python3:wo-dependencies:
+  extends: .test_template
 test/ubuntu-python3:min_boost:
   extends: .test_template
 test/ubuntu-python3:cuda-10.1:
@@ -161,8 +162,6 @@ test/ubuntu:s390x:
   extends:
     - .test_template
     - .manual_template
-test/ubuntu-python3:wo-dependencies:
-  extends: .test_template
 
 
 centos-python3:7:
