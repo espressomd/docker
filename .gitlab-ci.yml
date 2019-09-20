@@ -79,6 +79,8 @@ ubuntu-python3:wo-dependencies:build:
   extends: .build_template
 ubuntu-python3:min_boost:build:
   extends: .build_template
+ubuntu-python3:cuda-10.1:build:
+  extends: .build_template
 ubuntu:arm64:build:
   extends:
     - .build_template
@@ -136,6 +138,8 @@ test/intel-python3:18:
 test/ubuntu-python3:18.04:
   extends: .test_template
 test/ubuntu-python3:min_boost:
+  extends: .test_template
+test/ubuntu-python3:cuda-10.1:
   extends: .test_template
 test/ubuntu:arm64:
   extends:
@@ -195,6 +199,8 @@ ubuntu-python3:18.04:
 ubuntu-python3:wo-dependencies:
   extends: .deploy_template
 ubuntu-python3:min_boost:
+  extends: .deploy_template
+ubuntu-python3:cuda-10.1:
   extends: .deploy_template
 ubuntu:arm64:
   extends:
