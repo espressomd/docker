@@ -17,6 +17,7 @@ stages:
   script:
     - sh maintainer/docker_build.sh
   timeout: 30m
+  interruptible: true
   tags:
     - docker
     - linux
@@ -40,6 +41,7 @@ stages:
     make_check: "false"
     myconfig: "maxset"
   timeout: 30m
+  interruptible: true
   tags:
     - docker
     - linux
