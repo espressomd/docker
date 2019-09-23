@@ -79,6 +79,7 @@ intel-python3:18:build:
     - icp
 ubuntu-python3:18.04:build:
   extends: .build_template
+  timeout: 1h
 ubuntu-python3:wo-dependencies:build:
   extends: .build_template
 ubuntu-python3:min_boost:build:
