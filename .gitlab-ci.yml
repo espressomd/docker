@@ -59,10 +59,6 @@ opensuse:15.1:build:
   extends: .build_template
 clang-python3:6.0:build:
   extends: .build_template
-cuda:tutorials:build:
-  extends: .build_template
-cuda:10.1:build:
-  extends: .build_template
 rocm-python3:latest:build:
   extends: .build_template
 intel-python3:18:build:
@@ -125,12 +121,6 @@ test/opensuse:15.1:
 test/clang-python3:6.0:
   extends: .test_template
   needs: ["clang-python3:6.0:build"]
-test/cuda:tutorials:
-  extends: .test_template
-  needs: ["cuda:tutorials:build"]
-test/cuda:10.1:
-  extends: .test_template
-  needs: ["cuda:10.1:build"]
 test/rocm-python3:latest:
   extends: .test_template
   needs: ["rocm-python3:latest:build"]
@@ -212,12 +202,6 @@ opensuse:15.1:
 clang-python3:6.0:
   extends: .deploy_template
   needs: ["test/clang-python3:6.0"]
-cuda:tutorials:
-  extends: .deploy_template
-  needs: ["test/cuda:tutorials"]
-cuda:10.1:
-  extends: .deploy_template
-  needs: ["test/cuda:10.1"]
 rocm-python3:latest:
   extends: .deploy_template
   needs: ["test/rocm-python3:latest"]
