@@ -278,6 +278,7 @@ status_success:
   image: $CI_REGISTRY/espressomd/docker/ubuntu-python3:18.04
   script: bash maintainer/gh_post_status.sh success
   when: on_success
+  timeout: 15m
   tags:
     - linux
 
@@ -286,5 +287,6 @@ status_failure:
   image: $CI_REGISTRY/espressomd/docker/ubuntu-python3:18.04
   script: bash maintainer/gh_post_status.sh failure
   when: on_failure
+  timeout: 15m
   tags:
     - linux
