@@ -61,8 +61,6 @@ clang-python3:6.0:build:
   extends: .build_template
 cuda:tutorials:build:
   extends: .build_template
-cuda:9.0:build:
-  extends: .build_template
 cuda:10.1:build:
   extends: .build_template
 rocm-python3:latest:build:
@@ -82,6 +80,8 @@ ubuntu-python3:18.04:build:
 ubuntu-python3:wo-dependencies:build:
   extends: .build_template
 ubuntu-python3:min_boost:build:
+  extends: .build_template
+ubuntu-python3:cuda-9.0:build:
   extends: .build_template
 ubuntu-python3:cuda-10.1:build:
   extends: .build_template
@@ -128,9 +128,6 @@ test/clang-python3:6.0:
 test/cuda:tutorials:
   extends: .test_template
   needs: ["cuda:tutorials:build"]
-test/cuda:9.0:
-  extends: .test_template
-  needs: ["cuda:9.0:build"]
 test/cuda:10.1:
   extends: .test_template
   needs: ["cuda:10.1:build"]
@@ -160,6 +157,9 @@ test/ubuntu-python3:wo-dependencies:
 test/ubuntu-python3:min_boost:
   extends: .test_template
   needs: ["ubuntu-python3:min_boost:build"]
+test/ubuntu-python3:cuda-9.0:
+  extends: .test_template
+  needs: ["ubuntu-python3:cuda-9.0:build"]
 test/ubuntu-python3:cuda-10.1:
   extends: .test_template
   needs: ["ubuntu-python3:cuda-10.1:build"]
@@ -215,9 +215,6 @@ clang-python3:6.0:
 cuda:tutorials:
   extends: .deploy_template
   needs: ["test/cuda:tutorials"]
-cuda:9.0:
-  extends: .deploy_template
-  needs: ["test/cuda:9.0"]
 cuda:10.1:
   extends: .deploy_template
   needs: ["test/cuda:10.1"]
@@ -243,6 +240,9 @@ ubuntu-python3:wo-dependencies:
 ubuntu-python3:min_boost:
   extends: .deploy_template
   needs: ["test/ubuntu-python3:min_boost"]
+ubuntu-python3:cuda-9.0:
+  extends: .deploy_template
+  needs: ["test/ubuntu-python3:cuda-9.0"]
 ubuntu-python3:cuda-10.1:
   extends: .deploy_template
   needs: ["test/ubuntu-python3:cuda-10.1"]
