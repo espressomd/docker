@@ -103,24 +103,34 @@ ubuntu:s390x:build:
 
 test/centos-python3:7:
   extends: .test_template
+  needs: ["centos-python3:7:build"]
 test/centos-python3:next:
   extends: .test_template
+  needs: ["centos-python3:next:build"]
 test/debian-python3:9:
   extends: .test_template
+  needs: ["debian-python3:9:build"]
 test/debian-python3:10:
   extends: .test_template
+  needs: ["debian-python3:10:build"]
 test/opensuse:15.1:
   extends: .test_template
+  needs: ["opensuse:15.1:build"]
 test/clang-python3:6.0:
   extends: .test_template
+  needs: ["clang-python3:6.0:build"]
 test/cuda:tutorials:
   extends: .test_template
+  needs: ["cuda:tutorials:build"]
 test/cuda:9.0:
   extends: .test_template
+  needs: ["cuda:9.0:build"]
 test/cuda:10.1:
   extends: .test_template
+  needs: ["cuda:10.1:build"]
 test/rocm-python3:latest:
   extends: .test_template
+  needs: ["rocm-python3:latest:build"]
   variables:
     make_check: "false"
     myconfig: "maxset"
@@ -130,64 +140,85 @@ test/intel-python3:18:
   extends:
     - .test_template
     - .manual_template
+  needs: ["intel-python3:18:build"]
   tags:
     - docker
     - linux
     - icp
 test/ubuntu-python3:18.04:
   extends: .test_template
+  needs: ["ubuntu-python3:18.04:build"]
 test/ubuntu-python3:wo-dependencies:
   extends: .test_template
+  needs: ["ubuntu-python3:wo-dependencies:build"]
 test/ubuntu-python3:min_boost:
   extends: .test_template
+  needs: ["ubuntu-python3:min_boost:build"]
 test/ubuntu-python3:cuda-10.1:
   extends: .test_template
+  needs: ["ubuntu-python3:cuda-10.1:build"]
 test/ubuntu:arm64:
   extends:
     - .test_template
     - .manual_template
+  needs: ["ubuntu:arm64:build"]
 test/ubuntu:armhf:
   extends:
     - .test_template
     - .manual_template
+  needs: ["ubuntu:armhf:build"]
 test/ubuntu:i386:
   extends:
     - .test_template
     - .manual_template
+  needs: ["ubuntu:i386:build"]
 test/ubuntu:ppc64le:
   extends:
     - .test_template
     - .manual_template
+  needs: ["ubuntu:ppc64le:build"]
 test/ubuntu:s390x:
   extends:
     - .test_template
     - .manual_template
+  needs: ["ubuntu:s390x:build"]
 
 
 centos-python3:7:
   extends: .deploy_template
+  needs: ["test/centos-python3:7"]
 centos-python3:next:
   extends: .deploy_template
+  needs: ["test/centos-python3:next"]
 debian-python3:9:
   extends: .deploy_template
+  needs: ["test/debian-python3:9"]
 debian-python3:10:
   extends: .deploy_template
+  needs: ["test/debian-python3:10"]
 opensuse:15.1:
   extends: .deploy_template
+  needs: ["test/opensuse:15.1"]
 clang-python3:6.0:
   extends: .deploy_template
+  needs: ["test/clang-python3:6.0"]
 cuda:tutorials:
   extends: .deploy_template
+  needs: ["test/cuda:tutorials"]
 cuda:9.0:
   extends: .deploy_template
+  needs: ["test/cuda:9.0"]
 cuda:10.1:
   extends: .deploy_template
+  needs: ["test/cuda:10.1"]
 rocm-python3:latest:
   extends: .deploy_template
+  needs: ["test/rocm-python3:latest"]
 intel-python3:18:
   extends:
     - .deploy_template
     - .manual_template
+  needs: ["test/intel-python3:18"]
   tags:
     - docker
     - linux
@@ -195,32 +226,41 @@ intel-python3:18:
     - icp
 ubuntu-python3:18.04:
   extends: .deploy_template
+  needs: ["test/ubuntu-python3:18.04"]
 ubuntu-python3:wo-dependencies:
   extends: .deploy_template
+  needs: ["test/ubuntu-python3:wo-dependencies"]
 ubuntu-python3:min_boost:
   extends: .deploy_template
+  needs: ["test/ubuntu-python3:min_boost"]
 ubuntu-python3:cuda-10.1:
   extends: .deploy_template
+  needs: ["test/ubuntu-python3:cuda-10.1"]
 ubuntu:arm64:
   extends:
     - .deploy_template
     - .manual_template
+  needs: ["test/ubuntu:arm64"]
 ubuntu:armhf:
   extends:
     - .deploy_template
     - .manual_template
+  needs: ["test/ubuntu:armhf"]
 ubuntu:i386:
   extends:
     - .deploy_template
     - .manual_template
+  needs: ["test/ubuntu:i386"]
 ubuntu:ppc64le:
   extends:
     - .deploy_template
     - .manual_template
+  needs: ["test/ubuntu:ppc64le"]
 ubuntu:s390x:
   extends:
     - .deploy_template
     - .manual_template
+  needs: ["test/ubuntu:s390x"]
 
 status_success:
   stage: status
