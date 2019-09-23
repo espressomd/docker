@@ -16,6 +16,7 @@ stages:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
   script:
     - sh maintainer/docker_build.sh
+  timeout: 30m
   tags:
     - docker
     - linux
@@ -38,6 +39,7 @@ stages:
   variables:
     make_check: "false"
     myconfig: "maxset"
+  timeout: 30m
   tags:
     - docker
     - linux
@@ -66,6 +68,7 @@ intel-python3:18:build:
   extends:
     - .build_template
     - .manual_template
+  timeout: 3h
   tags:
     - docker
     - linux
@@ -83,10 +86,12 @@ ubuntu:arm64:build:
   extends:
     - .build_template
     - .manual_template
+  timeout: 1h
 ubuntu:armhf:build:
   extends:
     - .build_template
     - .manual_template
+  timeout: 1h
 ubuntu:i386:build:
   extends:
     - .build_template
@@ -95,10 +100,12 @@ ubuntu:ppc64le:build:
   extends:
     - .build_template
     - .manual_template
+  timeout: 1h
 ubuntu:s390x:build:
   extends:
     - .build_template
     - .manual_template
+  timeout: 1h
 
 
 test/centos-python3:7:
@@ -162,11 +169,13 @@ test/ubuntu:arm64:
     - .test_template
     - .manual_template
   needs: ["ubuntu:arm64:build"]
+  timeout: 2h
 test/ubuntu:armhf:
   extends:
     - .test_template
     - .manual_template
   needs: ["ubuntu:armhf:build"]
+  timeout: 2h
 test/ubuntu:i386:
   extends:
     - .test_template
@@ -177,11 +186,13 @@ test/ubuntu:ppc64le:
     - .test_template
     - .manual_template
   needs: ["ubuntu:ppc64le:build"]
+  timeout: 2h
 test/ubuntu:s390x:
   extends:
     - .test_template
     - .manual_template
   needs: ["ubuntu:s390x:build"]
+  timeout: 2h
 
 
 centos-python3:7:
