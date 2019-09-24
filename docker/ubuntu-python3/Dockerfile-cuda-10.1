@@ -55,10 +55,4 @@ RUN tlmgr init-usertree \
 && tlmgr install lm stmaryrd 2>&1 || : \
 && updmap -user
 
-# download waLBerla
-RUN cd /home/espresso \
-&& git clone https://gitlab.icp.uni-stuttgart.de/espressomd/walberla_for_es.git walberla \
-&& cd walberla \
-&& cmake .
-
 WORKDIR /home/espresso
