@@ -128,7 +128,6 @@ test/intel-python3:18:
   extends:
     - .test_template
     - .manual_template
-  needs: ["intel-python3:18:build"]
   tags:
     - docker
     - linux
@@ -152,30 +151,25 @@ test/ubuntu:arm64:
   extends:
     - .test_template
     - .manual_template
-  needs: ["ubuntu:arm64:build"]
   timeout: 2h
 test/ubuntu:armhf:
   extends:
     - .test_template
     - .manual_template
-  needs: ["ubuntu:armhf:build"]
   timeout: 2h
 test/ubuntu:i386:
   extends:
     - .test_template
     - .manual_template
-  needs: ["ubuntu:i386:build"]
 test/ubuntu:ppc64le:
   extends:
     - .test_template
     - .manual_template
-  needs: ["ubuntu:ppc64le:build"]
   timeout: 2h
 test/ubuntu:s390x:
   extends:
     - .test_template
     - .manual_template
-  needs: ["ubuntu:s390x:build"]
   timeout: 2h
 
 
@@ -201,7 +195,6 @@ intel-python3:18:
   extends:
     - .deploy_template
     - .manual_template
-  needs: ["test/intel-python3:18"]
   tags:
     - docker
     - linux
@@ -226,27 +219,22 @@ ubuntu:arm64:
   extends:
     - .deploy_template
     - .manual_template
-  needs: ["test/ubuntu:arm64"]
 ubuntu:armhf:
   extends:
     - .deploy_template
     - .manual_template
-  needs: ["test/ubuntu:armhf"]
 ubuntu:i386:
   extends:
     - .deploy_template
     - .manual_template
-  needs: ["test/ubuntu:i386"]
 ubuntu:ppc64le:
   extends:
     - .deploy_template
     - .manual_template
-  needs: ["test/ubuntu:ppc64le"]
 ubuntu:s390x:
   extends:
     - .deploy_template
     - .manual_template
-  needs: ["test/ubuntu:s390x"]
 
 cleanup:
   stage: cleanup
