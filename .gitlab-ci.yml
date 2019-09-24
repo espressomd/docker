@@ -79,6 +79,7 @@ ubuntu-python3:cuda-9.0:build:
   extends: .build_template
 ubuntu-python3:cuda-10.1:build:
   extends: .build_template
+  timeout: 2h
 ubuntu:arm64:build:
   extends:
     - .build_template
@@ -215,6 +216,7 @@ ubuntu-python3:cuda-9.0:
 ubuntu-python3:cuda-10.1:
   extends: .deploy_template
   needs: ["test/ubuntu-python3:cuda-10.1"]
+  timeout: 2h
 ubuntu:arm64:
   extends:
     - .deploy_template
