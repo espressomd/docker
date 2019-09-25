@@ -2,6 +2,7 @@ stages:
   - build
   - test
   - deploy
+  - cleanup
   - status
 
 .manual_template:
@@ -16,6 +17,8 @@ stages:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
   script:
     - sh maintainer/docker_build.sh
+  timeout: 1h
+  interruptible: true
   tags:
     - docker
     - linux
@@ -26,6 +29,7 @@ stages:
   stage: deploy
   only:
     - master
+    - /[0-9]\..*/
 
 .test_template:
   stage: test
@@ -37,78 +41,45 @@ stages:
   variables:
     make_check: "false"
     myconfig: "maxset"
+  timeout: 30m
+  interruptible: true
   tags:
     - docker
     - linux
 
-.test_template_v40:
-  extends: .test_template
-  script:
-    - git clone -b 4.0 --depth=1 --recursive https://github.com/espressomd/espresso
-    - cd espresso
-    - maintainer/CI/build_cmake.sh
-
-.test_py3_template:
-  extends: .test_template
-  variables:
-    python_version: "3"
-
-centos:7:build:
-  extends: .build_template
 centos-python3:7:build:
-  extends: .build_template
-centos:next:build:
   extends: .build_template
 centos-python3:next:build:
   extends: .build_template
-debian:9:build:
-  extends: .build_template
-opensuse:42.3:build:
-  extends: .build_template
-opensuse:15.0:build:
+debian-python3:10:build:
   extends: .build_template
 opensuse:15.1:build:
   extends: .build_template
-ubuntu:16.04:build:
+clang-python3:6.0:build:
   extends: .build_template
-ubuntu:18.04:build:
+rocm-python3:latest:build:
   extends: .build_template
-ubuntu:wo-dependencies:build:
+intel-python3:18:build:
+  extends:
+    - .build_template
+    - .manual_template
+  timeout: 3h
+  tags:
+    - docker
+    - linux
+    - nofirewall
+    - icp
+ubuntu-python3:18.04:build:
   extends: .build_template
 ubuntu-python3:wo-dependencies:build:
   extends: .build_template
-clang:6.0:build:
-  extends: .build_template
-cuda:tutorials:build:
-  extends: .build_template
-cuda:9.0:build:
-  extends: .build_template
-rocm:latest:build:
-  extends: .build_template
-intel:15:build:
-  extends:
-    - .build_template
-    - .manual_template
-  tags:
-    - docker
-    - linux
-    - nofirewall
-    - icp
-intel:18:build:
-  extends:
-    - .build_template
-    - .manual_template
-  tags:
-    - docker
-    - linux
-    - nofirewall
-    - icp
-ubuntu-python3:16.04:build:
-  extends: .build_template
-ubuntu-python3:18.04:build:
-  extends: .build_template
 ubuntu-python3:min_boost:build:
   extends: .build_template
+ubuntu-python3:cuda-9.0:build:
+  extends: .build_template
+ubuntu-python3:cuda-10.1:build:
+  extends: .build_template
+  timeout: 2h
 ubuntu:arm64:build:
   extends:
     - .build_template
@@ -120,6 +91,7 @@ ubuntu:armhf:build:
 ubuntu:i386:build:
   extends:
     - .build_template
+    - .manual_template
 ubuntu:ppc64le:build:
   extends:
     - .build_template
@@ -129,48 +101,31 @@ ubuntu:s390x:build:
     - .build_template
     - .manual_template
 
-test/centos:7:
-  extends: .test_template_v40
+
 test/centos-python3:7:
-  extends: .test_py3_template
-test/centos:next:
-  extends: .test_template_v40
+  extends: .test_template
+  needs: ["centos-python3:7:build"]
 test/centos-python3:next:
-  extends: .test_py3_template
-test/debian:9:
   extends: .test_template
-test/opensuse:42.3:
-  extends: .test_template_v40
-test/opensuse:15.0:
-  extends: .test_template_v40
+  needs: ["centos-python3:next:build"]
+test/debian-python3:10:
+  extends: .test_template
+  needs: ["debian-python3:10:build"]
 test/opensuse:15.1:
-  extends: .test_py3_template
-test/ubuntu:16.04:
   extends: .test_template
-test/ubuntu:18.04:
+  needs: ["opensuse:15.1:build"]
+test/clang-python3:6.0:
   extends: .test_template
-test/clang:6.0:
+  needs: ["clang-python3:6.0:build"]
+test/rocm-python3:latest:
   extends: .test_template
-test/cuda:tutorials:
-  extends: .test_py3_template
-test/cuda:9.0:
-  extends: .test_py3_template
-test/rocm:latest:
-  extends: .test_template
+  needs: ["rocm-python3:latest:build"]
   variables:
     make_check: "false"
     myconfig: "maxset"
     HIP_PLATFORM: "hcc"
     HCC_AMDGPU_TARGET: "gfx900"
-test/intel:15:
-  extends:
-    - .test_template_v40
-    - .manual_template
-  tags:
-    - docker
-    - linux
-    - icp
-test/intel:18:
+test/intel-python3:18:
   extends:
     - .test_template
     - .manual_template
@@ -178,68 +133,66 @@ test/intel:18:
     - docker
     - linux
     - icp
-test/ubuntu-python3:16.04:
-  extends: .test_py3_template
 test/ubuntu-python3:18.04:
-  extends: .test_py3_template
+  extends: .test_template
+  needs: ["ubuntu-python3:18.04:build"]
+test/ubuntu-python3:wo-dependencies:
+  extends: .test_template
+  needs: ["ubuntu-python3:wo-dependencies:build"]
 test/ubuntu-python3:min_boost:
-  extends: .test_py3_template
+  extends: .test_template
+  needs: ["ubuntu-python3:min_boost:build"]
+test/ubuntu-python3:cuda-9.0:
+  extends: .test_template
+  needs: ["ubuntu-python3:cuda-9.0:build"]
+test/ubuntu-python3:cuda-10.1:
+  extends: .test_template
+  needs: ["ubuntu-python3:cuda-10.1:build"]
 test/ubuntu:arm64:
   extends:
-    - .test_py3_template
+    - .test_template
     - .manual_template
+  timeout: 2h
 test/ubuntu:armhf:
   extends:
-    - .test_py3_template
+    - .test_template
     - .manual_template
+  timeout: 2h
 test/ubuntu:i386:
   extends:
-    - .test_py3_template
+    - .test_template
+    - .manual_template
 test/ubuntu:ppc64le:
   extends:
-    - .test_py3_template
+    - .test_template
     - .manual_template
+  timeout: 2h
 test/ubuntu:s390x:
   extends:
-    - .test_py3_template
+    - .test_template
     - .manual_template
-test/ubuntu:wo-dependencies:
-  extends: .test_template_v40
-test/ubuntu-python3:wo-dependencies:
-  extends: .test_py3_template
+  timeout: 2h
 
 
-centos:7:
-  extends: .deploy_template
 centos-python3:7:
   extends: .deploy_template
-centos:next:
-  extends: .deploy_template
+  needs: ["test/centos-python3:7"]
 centos-python3:next:
   extends: .deploy_template
-debian:9:
+  needs: ["test/centos-python3:next"]
+debian-python3:10:
   extends: .deploy_template
-opensuse:42.3:
-  extends: .deploy_template
-opensuse:15.0:
-  extends: .deploy_template
+  needs: ["test/debian-python3:10"]
 opensuse:15.1:
   extends: .deploy_template
-ubuntu:16.04:
+  needs: ["test/opensuse:15.1"]
+clang-python3:6.0:
   extends: .deploy_template
-ubuntu:18.04:
+  needs: ["test/clang-python3:6.0"]
+rocm-python3:latest:
   extends: .deploy_template
-ubuntu:wo-dependencies:
-  extends: .deploy_template
-clang:6.0:
-  extends: .deploy_template
-cuda:tutorials:
-  extends: .deploy_template
-cuda:9.0:
-  extends: .deploy_template
-rocm:latest:
-  extends: .deploy_template
-intel:15:
+  needs: ["test/rocm-python3:latest"]
+intel-python3:18:
   extends:
     - .deploy_template
     - .manual_template
@@ -248,21 +201,22 @@ intel:15:
     - linux
     - nofirewall
     - icp
-intel:18:
-  extends:
-    - .deploy_template
-    - .manual_template
-  tags:
-    - docker
-    - linux
-    - nofirewall
-    - icp
-ubuntu-python3:16.04:
-  extends: .deploy_template
 ubuntu-python3:18.04:
   extends: .deploy_template
+  needs: ["test/ubuntu-python3:18.04"]
+ubuntu-python3:wo-dependencies:
+  extends: .deploy_template
+  needs: ["test/ubuntu-python3:wo-dependencies"]
 ubuntu-python3:min_boost:
   extends: .deploy_template
+  needs: ["test/ubuntu-python3:min_boost"]
+ubuntu-python3:cuda-9.0:
+  extends: .deploy_template
+  needs: ["test/ubuntu-python3:cuda-9.0"]
+ubuntu-python3:cuda-10.1:
+  extends: .deploy_template
+  needs: ["test/ubuntu-python3:cuda-10.1"]
+  timeout: 2h
 ubuntu:arm64:
   extends:
     - .deploy_template
@@ -274,6 +228,7 @@ ubuntu:armhf:
 ubuntu:i386:
   extends:
     - .deploy_template
+    - .manual_template
 ubuntu:ppc64le:
   extends:
     - .deploy_template
@@ -283,18 +238,31 @@ ubuntu:s390x:
     - .deploy_template
     - .manual_template
 
+cleanup:
+  stage: cleanup
+  image: $CI_REGISTRY/espressomd/docker/ubuntu-python3:18.04
+  script: bash maintainer/docker_clean.sh
+  only:
+    - schedules
+  timeout: 15m
+  tags:
+    - linux
+
 status_success:
   stage: status
-  image: $CI_REGISTRY/espressomd/docker/ubuntu:18.04
+  image: $CI_REGISTRY/espressomd/docker/ubuntu-python3:18.04
   script: bash maintainer/gh_post_status.sh success
   when: on_success
+  timeout: 15m
   tags:
     - linux
 
 status_failure:
   stage: status
-  image: $CI_REGISTRY/espressomd/docker/ubuntu:18.04
+  image: $CI_REGISTRY/espressomd/docker/ubuntu-python3:18.04
   script: bash maintainer/gh_post_status.sh failure
   when: on_failure
+  timeout: 15m
   tags:
     - linux
+

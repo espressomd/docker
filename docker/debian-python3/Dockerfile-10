@@ -1,5 +1,4 @@
-FROM debian:stretch
-MAINTAINER Florian Weik <fweik@icp.uni-stuttgart.de>
+FROM debian:buster
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
     apt-utils \
@@ -9,12 +8,12 @@ RUN apt-get update && apt-get install -y \
     openmpi-bin \
     libfftw3-dev \
     libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev \
-    python python-numpy python-vtk6 python-h5py python-enum34 cython \
+    cython3 python3 python3-numpy python3-h5py python3-vtk7 \
     lcov \
     git \
-    pep8 pylint \
-    python-pip \
-    libpython-dev \
+    pycodestyle pylint3 \
+    python3-pip \
+    libpython3-dev \
     libhdf5-openmpi-dev \
     vim \
     ccache \
@@ -24,4 +23,3 @@ RUN apt-get update && apt-get install -y \
 RUN useradd -m espresso
 USER 1000
 WORKDIR /home/espresso
-

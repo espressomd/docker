@@ -1,5 +1,4 @@
-FROM nvidia/cuda:10.0-devel-ubuntu16.04
-MAINTAINER Florian Weik <fweik@icp.uni-stuttgart.de>
+FROM nvidia/cuda:10.0-devel-ubuntu18.04
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
     apt-utils \
@@ -9,17 +8,15 @@ RUN apt-get update && apt-get install -y \
     lcov \
     libbz2-dev \
     libfftw3-dev \
-    cython python python-numpy python-enum \
+    cython3 python3 python3-numpy \
     git \
-    pep8 pylint\
-    python-vtk \
-    libpython-dev \
-    doxygen \
+    pycodestyle pylint3 \
+    python3-vtk7 \
+    libpython3-dev \
     vim \
     ccache \
 && apt-get clean \
-&& rm -rf /var/lib/apt/lists/* \
-&& rm /usr/lib/python2.7/dist-packages/vtk/vtkRenderingPython.so /usr/lib/python2.7/dist-packages/vtk/vtkVolumeRenderingPython.so /usr/lib/python2.7/dist-packages/vtk/vtkHybridPython.so /usr/lib/python2.7/dist-packages/vtk/vtkWidgetsPython.so /usr/lib/python2.7/dist-packages/vtk/vtkChartsPython.so /usr/lib/python2.7/dist-packages/vtk/vtkGeovisPython.so /usr/lib/python2.7/dist-packages/vtk/vtkInfovisPython.so /usr/lib/python2.7/dist-packages/vtk/vtkViewsPython.so /usr/lib/python2.7/dist-packages/vtk/vtkParallelPython.so
+&& rm -rf /var/lib/apt/lists/*
 
 # CMake
 RUN cd /usr/local \
@@ -50,7 +47,7 @@ RUN cd /tmp \
  && curl -sL https://dl.bintray.com/boostorg/release/1.66.0/source/boost_1_66_0.tar.bz2 | tar xj \
  && cd boost_1_66_0 \
  && echo 'using mpi : mpiicpc ;' > tools/build/src/user-config.jam \
- && ./bootstrap.sh --with-libraries=filesystem,mpi,serialization,test \
+ && ./bootstrap.sh \
  && ./b2 -j $(nproc) -d0 toolset=intel install --prefix=/opt/boost \
  && cd \
  && rm -r /tmp/boost

@@ -1,5 +1,4 @@
 FROM ubuntu:bionic
-MAINTAINER Florian Weik <fweik@icp.uni-stuttgart.de>
 ENV DEBIAN_FRONTEND noninteractive
 COPY build-and-install-scafacos.sh /tmp/
 RUN apt-get update && apt-get install -y \
@@ -30,7 +29,4 @@ RUN apt-get update && apt-get install -y \
 RUN bash /tmp/build-and-install-scafacos.sh
 RUN useradd -m espresso
 USER 1000
-run cd /home/espresso && \
-  git clone https://gitlab.icp.uni-stuttgart.de/espressomd/walberla_for_es.git walberla && \
-  cd walberla && cmake .
 WORKDIR /home/espresso
