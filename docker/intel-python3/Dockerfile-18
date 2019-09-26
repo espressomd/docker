@@ -48,7 +48,7 @@ RUN cd /tmp \
  && cd boost_1_66_0 \
  && echo 'using mpi : mpiicpc ;' > tools/build/src/user-config.jam \
  && ./bootstrap.sh \
- && ./b2 -j $(nproc) -d0 toolset=intel install --prefix=/opt/boost \
+ && ./b2 -j $(nproc) -d0 warnings=off toolset=intel install --prefix=/opt/boost \
  && cd \
  && rm -r /tmp/boost
 
