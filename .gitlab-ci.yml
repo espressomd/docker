@@ -27,6 +27,12 @@ stages:
 .deploy_template:
   extends: .build_template
   stage: deploy
+  timeout: 15m
+  script:
+  - echo "FROM $CI_REGISTRY/$CI_PROJECT_PATH/test/$CI_JOB_NAME-$CI_COMMIT_SHA" | /kaniko/executor --dockerfile /dev/stdin --destination $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME
+  tags:
+    - docker
+    - linux
   only:
     - master
     - /[0-9]\..*/
