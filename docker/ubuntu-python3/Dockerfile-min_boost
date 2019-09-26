@@ -33,7 +33,7 @@ RUN cd /tmp \
     && cd boost_1_55_0 \
     && ./bootstrap.sh \
     && echo "using mpi ;" >> project-config.jam \
-    && ./b2 -j $(nproc) install --prefix=/opt/boost \
+    && ./b2 -j $(nproc) -d0 warnings=off install --prefix=/opt/boost \
     && cd \
     && rm -r /tmp/boost
 
