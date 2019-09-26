@@ -17,7 +17,7 @@ stages:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
   script:
     - sh maintainer/docker_build.sh
-  timeout: 1h
+  timeout: 2h
   interruptible: true
   tags:
     - docker
@@ -79,7 +79,6 @@ ubuntu-python3:cuda-9.0:build:
   extends: .build_template
 ubuntu-python3:cuda-10.1:build:
   extends: .build_template
-  timeout: 2h
 ubuntu:arm64:build:
   extends:
     - .build_template
