@@ -2,7 +2,6 @@ stages:
   - build
   - test
   - deploy
-  - cleanup
   - status
 
 .manual_template:
@@ -242,16 +241,6 @@ ubuntu:s390x:
   extends:
     - .deploy_template
     - .manual_template
-
-cleanup:
-  stage: cleanup
-  image: $CI_REGISTRY/espressomd/docker/ubuntu-python3:18.04
-  script: bash maintainer/docker_clean.sh
-  only:
-    - schedules
-  timeout: 15m
-  tags:
-    - linux
 
 status_success:
   stage: status
