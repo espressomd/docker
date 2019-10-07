@@ -25,6 +25,13 @@ RUN apt-get update && apt-get install -y \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 
+# patch rocFFT as a workaround for https://github.com/espressomd/espresso/issues/3235
+RUN dpkg-query --show --showformat '${Version}' rocfft | grep -qv '0\.9\.7\.722' || ( \
+    git clone -b rocm-2.9 https://github.com/ROCmSoftwarePlatform/rocFFT.git && \
+    cd rocFFT && git diff 3b0813f~1..3b0813f library/src/plan.cpp | git apply && mkdir build && cd build && \
+    cmake .. -DCMAKE_INSTALL_PREFIX=/opt/rocm -DCMAKE_CXX_COMPILER=/opt/rocm/bin/hcc -DCMAKE_CXX_FLAGS=--amdgpu-target=gfx900 && make -j$(nproc) install && \
+    cd && rm -rf rocFFT )
+
 RUN useradd -m espresso
 USER 1000
 WORKDIR /home/espresso
