@@ -84,6 +84,7 @@ ubuntu-python3:cuda-9.0:build:
   extends: .build_template
 ubuntu-python3:cuda-10.1:build:
   extends: .build_template
+  timeout: 3h
 ubuntu:arm64:build:
   extends:
     - .build_template
