@@ -125,11 +125,21 @@ test/clang-python3:6.0:
 test/rocm-python3:latest:
   extends: .test_template
   needs: ["rocm-python3:latest:build"]
+  script:
+    - git clone --depth=1 --recursive https://github.com/espressomd/espresso
+    - cd espresso
+    - maintainer/CI/build_cmake.sh
+    - cd build
+    - ctest -L gpu -LE long -E '^(tutorial|sample)_' --output-on-failure
   variables:
     make_check: "false"
     myconfig: "maxset"
     HIP_PLATFORM: "hcc"
     HCC_AMDGPU_TARGET: "gfx900"
+  tags:
+    - docker
+    - linux
+    - amdgpu
 test/intel-python3:18:
   extends:
     - .test_template
