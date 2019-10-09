@@ -130,12 +130,12 @@ test/rocm-python3:latest:
     - cd espresso
     - maintainer/CI/build_cmake.sh
     - cd build
+    - make python_test_data
     - ctest -L gpu -LE long -E '^(tutorial|sample)_' --output-on-failure
   variables:
     make_check: "false"
     myconfig: "maxset"
-    HIP_PLATFORM: "hcc"
-    HCC_AMDGPU_TARGET: "gfx900"
+  timeout: 1h
   tags:
     - docker
     - linux
