@@ -84,6 +84,7 @@ ubuntu-python3:cuda-9.0:build:
   extends: .build_template
 ubuntu-python3:cuda-10.1:build:
   extends: .build_template
+  timeout: 3h
 ubuntu:arm64:build:
   extends:
     - .build_template
@@ -124,11 +125,21 @@ test/clang-python3:6.0:
 test/rocm-python3:latest:
   extends: .test_template
   needs: ["rocm-python3:latest:build"]
+  script:
+    - git clone --depth=1 --recursive https://github.com/espressomd/espresso
+    - cd espresso
+    - maintainer/CI/build_cmake.sh
+    - cd build
+    - make python_test_data
+    - ctest -L gpu -LE long -E '^(tutorial|sample)_' --output-on-failure
   variables:
     make_check: "false"
     myconfig: "maxset"
-    HIP_PLATFORM: "hcc"
-    HCC_AMDGPU_TARGET: "gfx900"
+  timeout: 1h
+  tags:
+    - docker
+    - linux
+    - amdgpu
 test/intel-python3:18:
   extends:
     - .test_template
