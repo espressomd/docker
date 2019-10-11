@@ -25,4 +25,4 @@ else
     dest=test/$job_name-$CI_COMMIT_SHA
 fi
 
-cmd "/kaniko/executor --context $PWD --dockerfile Dockerfile-$docker_tag* --destination $CI_REGISTRY/$CI_PROJECT_PATH/$dest"
+cmd "/kaniko/executor --context $PWD --dockerfile Dockerfile-$docker_tag* --destination $CI_REGISTRY/$CI_PROJECT_PATH/$dest --cache=true --cache-repo $CI_REGISTRY/$CI_PROJECT_PATH/cache"

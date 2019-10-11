@@ -8,3 +8,8 @@ for repo_id in $(curl -Ls --header "PRIVATE-TOKEN: $CI_JOB_TOKEN" https://$CI_SE
     curl -Ls --request DELETE --data 'name_regex=.+' --data 'older_than=7d' --header "PRIVATE-TOKEN: $CI_JOB_TOKEN" "https://$CI_SERVER_HOST/api/v4/projects/$CI_PROJECT_ID/registry/repositories/$repo_id/tags" | jq
 done
 
+# same for the cache repo
+repo_id=$(curl -Ls --header "PRIVATE-TOKEN: $CI_JOB_TOKEN" https://$CI_SERVER_HOST/api/v4/projects/$CI_PROJECT_ID/registry/repositories | jq -r '.[] | select(.name == "test/cuda") | [.id] | @tsv')
+# delete all tags older than 30 days
+curl -Ls --request DELETE --data 'name_regex=.+' --data 'older_than=30d' --header "PRIVATE-TOKEN: $CI_JOB_TOKEN" "https://$CI_SERVER_HOST/api/v4/projects/$CI_PROJECT_ID/registry/repositories/$repo_id/tags" | jq
+
