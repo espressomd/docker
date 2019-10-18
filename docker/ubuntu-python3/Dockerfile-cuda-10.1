@@ -30,7 +30,10 @@ RUN apt-get update && apt-get install -y \
 # install Python3 packages required for tutorials and documentation
 RUN python3 -m pip install --upgrade pip \
 && pip3 install --upgrade setuptools \
-&& pip3 install --upgrade six scipy matplotlib jupyter ipython nbconvert lxml 'sphinx!=2.1.0' sphinxcontrib-bibtex numpydoc
+&& pip3 install --upgrade \
+     six scipy matplotlib jupyter ipython nbconvert \
+     lxml 'sphinx!=2.1.0' sphinxcontrib-bibtex numpydoc \
+     MDAnalysis>=0.16 pint>=0.9
 
 # install ScaFaCoS
 COPY build-and-install-scafacos.sh /tmp/
