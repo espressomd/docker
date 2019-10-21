@@ -29,9 +29,6 @@ RUN apt-get update && apt-get install -y \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 
-# install standard Python3 packages
-RUN pip3 install --upgrade 'sphinx>=2.0,!=2.1.0'
-
 # install ScaFaCoS
 COPY build-and-install-scafacos.sh /tmp/
 RUN bash /tmp/build-and-install-scafacos.sh \
@@ -55,7 +52,7 @@ RUN tlmgr init-usertree \
 && tlmgr install lm stmaryrd 2>&1 || : \
 && updmap -user
 
-# install contributed Python3 packages
-RUN pip3 install --user --upgrade sphinxcontrib-bibtex 'MDAnalysis>=0.16' 'pint>=0.9'
+# install Python3 packages locally
+RUN pip3 install --user --upgrade 'sphinx>=2.0,!=2.1.0' sphinxcontrib-bibtex 'MDAnalysis==0.16' 'pint>=0.9'
 
 WORKDIR /home/espresso
