@@ -13,7 +13,6 @@ RUN apt-get update && apt-get install -y \
     libgsl-dev \
     cython3 python3 python3-numpy python3-h5py \
     git \
-    pep8 pylint3 \
 #   python3-vtk7 \ # not available in 16.04
     libpython-dev \
     libhdf5-openmpi-dev \

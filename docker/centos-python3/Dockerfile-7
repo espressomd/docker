@@ -11,8 +11,6 @@ RUN yum -y install epel-release && yum -y install \
   python36-devel \
   python36-pip \
   python36-Cython \
-  python36-pycodestyle \
-  python36-pylint \
   python36-numpy \
   hdf5-openmpi-devel \
   zlib-devel \
