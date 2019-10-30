@@ -39,9 +39,10 @@ RUN cd /usr/local \
 && rm -r /usr/local/man
 
 RUN cd /usr/src && \
-    git clone https://github.com/thrust/thrust.git && \
+    git clone --recursive --depth=1 https://github.com/thrust/thrust.git && \
     rm -r /usr/local/cuda/include/thrust && \
-    ln -s /usr/src/thrust/thrust /usr/local/cuda/include/thrust
+    ln -s /usr/src/thrust/thrust /usr/local/cuda/include/thrust && \
+    ln -s /usr/src/thrust/cub /usr/local/cuda/include/cub
 
 ENV CC=/usr/bin/clang-6.0 CXX=/usr/bin/clang++-6.0 NVCC=/usr/bin/clang++-6.0
 
