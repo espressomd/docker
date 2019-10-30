@@ -36,6 +36,7 @@ RUN cd /tmp \
  && rm -f /tmp/intelremotemonfifo.*
 
 ENV CC=/opt/intel/bin/icc CXX=/opt/intel/bin/icpc PATH="/opt/intel/bin:${PATH}" LD_LIBRARY_PATH="/opt/intel/lib/intel64:${LD_LIBRARY_PATH}"
+ENV LD_LIBRARY_PATH="/opt/intel/compilers_and_libraries_2018.5.274/linux/mpi/intel64/lib:${LD_LIBRARY_PATH}"
 ENV PATH="/opt/intel/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin:${PATH}" I_MPI_ROOT=/opt/intel/compilers_and_libraries_2018.5.274/linux/mpi
 RUN ln -s /opt/intel/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicxx /opt/intel/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpic++
 
