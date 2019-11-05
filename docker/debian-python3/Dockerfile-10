@@ -11,8 +11,6 @@ RUN apt-get update && apt-get install -y \
     cython3 python3 python3-numpy python3-h5py python3-vtk7 \
     lcov \
     git \
-    pycodestyle pylint3 \
-    python3-pip \
     libpython3-dev \
     libhdf5-openmpi-dev \
     vim \
