@@ -163,6 +163,12 @@ test/ubuntu-python3:cuda-9.0:
 test/ubuntu-python3:cuda-10.1:
   extends: .test_template
   needs: ["ubuntu-python3:cuda-10.1:build"]
+  script:
+    - git clone --depth=1 --recursive https://github.com/espressomd/espresso
+    - cd espresso
+    - maintainer/CI/build_cmake.sh
+    - cd build
+    - make sphinx
 test/ubuntu:arm64:
   extends:
     - .test_template
