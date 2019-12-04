@@ -2,7 +2,6 @@ FROM nvidia/cuda:9.0-devel-ubuntu16.04
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
     apt-utils \
-    cmake \
     build-essential \
     curl \
     lcov \
@@ -11,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     libfftw3-dev \
     libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev \
     libgsl-dev \
-    cython3 python3 python3-numpy python3-h5py \
+    python3 python3-numpy python3-h5py python3-pip \
     git \
 #   python3-vtk7 \ # not available in 16.04
     python3-lxml \
@@ -28,5 +27,9 @@ RUN apt-get update && apt-get install -y \
 && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m espresso && usermod -a -G www-data espresso
-USER 1000
+USER espresso
+ENV HOME="/home/espresso"
+# install Python3 packages locally
+RUN pip3 install --user cython==0.26 cmake==3.10.3
+ENV PATH="${PATH}:${HOME}/.local/bin"
 WORKDIR /home/espresso
