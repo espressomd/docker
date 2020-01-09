@@ -53,6 +53,14 @@ stages:
     - docker
     - linux
 
+.test_template_v41:
+  extends: .test_template
+  script:
+    - git clone -b 4.1 --depth=1 --recursive https://github.com/espressomd/espresso
+    - cd espresso
+    - export make_check_unit_tests=false make_check_python=false
+    - maintainer/CI/build_cmake.sh
+
 centos-python3:7:build:
   extends: .build_template
 centos-python3:next:build:
@@ -157,7 +165,7 @@ test/ubuntu-python3:wo-dependencies:
   extends: .test_template
   needs: ["ubuntu-python3:wo-dependencies:build"]
 test/ubuntu-python3:min_boost:
-  extends: .test_template
+  extends: .test_template_v41
   needs: ["ubuntu-python3:min_boost:build"]
 test/ubuntu-python3:cuda-9.0:
   extends: .test_template
