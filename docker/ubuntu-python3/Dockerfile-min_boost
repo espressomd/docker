@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     gfortran \
     libfftw3-dev \
     libgsl-dev \
-    cython3 python3 python3-numpy python3-h5py \
+    cython3 python3 python3-numpy python3-scipy python3-h5py \
     lcov \
     git \
     pycodestyle pylint3 \
