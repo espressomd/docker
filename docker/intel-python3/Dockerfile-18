@@ -24,6 +24,7 @@ RUN cd /usr/local \
 && rm -r /usr/local/man
 
 # Intel Compiler
+ENV INTEL_NO_CONNECTION_CHECK=1
 COPY intel.cfg /tmp/
 RUN cd /tmp \
  && mkdir intel \
