@@ -83,6 +83,16 @@ intel-python3:18:build:
     - linux
     - nofirewall
     - icp
+intel-python3:19:build:
+  extends:
+    - .build_template
+    - .manual_template
+  timeout: 4h
+  tags:
+    - docker
+    - linux
+    - nofirewall
+    - icp
 ubuntu-python3:18.04:build:
   extends: .build_template
 ubuntu-python3:wo-dependencies:build:
@@ -158,6 +168,14 @@ test/intel-python3:18:
     - docker
     - linux
     - icp
+test/intel-python3:19:
+  extends:
+    - .test_template
+    - .manual_template
+  tags:
+    - docker
+    - linux
+    - icp
 test/ubuntu-python3:18.04:
   extends: .test_template
   needs: ["ubuntu-python3:18.04:build"]
@@ -225,6 +243,15 @@ rocm-python3:latest:
   extends: .deploy_template
   needs: ["test/rocm-python3:latest"]
 intel-python3:18:
+  extends:
+    - .deploy_template
+    - .manual_template
+  tags:
+    - docker
+    - linux
+    - nofirewall
+    - icp
+intel-python3:19:
   extends:
     - .deploy_template
     - .manual_template
