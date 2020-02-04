@@ -24,16 +24,16 @@ RUN cd /usr/local \
 && rm -r /usr/local/man
 
 # Intel Compiler
-COPY intel.cfg /tmp/
+COPY intel-18.cfg /tmp/
 RUN cd /tmp \
  && mkdir intel \
  && cd intel \
  && curl -sL http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/13717/parallel_studio_xe_2018_update4_cluster_edition_online.tgz | tar --strip-components=1 -xz \
- && USER=root ./install.sh --silent /tmp/intel.cfg \
+ && USER=root ./install.sh --silent /tmp/intel-18.cfg \
  && cd \
  && /opt/intel/ism/uninstall.sh --silent \
  && rm -rf /tmp/intel /tmp/parallel_studio_xe_* \
- && rm -f /tmp/intelremotemonfifo.* /tmp/intel.cfg /tmp/intel.* /tmp/*.log
+ && rm -f /tmp/intelremotemonfifo.* /tmp/intel-18.cfg /tmp/intel.* /tmp/*.log
 
 ENV CC=/opt/intel/bin/icc CXX=/opt/intel/bin/icpc PATH="/opt/intel/bin:${PATH}" LD_LIBRARY_PATH="/opt/intel/lib/intel64:${LD_LIBRARY_PATH}"
 ENV I_MPI_ROOT=/opt/intel/compilers_and_libraries_2018.5.274/linux/mpi
