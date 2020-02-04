@@ -40,7 +40,6 @@ ENV I_MPI_ROOT=/opt/intel/compilers_and_libraries_2018.5.274/linux/mpi
 ENV LD_LIBRARY_PATH="${I_MPI_ROOT}/intel64/lib:${LD_LIBRARY_PATH}" PATH="${I_MPI_ROOT}/intel64/bin:${PATH}"
 RUN ln -s "${I_MPI_ROOT}/intel64/bin/mpicxx" "${I_MPI_ROOT}/intel64/bin/mpic++"
 
-
 # Boost
 RUN cd /tmp \
  && mkdir boost \
@@ -49,7 +48,7 @@ RUN cd /tmp \
  && cd boost_1_66_0 \
  && echo 'using mpi : mpiicpc ;' > tools/build/src/user-config.jam \
  && ./bootstrap.sh \
- && ./b2 -j $(nproc) -d0 warnings=off toolset=intel install --prefix=/opt/boost \
+ && ./b2 -j2 -d0 warnings=off toolset=intel install --prefix=/opt/boost \
  && cd \
  && rm -r /tmp/boost
 
