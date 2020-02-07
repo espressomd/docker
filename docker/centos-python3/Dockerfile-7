@@ -16,6 +16,8 @@ RUN yum -y install epel-release && yum -y install \
   python36-setuptools \
   hdf5-openmpi-devel \
   zlib-devel \
+  blas-devel \
+  lapack-devel \
   which \
   vim \
   ccache \

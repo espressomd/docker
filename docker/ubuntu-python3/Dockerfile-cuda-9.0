@@ -20,6 +20,8 @@ RUN apt-get update && apt-get install -y \
     libhdf5-openmpi-dev \
     libhdf5-openmpi-10:amd64 \
     libhdf5-10:amd64 \
+    libblas-dev \
+    liblapack-dev \
     doxygen \
     vim \
     ccache \
