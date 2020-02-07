@@ -1,0 +1,31 @@
+FROM ubuntu:bionic
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update && apt-get install -y \
+    apt-utils \
+    cmake \
+    ccache \
+    build-essential \
+    pkg-config \
+    openmpi-bin libopenmpi-dev \
+    libfftw3-dev \
+    libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev \
+    libgsl-dev \
+    cython3 \
+    python3 \
+    python3-numpy \
+    python3-scipy \
+    python3-h5py \
+    python3-vtk7 \
+    python3-setuptools \
+    libhdf5-openmpi-dev \
+    libhdf5-openmpi-100:amd64 \
+    libhdf5-100:amd64 \
+    libblas-dev \
+    liblapack-dev \
+    git \
+    vim \
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/*
+RUN useradd -m espresso
+USER 1000
+WORKDIR /home/espresso

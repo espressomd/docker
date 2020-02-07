@@ -99,6 +99,8 @@ ubuntu-python3:wo-dependencies:build:
   extends: .build_template
 ubuntu-python3:min_boost:build:
   extends: .build_template
+ubuntu-python3:travis:build:
+  extends: .build_template
 ubuntu-python3:cuda-9.0:build:
   extends: .build_template
 ubuntu-python3:cuda-10.1:build:
@@ -185,6 +187,9 @@ test/ubuntu-python3:wo-dependencies:
 test/ubuntu-python3:min_boost:
   extends: .test_template_v41
   needs: ["ubuntu-python3:min_boost:build"]
+test/ubuntu-python3:travis:
+  extends: .test_template
+  needs: ["ubuntu-python3:travis:build"]
 test/ubuntu-python3:cuda-9.0:
   extends: .test_template
   needs: ["ubuntu-python3:cuda-9.0:build"]
