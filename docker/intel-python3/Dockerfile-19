@@ -3,10 +3,15 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
     apt-utils \
     build-essential \
+    python3 \
+    cython3 \
     curl \
     cpio \
     libbz2-dev \
     libfftw3-dev \
+    libblas-dev \
+    liblapack-dev \
+    libpython3-dev \
     ccache \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
@@ -49,12 +54,10 @@ ENV BOOST_ROOT=/opt/boost LD_LIBRARY_PATH="/opt/boost/lib:${LD_LIBRARY_PATH}"
 RUN apt-get update && apt-get install -y \
     git \
     lcov \
-    cython3 python3 python3-numpy python3-scipy \
+    python3-numpy \
+    python3-scipy \
     python3-setuptools \
     python3-vtk7 \
-    libpython3-dev \
-    libblas-dev \
-    liblapack-dev \
     vim \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*

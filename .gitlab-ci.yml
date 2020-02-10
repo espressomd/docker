@@ -87,7 +87,7 @@ intel-python3:19:build:
   extends:
     - .build_template
     - .manual_template
-  timeout: 4h
+  timeout: 6h
   tags:
     - docker
     - linux
