@@ -164,7 +164,7 @@ test/rocm-python3:latest:
     - amdgpu
 test/intel-python3:18:
   extends:
-    - .test_template
+    - .test_template_v41
     - .manual_template
   tags:
     - docker
