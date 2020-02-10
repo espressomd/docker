@@ -84,9 +84,7 @@ intel-python3:18:build:
     - nofirewall
     - icp
 intel-python3:19:build:
-  extends:
-    - .build_template
-    - .manual_template
+  extends: .build_template
   timeout: 6h
   tags:
     - docker
@@ -171,13 +169,8 @@ test/intel-python3:18:
     - linux
     - icp
 test/intel-python3:19:
-  extends:
-    - .test_template
-    - .manual_template
-  tags:
-    - docker
-    - linux
-    - icp
+  extends: .test_template
+  needs: ["intel-python3:19:build"]
 test/ubuntu-python3:18.04:
   extends: .test_template
   needs: ["ubuntu-python3:18.04:build"]
@@ -257,14 +250,8 @@ intel-python3:18:
     - nofirewall
     - icp
 intel-python3:19:
-  extends:
-    - .deploy_template
-    - .manual_template
-  tags:
-    - docker
-    - linux
-    - nofirewall
-    - icp
+  extends: .deploy_template
+  needs: ["test/intel-python3:19"]
 ubuntu-python3:18.04:
   extends: .deploy_template
   needs: ["test/ubuntu-python3:18.04"]
