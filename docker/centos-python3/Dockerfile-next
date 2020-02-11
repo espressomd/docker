@@ -11,9 +11,12 @@ RUN yum -y install \
   python3-Cython \
   python3-numpy \
   python3-scipy \
+  python3-setuptools \
   python3-h5py \
   hdf5-openmpi-devel \
   zlib-devel \
+  blas-devel \
+  lapack-devel \
   which \
   vim \
   ccache \

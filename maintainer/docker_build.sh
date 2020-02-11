@@ -16,7 +16,9 @@ docker_src=${job_name%:*}
 docker_tag=${job_name#*:}
 test -f "docker/$docker_src/Dockerfile-$docker_tag" || docker_src="ubuntu-python3"
 cmd "cd docker/$docker_src"
-echo "ACTIVATION_LICENSE_FILE=$INTEL_LICENSE_SERVER" >> intel.cfg
+for intel_config_file in $(ls intel-*.cfg 2>/dev/null); do
+  echo "ACTIVATION_LICENSE_FILE=$INTEL_LICENSE_SERVER" >> $intel_config_file
+done
 test -f Dockerfile-$docker_tag || cmd "sh generate.sh $docker_tag"
 
 if [ "$CI_JOB_STAGE" = "deploy" ]; then

@@ -13,17 +13,22 @@ RUN yum -y install epel-release && yum -y install \
   python36-Cython \
   python36-numpy \
   python36-scipy \
+  python36-setuptools \
   hdf5-openmpi-devel \
   zlib-devel \
+  blas-devel \
+  lapack-devel \
   which \
   vim \
   ccache \
   && yum clean all \
-  && ln -s /usr/bin/cmake3 /usr/bin/cmake \
-  && pip3 install h5py
+  && ln -s /usr/bin/cmake3 /usr/bin/cmake
 ENV BOOST_INCLUDEDIR=/usr/include/boost169
 ENV BOOST_LIBRARYDIR=/usr/lib64/boost169
 RUN ln -s /usr/lib64/openmpi/lib/boost169/libboost_mpi.so  /usr/lib64/boost169/libboost_mpi.so
 RUN useradd -m espresso -u 1000
 USER 1000
+ENV HOME="/home/espresso"
+# install Python3 packages locally
+RUN pip3 install --user h5py
 WORKDIR /home/espresso

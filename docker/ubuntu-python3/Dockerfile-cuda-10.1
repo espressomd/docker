@@ -15,10 +15,11 @@ RUN apt-get update && apt-get install -y \
     python3-numpy python3-numpydoc python3-matplotlib python3-scipy \
     python3-h5py python3-vtk7 python3-lxml \
     ipython3 jupyter-notebook jupyter-nbconvert \
-    pycodestyle pylint3 \
     libhdf5-openmpi-dev \
     libhdf5-openmpi-100:amd64 \
     libhdf5-100:amd64 \
+    libblas-dev \
+    liblapack-dev \
     curl wget \
     lcov \
     git \

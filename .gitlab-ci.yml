@@ -10,7 +10,7 @@ stages:
 .build_template:
   stage: build
   image:
-    name: gcr.io/kaniko-project/executor:debug
+    name: gcr.io/kaniko-project/executor:debug-v0.15.0
     entrypoint: [""]
   before_script:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
@@ -83,11 +83,21 @@ intel-python3:18:build:
     - linux
     - nofirewall
     - icp
+intel-python3:19:build:
+  extends: .build_template
+  timeout: 6h
+  tags:
+    - docker
+    - linux
+    - nofirewall
+    - icp
 ubuntu-python3:18.04:build:
   extends: .build_template
 ubuntu-python3:wo-dependencies:build:
   extends: .build_template
 ubuntu-python3:min_boost:build:
+  extends: .build_template
+ubuntu-python3:travis:build:
   extends: .build_template
 ubuntu-python3:cuda-9.0:build:
   extends: .build_template
@@ -152,12 +162,15 @@ test/rocm-python3:latest:
     - amdgpu
 test/intel-python3:18:
   extends:
-    - .test_template
+    - .test_template_v41
     - .manual_template
   tags:
     - docker
     - linux
     - icp
+test/intel-python3:19:
+  extends: .test_template
+  needs: ["intel-python3:19:build"]
 test/ubuntu-python3:18.04:
   extends: .test_template
   needs: ["ubuntu-python3:18.04:build"]
@@ -167,6 +180,9 @@ test/ubuntu-python3:wo-dependencies:
 test/ubuntu-python3:min_boost:
   extends: .test_template_v41
   needs: ["ubuntu-python3:min_boost:build"]
+test/ubuntu-python3:travis:
+  extends: .test_template
+  needs: ["ubuntu-python3:travis:build"]
 test/ubuntu-python3:cuda-9.0:
   extends: .test_template
   needs: ["ubuntu-python3:cuda-9.0:build"]
@@ -233,6 +249,9 @@ intel-python3:18:
     - linux
     - nofirewall
     - icp
+intel-python3:19:
+  extends: .deploy_template
+  needs: ["test/intel-python3:19"]
 ubuntu-python3:18.04:
   extends: .deploy_template
   needs: ["test/ubuntu-python3:18.04"]
