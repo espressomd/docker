@@ -30,7 +30,8 @@ RUN cd /tmp \
  && USER=root ./install.sh --silent /tmp/intel-19.cfg \
  && cd \
  && rm -rf /tmp/intel /tmp/root/parallel_studio_xe_* \
- && rm -f /tmp/intelremotemonfifo.* /tmp/intel-19.cfg /tmp/intel.* /tmp/*.log
+ && rm -f /tmp/intelremotemonfifo.* /tmp/intel-19.cfg /tmp/intel.* /tmp/*.log \
+ && rm -r /opt/intel/compilers_and_libraries_*/linux/{daal,mkl,ipp,tbb} /opt/intel/{intelpython*,debugger*,documentation*,advisor*,inspector*,clck*,itac*,conda_channel}
 
 ENV CC=/opt/intel/bin/icc CXX=/opt/intel/bin/icpc PATH="/opt/intel/bin:${PATH}" LD_LIBRARY_PATH="/opt/intel/lib/intel64:${LD_LIBRARY_PATH}"
 ENV I_MPI_ROOT=/opt/intel/compilers_and_libraries_2019.5.281/linux/mpi
@@ -62,6 +63,7 @@ RUN apt-get update && apt-get install -y \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 
-RUN useradd -m espresso && usermod -a -G www-data espresso
+RUN useradd -m espresso && usermod -a -G www-data espresso \
+ && chmod 777 /tmp
 USER 1000
 WORKDIR /home/espresso
