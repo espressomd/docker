@@ -31,7 +31,12 @@ RUN cd /tmp \
  && cd \
  && rm -rf /tmp/intel /tmp/root/parallel_studio_xe_* \
  && rm -f /tmp/intelremotemonfifo.* /tmp/intel-19.cfg /tmp/intel.* /tmp/*.log \
- && rm -r /opt/intel/compilers_and_libraries_*/linux/{daal,mkl,ipp,tbb} /opt/intel/{intelpython*,debugger*,documentation*,advisor*,inspector*,clck*,itac*,conda_channel}
+ && cd /opt/intel/compilers_and_libraries_2019/linux \
+ && rm daal mkl ipp tbb \
+ && cd /opt/intel/compilers_and_libraries_2019.5.281/linux \
+ && rm -r daal mkl ipp tbb \
+ && cd /opt/intel/ \
+ && rm -r intelpython* debugger* documentation* advisor* inspector* clck* itac* conda_channel
 
 ENV CC=/opt/intel/bin/icc CXX=/opt/intel/bin/icpc PATH="/opt/intel/bin:${PATH}" LD_LIBRARY_PATH="/opt/intel/lib/intel64:${LD_LIBRARY_PATH}"
 ENV I_MPI_ROOT=/opt/intel/compilers_and_libraries_2019.5.281/linux/mpi
