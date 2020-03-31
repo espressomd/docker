@@ -1,0 +1,28 @@
+# action.yml
+name: 'docker'
+description: 'Build and deploy docker images'
+inputs:
+  image:
+    description: 'Name of the docker image'
+    required: true
+  repository:
+    description: 'Name of the github repository'
+    required: true
+  password:
+    description: 'Password/Token for the registry on github'
+    required: true
+  event_name:
+    description: 'Name of the event that triggered the workflow'
+    required: true
+  tag:
+    description: 'Tag for the image'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.image }}
+    - ${{ inputs.repository }}
+    - ${{ inputs.password }}
+    - ${{ inputs.event_name }}
+    - ${{ inputs.tag }}
