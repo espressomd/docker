@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -y \
     git \
     doxygen \
     vim \
-    graphviz jq ffmpeg \
+    graphviz jq ffmpeg texlive-base \
 && apt-get install -y --no-install-recommends software-properties-common \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
