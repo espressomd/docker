@@ -1,6 +1,6 @@
-FROM rocm/dev-ubuntu-18.04:3.0
+FROM rocm/dev-ubuntu-18.04:latest
 ENV DEBIAN_FRONTEND noninteractive
-RUN sed -i 's|repo.radeon.com/rocm/apt/debian/|repo.radeon.com/rocm/apt/3.0/|' /etc/apt/sources.list.d/rocm.list \
+#RUN sed -i 's|repo.radeon.com/rocm/apt/debian/|repo.radeon.com/rocm/apt/3.0/|' /etc/apt/sources.list.d/rocm.list \
 && apt-get update && apt-get install -y \
     apt-utils \
     cmake \
