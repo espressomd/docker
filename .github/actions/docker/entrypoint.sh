@@ -9,10 +9,10 @@ event_name=$4
 tag=$5
 
 echo "Log in to registry."
-echo $password | docker login -u ${username} --password-stdin docker.pkg.github.com
+echo $password | docker login -u ${username} --password-stdin docker.pkg.github.com || exit 1
 
 echo "Building image."
-docker build docker -t docker.pkg.github.com/${username}/${project}/${image}:${tag} -f docker/Dockerfile-${image}
+docker build docker -t docker.pkg.github.com/${username}/${project}/${image}:${tag} -f docker/Dockerfile-${image} || exit 1
 
 if [ "$event_name" != "pull_request" ]; then
     echo "Pushing to registry."
