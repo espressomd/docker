@@ -1,0 +1,30 @@
+apt-utils
+autoconf
+build-essential
+ccache
+cmake
+curl
+cython3
+openmpi-bin libopenmpi-dev
+gfortran
+gdb
+git
+jq
+lcov
+libblas-dev
+libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev
+libfftw3-dev
+libgsl-dev
+libhdf5-openmpi-dev
+liblapack-dev
+pkg-config
+python3
+python3-numpy
+python3-numpydoc
+python3-scipy
+python3-h5py
+python3-pip
+python3-requests 
+python3-setuptools
+python3-vtk7
+vim
