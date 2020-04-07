@@ -6,6 +6,7 @@ RUN yum -y install epel-release && yum -y install \
   openmpi-devel \
   fftw-devel \
   boost169-devel boost169-openmpi-devel \
+  gdb \
   git \
   python36 \
   python36-devel \
