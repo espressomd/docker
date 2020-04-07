@@ -99,8 +99,6 @@ intel-python3:19:build:
     - icp
 ubuntu-python3:18.04:build:
   extends: .build_template
-ubuntu-python3:20.04:build:
-  extends: .build_template
 ubuntu-python3:wo-dependencies:build:
   extends: .build_template
 ubuntu-python3:min_boost:build:
@@ -191,9 +189,6 @@ test/intel-python3:19:
 test/ubuntu-python3:18.04:
   extends: .test_template
   needs: ["ubuntu-python3:18.04:build"]
-test/ubuntu-python3:20.04:
-  extends: .test_template
-  needs: ["ubuntu-python3:20.04:build"]
 test/ubuntu-python3:wo-dependencies:
   extends: .test_template
   needs: ["ubuntu-python3:wo-dependencies:build"]
@@ -285,9 +280,6 @@ intel-python3:19:
 ubuntu-python3:18.04:
   extends: .deploy_template
   needs: ["test/ubuntu-python3:18.04"]
-ubuntu-python3:20.04:
-  extends: .deploy_template
-  needs: ["test/ubuntu-python3:20.04"]
 ubuntu-python3:wo-dependencies:
   extends: .deploy_template
   needs: ["test/ubuntu-python3:wo-dependencies"]
