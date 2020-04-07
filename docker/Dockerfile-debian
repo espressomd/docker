@@ -2,22 +2,27 @@ FROM debian:buster
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
     apt-utils \
-    cmake \
     build-essential \
-    openmpi-bin \
-    libfftw3-dev \
-    libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev \
-    cython3 python3 python3-numpy python3-scipy python3-h5py python3-vtk7 \
-    python3-setuptools \
+    ccache \
+    cmake \
+    cython3 \
     gdb \
     git \
-    libpython3-dev \
-    libhdf5-openmpi-dev \
     libblas-dev \
+    libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev \
+    libfftw3-dev \
+    libhdf5-openmpi-dev \
     liblapack-dev \
+    libpython3-dev \
+    openmpi-bin \
+    python3 \
+    python3-numpy \
+    python3-scipy \
+    python3-h5py \
     python3-pip \
+    python3-setuptools \
+    python3-vtk7 \
     vim \
-    ccache \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 

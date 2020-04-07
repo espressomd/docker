@@ -1,27 +1,28 @@
 FROM centos/devtoolset-6-toolchain-centos7
 USER root
 RUN yum -y install epel-release && yum -y install \
-  make \
+  blas-devel \
+  boost169-devel \
+  boost169-openmpi-devel \
+  ccache \
   cmake3 \
-  openmpi-devel \
   fftw-devel \
-  boost169-devel boost169-openmpi-devel \
   gdb \
   git \
+  hdf5-openmpi-devel \
+  lapack-devel \
+  make \
+  openmpi-devel \
   python36 \
   python36-devel \
-  python36-pip \
   python36-Cython \
   python36-numpy \
   python36-scipy \
+  python36-pip \
   python36-setuptools \
-  hdf5-openmpi-devel \
-  zlib-devel \
-  blas-devel \
-  lapack-devel \
-  which \
   vim \
-  ccache \
+  which \
+  zlib-devel \
   && yum clean all \
   && ln -s /usr/bin/cmake3 /usr/bin/cmake
 ENV BOOST_INCLUDEDIR=/usr/include/boost169
