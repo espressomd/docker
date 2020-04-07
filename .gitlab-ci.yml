@@ -40,7 +40,7 @@ stages:
   stage: test
   image: $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME-$CI_COMMIT_SHA
   script:
-    - git clone --depth=1 --recursive https://github.com/espressomd/espresso
+    - git clone -b 4.1 --depth=1 --recursive https://github.com/espressomd/espresso
     - cd espresso
     - export make_check_unit_tests=false make_check_python=false
     - maintainer/CI/build_cmake.sh
@@ -52,14 +52,6 @@ stages:
   tags:
     - docker
     - linux
-
-.test_template_v41:
-  extends: .test_template
-  script:
-    - git clone -b 4.1 --depth=1 --recursive https://github.com/espressomd/espresso
-    - cd espresso
-    - export make_check_unit_tests=false make_check_python=false
-    - maintainer/CI/build_cmake.sh
 
 centos-python3:7:build:
   extends: .build_template
@@ -140,7 +132,7 @@ test/centos-python3:next:
   needs: ["centos-python3:next:build"]
 test/debian-python3:9:
   extends:
-    - .test_template_v41
+    - .test_template
     - .manual_template
 test/debian-python3:10:
   extends: .test_template
@@ -172,7 +164,7 @@ test/rocm-python3:latest:
     - amdgpu
 test/intel-python3:18:
   extends:
-    - .test_template_v41
+    - .test_template
     - .manual_template
   tags:
     - docker
@@ -193,7 +185,7 @@ test/ubuntu-python3:wo-dependencies:
   extends: .test_template
   needs: ["ubuntu-python3:wo-dependencies:build"]
 test/ubuntu-python3:min_boost:
-  extends: .test_template_v41
+  extends: .test_template
   needs: ["ubuntu-python3:min_boost:build"]
 test/ubuntu-python3:travis:
   extends: .test_template
