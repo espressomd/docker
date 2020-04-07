@@ -12,7 +12,7 @@ jobs:
         image: ['centos', 'clang', 'debian', 'fedora', 'opensuse', 'rocm',
                 'ubuntu-18.04', 'ubuntu-19.04', 'ubuntu-20.04',
                 'ubuntu-cuda-10.1', 'ubuntu-cuda-9.0',
-                'ubuntu-min_boost', 'ubuntu-travis', 'ubuntu-wo-dependencies']
+                'ubuntu-travis', 'ubuntu-wo-dependencies']
     steps:
     - uses: actions/checkout@master
     - name: Build and deploy
