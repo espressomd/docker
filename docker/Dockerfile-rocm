@@ -1,4 +1,5 @@
-FROM rocm/dev-ubuntu-18.04:3.3
+ARG BASE_VERSION=3.3
+FROM rocm/dev-ubuntu-18.04:${BASE_VERSION}
 ENV DEBIAN_FRONTEND noninteractive
 COPY ubuntu-packages.txt /tmp
 RUN apt-get update && xargs -a /tmp/ubuntu-packages.txt apt-get install -y \

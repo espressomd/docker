@@ -1,4 +1,5 @@
-FROM fedora:31
+ARG BASE_VERSION=31
+FROM fedora:${BASE_VERSION}
 RUN yum -y install \
   blas-devel \
   boost-devel \

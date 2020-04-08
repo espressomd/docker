@@ -23,6 +23,9 @@ inputs:
   dockerhub_password:
     description: 'Password for dockerhub registry.'
     required: false
+  build_args:
+    description: 'List of build arguments.'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -34,3 +37,4 @@ runs:
     - ${{ inputs.tag }}
     - ${{ inputs.dockerhub_user }}
     - ${{ inputs.dockerhub_password }}
+    - ${{ inputs.build_args }}
