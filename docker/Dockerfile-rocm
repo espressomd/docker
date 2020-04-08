@@ -1,7 +1,6 @@
-FROM rocm/dev-ubuntu-18.04:3.0
+FROM rocm/dev-ubuntu-18.04:3.3
 ENV DEBIAN_FRONTEND noninteractive
 COPY ubuntu-packages.txt /tmp
-RUN sed -i 's|repo.radeon.com/rocm/apt/debian/|repo.radeon.com/rocm/apt/3.0/|' /etc/apt/sources.list.d/rocm.list
 RUN apt-get update && xargs -a /tmp/ubuntu-packages.txt apt-get install -y \
     && apt-get install -y \
     rocrand rocfft rocthrust kmod \
