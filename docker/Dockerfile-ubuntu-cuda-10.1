@@ -14,7 +14,7 @@ RUN apt-get update && xargs -a /tmp/ubuntu-packages.txt apt-get install -y \
 
 # install ScaFaCoS
 RUN bash /tmp/build-and-install-scafacos.sh
-RUN useradd -m espresso && usermod -a -G www-data espresso
+RUN useradd -m espresso
 USER espresso
 
 # install Python3 packages locally

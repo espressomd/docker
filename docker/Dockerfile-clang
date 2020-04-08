@@ -45,7 +45,7 @@ ENV CC=/usr/bin/clang-6.0 CXX=/usr/bin/clang++-6.0 NVCC=/usr/bin/clang++-6.0
 COPY boost.patch /tmp/
 RUN cd /usr/include/boost && patch -p1 < /tmp/boost.patch
 
-RUN useradd -m espresso && usermod -a -G www-data espresso
+RUN useradd -m espresso
 USER espresso
 ENV HOME="/home/espresso"
 # install Python3 packages locally
