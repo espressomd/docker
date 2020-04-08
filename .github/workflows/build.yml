@@ -25,3 +25,21 @@ jobs:
         tag: ${{ github.sha }}
         dockerhub_user: ${{ secrets.DOCKERHUB_USERNAME }}
         dockerhub_password: ${{ secrets.DOCKERHUB_TOKEN }}
+  images-latest:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        image: ['fedora', 'rocm']
+    steps:
+    - uses: actions/checkout@master
+    - name: Build and deploy
+      uses: ./.github/actions/docker
+      with:
+        image: ${{ matrix.image }}
+        repository: ${{ github.repository }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        event_name: ${{ github.event_name }}
+        tag: "latest_base"
+        dockerhub_user: ${{ secrets.DOCKERHUB_USERNAME }}
+        dockerhub_password: ${{ secrets.DOCKERHUB_TOKEN }}
+        build_args: "BASE_VERSION=latest"
