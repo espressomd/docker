@@ -18,7 +18,7 @@ RUN useradd -m espresso
 USER espresso
 
 # install Python3 packages locally
-RUN pip3 install --user --upgrade 'sphinx>=2.0,!=2.1.0' sphinxcontrib-bibtex 'MDAnalysis==0.16' 'pint>=0.9'
+RUN pip3 install --user --upgrade 'sphinx>=2.0,!=2.1.0,!=3.0.0' sphinxcontrib-bibtex 'MDAnalysis==0.16' 'pint>=0.9'
 ENV PATH="/home/espresso/.local/bin:${PATH}"
 
 WORKDIR /home/espresso
