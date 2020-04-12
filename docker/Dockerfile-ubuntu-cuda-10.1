@@ -5,6 +5,7 @@ COPY ubuntu-packages.txt /tmp
 RUN apt-get update && xargs -a /tmp/ubuntu-packages.txt apt-get install -y \
     && apt-get install -y \
     doxygen \
+    ffmpeg \
     graphviz \
     ipython3 jupyter-notebook jupyter-nbconvert \
     python3-lxml python3-matplotlib \
