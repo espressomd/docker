@@ -11,7 +11,7 @@ jobs:
       matrix:
         image: ['centos', 'clang', 'debian', 'fedora', 'opensuse', 'rocm',
                 'ubuntu-18.04', 'ubuntu-20.04',
-                'ubuntu-cuda-10.1', 'ubuntu-cuda-9.0',
+                'ubuntu-cuda-9.0',
                 'ubuntu-wo-dependencies']
     steps:
     - uses: actions/checkout@master

@@ -1,15 +1,22 @@
 FROM ubuntu:focal
 ENV DEBIAN_FRONTEND noninteractive
-COPY build-and-install-scafacos.sh /tmp/
+COPY build-and-install-scafacos.sh /tmp
 COPY ubuntu-packages.txt /tmp
 RUN apt-get update && xargs -a /tmp/ubuntu-packages.txt apt-get install -y \
     && apt-get install -y \
     clang-9 clang-tidy-9 clang-format-9 \
+    doxygen \
+    ffmpeg \
     gcc-8 g++-8 \
     gcc-9 g++-9 \
+    graphviz \
+    ipython3 jupyter-notebook jupyter-nbconvert \
     libthrust-dev \
     nvidia-cuda-toolkit \
+    python3-lxml python3-matplotlib \
+    texlive-base \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
 RUN bash /tmp/build-and-install-scafacos.sh
 
 ENV NVIDIA_VISIBLE_DEVICES all
@@ -26,5 +33,9 @@ RUN pip3 install --user \
   astroid==2.1.0 \
   isort==4.3.4 \
   cmake-format==0.6.9 \
-  pre-commit
+  pre-commit \
+  'sphinx>=2.0,!=2.1.0,!=3.0.0' \
+  sphinxcontrib-bibtex \
+  'MDAnalysis>=0.18' \
+  'pint>=0.9'
 WORKDIR /home/espresso
