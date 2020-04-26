@@ -5,7 +5,6 @@ ccache
 cmake
 curl
 cython3
-openmpi-bin libopenmpi-dev
 gfortran
 gdb
 git
@@ -17,6 +16,8 @@ libfftw3-dev
 libgsl-dev
 libhdf5-openmpi-dev
 liblapack-dev
+libopenmpi-dev
+openmpi-bin
 openssh-client
 pkg-config
 python3

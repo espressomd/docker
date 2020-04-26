@@ -2,19 +2,24 @@ FROM ubuntu:bionic
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
     apt-utils \
-    cmake \
     build-essential \
-    openmpi-bin libopenmpi-dev \
-    libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev \
-    cython3 python3 python3-numpy python3-scipy python3-h5py \
-    python3-pip \
-    python3-setuptools \
+    curl \
+    ccache \
+    cmake \
+    cython3 \
     gdb \
     git \
+    libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev \
+    libopenmpi-dev \
+    openmpi-bin \
+    python3 \
+    python3-numpy \
+    python3-scipy \
+    python3-h5py \
+    python3-pip \
+    python3-setuptools \
     python3-vtk7 \
     vim \
-    ccache \
-    curl \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 
