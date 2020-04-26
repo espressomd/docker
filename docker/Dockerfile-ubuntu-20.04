@@ -2,8 +2,8 @@ FROM ubuntu:focal
 ENV DEBIAN_FRONTEND noninteractive
 COPY build-and-install-scafacos.sh /tmp
 COPY ubuntu-packages.txt /tmp
-RUN apt-get update && xargs -a /tmp/ubuntu-packages.txt apt-get install -y \
-    && apt-get install -y \
+RUN apt-get update && xargs -a /tmp/ubuntu-packages.txt apt-get install --no-install-recommends -y \
+    && apt-get install -y --no-install-recommends \
     clang-9 clang-tidy-9 clang-format-9 \
     doxygen \
     ffmpeg \
