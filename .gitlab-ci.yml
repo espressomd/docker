@@ -40,7 +40,7 @@ stages:
   stage: test
   image: $CI_REGISTRY/$CI_PROJECT_PATH/$CI_JOB_NAME-$CI_COMMIT_SHA
   script:
-    - git clone --depth=1 --recursive https://github.com/espressomd/espresso
+    - git clone -b 4.1 --depth=1 --recursive https://github.com/espressomd/espresso
     - cd espresso
     - export make_check_unit_tests=false make_check_python=false
     - maintainer/CI/build_cmake.sh
@@ -53,18 +53,14 @@ stages:
     - docker
     - linux
 
-.test_template_v41:
-  extends: .test_template
-  script:
-    - git clone -b 4.1 --depth=1 --recursive https://github.com/espressomd/espresso
-    - cd espresso
-    - export make_check_unit_tests=false make_check_python=false
-    - maintainer/CI/build_cmake.sh
-
 centos-python3:7:build:
   extends: .build_template
 centos-python3:next:build:
   extends: .build_template
+debian-python3:9:build:
+  extends:
+    - .build_template
+    - .manual_template
 debian-python3:10:build:
   extends: .build_template
 opensuse:15.1:build:
@@ -94,8 +90,6 @@ intel-python3:19:build:
     - nofirewall
     - icp
 ubuntu-python3:18.04:build:
-  extends: .build_template
-ubuntu-python3:20.04:build:
   extends: .build_template
 ubuntu-python3:wo-dependencies:build:
   extends: .build_template
@@ -136,6 +130,10 @@ test/centos-python3:7:
 test/centos-python3:next:
   extends: .test_template
   needs: ["centos-python3:next:build"]
+test/debian-python3:9:
+  extends:
+    - .test_template
+    - .manual_template
 test/debian-python3:10:
   extends: .test_template
   needs: ["debian-python3:10:build"]
@@ -166,7 +164,7 @@ test/rocm-python3:latest:
     - amdgpu
 test/intel-python3:18:
   extends:
-    - .test_template_v41
+    - .test_template
     - .manual_template
   tags:
     - docker
@@ -183,14 +181,11 @@ test/intel-python3:19:
 test/ubuntu-python3:18.04:
   extends: .test_template
   needs: ["ubuntu-python3:18.04:build"]
-test/ubuntu-python3:20.04:
-  extends: .test_template
-  needs: ["ubuntu-python3:20.04:build"]
 test/ubuntu-python3:wo-dependencies:
   extends: .test_template
   needs: ["ubuntu-python3:wo-dependencies:build"]
 test/ubuntu-python3:min_boost:
-  extends: .test_template_v41
+  extends: .test_template
   needs: ["ubuntu-python3:min_boost:build"]
 test/ubuntu-python3:travis:
   extends: .test_template
@@ -240,6 +235,10 @@ centos-python3:7:
 centos-python3:next:
   extends: .deploy_template
   needs: ["test/centos-python3:next"]
+debian-python3:9:
+  extends:
+    - .deploy_template
+    - .manual_template
 debian-python3:10:
   extends: .deploy_template
   needs: ["test/debian-python3:10"]
@@ -273,9 +272,6 @@ intel-python3:19:
 ubuntu-python3:18.04:
   extends: .deploy_template
   needs: ["test/ubuntu-python3:18.04"]
-ubuntu-python3:20.04:
-  extends: .deploy_template
-  needs: ["test/ubuntu-python3:20.04"]
 ubuntu-python3:wo-dependencies:
   extends: .deploy_template
   needs: ["test/ubuntu-python3:wo-dependencies"]
