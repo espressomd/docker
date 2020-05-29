@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND noninteractive
 COPY ubuntu-packages.txt /tmp
 RUN apt-get update && xargs -a /tmp/ubuntu-packages.txt apt-get install --no-install-recommends -y \
     && apt-get install --no-install-recommends -y \
-    rocrand rocfft rocthrust kmod \
+    rocrand rocfft rocthrust rocblas rocsolver kmod \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
