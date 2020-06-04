@@ -2,7 +2,10 @@ ARG BASE_VERSION=3.3
 FROM rocm/dev-ubuntu-18.04:${BASE_VERSION}
 ENV DEBIAN_FRONTEND noninteractive
 COPY ubuntu-packages.txt /tmp
-RUN apt-get update && xargs -a /tmp/ubuntu-packages.txt apt-get install --no-install-recommends -y \
+ARG BASE_VERSION
+RUN apt_folder=$([ "${BASE_VERSION}" = "latest" ] && echo "debian" || echo "${BASE_VERSION}") \
+    && sed -i "s|repo.radeon.com/rocm/apt/debian/|repo.radeon.com/rocm/apt/${apt_folder}/|" /etc/apt/sources.list.d/rocm.list \
+    && apt-get update && xargs -a /tmp/ubuntu-packages.txt apt-get install --no-install-recommends -y \
     && apt-get install --no-install-recommends -y \
     rocrand rocfft rocthrust rocblas rocsolver kmod \
     && apt-get clean \
