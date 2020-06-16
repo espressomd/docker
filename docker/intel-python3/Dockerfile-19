@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
 
 # CMake
 RUN cd /usr/local \
-&& curl -sL https://cmake.org/files/v3.11/cmake-3.11.0-Linux-x86_64.tar.gz | tar --strip-components=1 -xz \
+&& curl -sL https://cmake.org/files/v3.13/cmake-3.13.0-Linux-x86_64.tar.gz | tar --strip-components=1 -xz \
 && rm -r /usr/local/man
 
 # Intel Compiler
