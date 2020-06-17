@@ -1,4 +1,4 @@
-ARG BASE_VERSION=31
+ARG BASE_VERSION=32
 FROM fedora:${BASE_VERSION}
 RUN yum -y install \
   blas-devel \
