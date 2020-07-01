@@ -32,5 +32,5 @@ RUN useradd -m espresso -u 1000
 USER 1000
 ENV HOME="/home/espresso"
 # install Python3 packages locally
-RUN pip3 install --user h5py
+RUN pip3 install --user h5py 'numpy==1.14.0'
 WORKDIR /home/espresso
