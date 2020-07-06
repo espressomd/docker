@@ -12,5 +12,8 @@ RUN apt_folder=$([ "${BASE_VERSION}" = "latest" ] && echo "debian" || echo "${BA
     && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m espresso
-USER 1000
+USER espresso
+ENV HOME="/home/espresso"
+ENV PATH="${HOME}/.local/bin:${PATH}"
+RUN pip3 install --user 'cmake==3.11'
 WORKDIR /home/espresso
