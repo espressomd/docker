@@ -6,7 +6,14 @@ RUN apt-get update && xargs -a /tmp/ubuntu-packages.txt apt-get install --no-ins
     && apt-get install --no-install-recommends -y \
     libthrust-dev \
     nvidia-cuda-toolkit \
+    xz-utils \
+    libxml2-dev \
+    libsqlite3-dev \
+    libtinfo-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN cd /usr/ && curl -L https://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz | tar -Jx && mv clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04 llvm
+RUN git clone https://github.com/mull-project/mull.git --recursive --depth=1 && cd mull && mkdir build && cd build && CXX=/usr/llvm/bin/clang++ cmake -DPATH_TO_LLVM=/usr/llvm -DCMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=1 .. && make -j 4 mull-cxx && make mull-tests
 
 RUN bash /tmp/build-and-install-scafacos.sh
 
