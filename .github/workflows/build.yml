@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ['centos', 'debian', 'fedora', 'opensuse', 'rocm',
+        image: ['centos', 'debian', 'fedora', 'opensuse', 'rocm', 'cuda',
                 'ubuntu-18.04', 'ubuntu-20.04', 'ubuntu-wo-dependencies']
     steps:
     - uses: actions/checkout@master
