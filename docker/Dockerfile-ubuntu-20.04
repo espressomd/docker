@@ -3,7 +3,7 @@ ENV DEBIAN_FRONTEND noninteractive
 COPY build-and-install-scafacos.sh /tmp
 COPY ubuntu-packages.txt /tmp
 RUN apt-get update && xargs -a /tmp/ubuntu-packages.txt apt-get install --no-install-recommends -y \
-    && apt-get install -y --no-install-recommends \
+    && apt-get install --no-install-recommends -y \
     clang-9 clang-tidy-9 clang-format-9 llvm-9 \
     doxygen \
     ffmpeg \
@@ -13,7 +13,7 @@ RUN apt-get update && xargs -a /tmp/ubuntu-packages.txt apt-get install --no-ins
     ipython3 jupyter-notebook jupyter-nbconvert \
     libthrust-dev \
     nvidia-cuda-toolkit \
-    python3-lxml python3-matplotlib \
+    python3-matplotlib \
     texlive-base \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
