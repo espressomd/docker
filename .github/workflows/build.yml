@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ['centos', 'debian', 'fedora', 'opensuse', 'rocm', 'cuda',
+        image: ['centos', 'debian', 'fedora', 'opensuse', 'cuda',
                 'ubuntu-18.04', 'ubuntu-20.04', 'ubuntu-wo-dependencies']
     steps:
     - uses: actions/checkout@master
@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ['fedora', 'rocm']
+        image: ['fedora']
     steps:
     - uses: actions/checkout@master
     - name: Build and deploy
