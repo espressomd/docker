@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         image: ['debian', 'fedora', 'opensuse', 'cuda',
-                'ubuntu-18.04', 'ubuntu-20.04', 'ubuntu-wo-dependencies']
+                'ubuntu-20.04', 'ubuntu-wo-dependencies']
     steps:
     - uses: actions/checkout@master
     - name: Build and deploy
