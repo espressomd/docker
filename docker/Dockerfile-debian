@@ -4,7 +4,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-utils \
     build-essential \
     ccache \
-    cmake \
     cython3 \
     gdb \
     git \
@@ -27,5 +26,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m espresso
-USER 1000
+USER espresso
+ENV HOME="/home/espresso"
+ENV PATH="${PATH}:${HOME}/.local/bin"
+RUN pip3 install --user 'cmake==3.17'
 WORKDIR /home/espresso
