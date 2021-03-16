@@ -8,7 +8,7 @@ cd scafacos
 ./bootstrap
 ./configure --enable-shared --enable-portable-binary \
 	--with-internal-pfft --with-internal-pnfft \
-	--enable-fcs-solvers=direct,pnfft,p2nfft,p3m \
+	--enable-fcs-solvers=direct,pnfft,p2nfft,p3m,ewald \
 	--disable-fcs-fortran --enable-fcs-dipoles
 make -j `nproc`
 make install
