@@ -1,11 +1,12 @@
 ARG BASE_VERSION=32
 FROM fedora:${BASE_VERSION}
-RUN yum -y install \
+RUN dnf -y install \
   blas-devel \
   boost-devel \
   boost-mpich-devel \
   ccache \
   cmake \
+  environment-modules \
   fftw-devel \
   gcc \
   gcc-c++ \
@@ -26,7 +27,7 @@ RUN yum -y install \
   vim \
   which \
   zlib-devel \
-  && yum clean all
+  && dnf clean all
 RUN useradd -m espresso
 USER 1000
 WORKDIR /home/espresso
