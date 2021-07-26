@@ -14,4 +14,7 @@ ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 
 RUN useradd -m espresso
 USER espresso
+ENV HOME="/home/espresso"
+ENV PATH="${PATH:+$PATH:}${HOME}/.local/bin"
+RUN pip3 install --user scipy==1.6.0
 WORKDIR /home/espresso
