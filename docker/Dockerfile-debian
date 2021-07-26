@@ -1,9 +1,10 @@
-FROM debian:buster
+FROM debian:bullseye
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-utils \
     build-essential \
     ccache \
+    cmake \
     cython3 \
     gdb \
     git \
@@ -27,7 +28,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN useradd -m espresso
 USER espresso
-ENV HOME="/home/espresso"
-ENV PATH="${PATH}:${HOME}/.local/bin"
-RUN pip3 install --user 'cmake==3.17'
 WORKDIR /home/espresso
