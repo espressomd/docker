@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ['debian', 'fedora', 'opensuse', 'cuda',
+        image: ['debian', 'fedora', 'cuda',
                 'ubuntu-20.04', 'ubuntu-wo-dependencies']
     steps:
     - uses: actions/checkout@master
