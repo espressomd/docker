@@ -12,6 +12,7 @@ RUN apt-get update && xargs -a /tmp/ubuntu-packages.txt apt-get install --no-ins
     graphviz \
     ipython3 jupyter-notebook jupyter-nbconvert \
     libthrust-dev \
+    libnvidia-compute-460-server \
     nvidia-cuda-toolkit \
     python3-matplotlib \
     python3-pint \
