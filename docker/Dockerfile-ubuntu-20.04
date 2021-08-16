@@ -26,7 +26,7 @@ ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 RUN useradd -m espresso
 USER espresso
 ENV HOME="/home/espresso"
-ENV PATH="${PATH:+$PATH:}${HOME}/.local/bin"
+ENV PATH="${HOME}/.local/bin${PATH:+:$PATH}"
 RUN pip3 install --user \
   autopep8==1.5.0 \
   pycodestyle==2.5.0 \
