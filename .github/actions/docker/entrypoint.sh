@@ -9,20 +9,14 @@ event_name=$4
 tag=$5
 dockerhub_user=$6
 dockerhub_password=$7
-build_args=$8
 
 echo "Log in to registry."
 echo "${password}" | docker login -u "${username}" --password-stdin docker.pkg.github.com || exit 1
 
 full_tag="docker.pkg.github.com/${username}/${project}/${image}:${tag}"
 
-build_options=""
-for arg in ${build_args}; do
-    build_options="${build_options} --build-arg ${arg}"
-done
-
 echo "Building image with tag: ${full_tag}"
-docker build docker -t "${full_tag}" -f "docker/Dockerfile-${image}" ${build_options} || exit 1
+docker build docker -t "${full_tag}" -f "docker/Dockerfile-${image}" || exit 1
 
 if [ "${event_name}" != "pull_request" ]; then
     echo "Pushing to registry."
