@@ -9,8 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ['debian', 'fedora', 'cuda',
-                'ubuntu-20.04', 'ubuntu-wo-dependencies']
+        image: ['debian', 'fedora', 'cuda', 'ubuntu-20.04', 'ubuntu-wo-dependencies']
     steps:
     - uses: actions/checkout@master
     - name: Build and deploy
