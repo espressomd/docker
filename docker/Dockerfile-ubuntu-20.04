@@ -16,6 +16,7 @@ RUN apt-get update && xargs -a /tmp/ubuntu-packages.txt apt-get install --no-ins
     nvidia-cuda-toolkit \
     python3-matplotlib \
     python3-pint \
+    python3-tqdm \
     texlive-base \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -35,9 +36,10 @@ RUN pip3 install --user \
   astroid==2.3.3 \
   isort==4.3.4 \
   cmake-format==0.6.11 \
-  pre-commit \
-  'sphinx>=2.0,!=2.1.0,!=3.0.0' \
-  sphinxcontrib-bibtex \
+  'pre-commit>=2.2.0' \
+  'sphinx>=2.3.0,!=3.0.0' \
+  'sphinx-toggleprompt==0.0.5' \
+  'sphinxcontrib-bibtex>=0.3.5' \
   'scipy==1.7.*' \
   'MDAnalysis>=1.0.0'
 WORKDIR /home/espresso
