@@ -3,7 +3,7 @@
 set -e
 
 cd /tmp
-git clone --recursive git://github.com/scafacos/scafacos --branch dipoles
+git clone --recursive https://github.com/scafacos/scafacos.git --branch dipoles
 cd scafacos
 ./bootstrap
 ./configure --enable-shared --enable-portable-binary \
