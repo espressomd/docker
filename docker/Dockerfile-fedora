@@ -1,5 +1,4 @@
-ARG BASE_VERSION=32
-FROM fedora:${BASE_VERSION}
+FROM fedora:34
 RUN dnf -y install \
   blas-devel \
   boost-devel \
