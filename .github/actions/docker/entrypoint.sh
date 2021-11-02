@@ -23,7 +23,7 @@ if [ "${event_name}" != "pull_request" ]; then
     docker push "${full_tag}" || exit 1
     if [ "${dockerhub_user}" != "" ]; then
         echo "${dockerhub_password}" | docker login -u "${dockerhub_user}" --password-stdin || exit 1
-        docker tag "${full_tag} ${username}/${project}-${image}:${tag}"
+        docker tag "${full_tag}" "${username}/${project}-${image}:${tag}"
         docker push "${username}/${project}-${image}:${tag}" || exit 1
     fi  
 else
