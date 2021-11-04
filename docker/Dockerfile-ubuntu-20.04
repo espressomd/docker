@@ -36,10 +36,10 @@ RUN pip3 install --user \
   astroid==2.3.3 \
   isort==4.3.4 \
   cmake-format==0.6.11 \
-  'pre-commit>=2.2.0' \
-  'sphinx>=2.3.0,!=3.0.0' \
-  'sphinx-toggleprompt==0.0.5' \
-  'sphinxcontrib-bibtex>=0.3.5' \
-  'scipy==1.7.*' \
-  'MDAnalysis>=1.0.0'
+  pre-commit==2.15.0 \
+  sphinx==4.2.0 \
+  sphinx-toggleprompt==0.0.5 \
+  sphinxcontrib-bibtex==2.4.1 \
+  scipy==1.7.1 \
+  MDAnalysis==1.1.1
 WORKDIR /home/espresso
