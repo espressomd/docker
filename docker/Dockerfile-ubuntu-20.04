@@ -35,7 +35,7 @@ RUN pip3 install --user \
   pylint==2.4.4 \
   astroid==2.3.3 \
   isort==4.3.4 \
-  cmake-format==0.6.11 \
+  cmakelang==0.6.13 \
   pre-commit==2.15.0 \
   sphinx==4.2.0 \
   sphinx-toggleprompt==0.0.5 \
