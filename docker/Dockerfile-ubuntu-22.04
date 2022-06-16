@@ -1,0 +1,37 @@
+FROM ubuntu:jammy
+ENV DEBIAN_FRONTEND noninteractive
+COPY build-and-install-scafacos.sh /tmp
+COPY ubuntu-packages.txt /tmp
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y \
+        doxygen \
+        gcc-10 g++-10 \
+        clang-12 clang-tidy-12 clang-format-12 llvm-12 \
+        libthrust-dev \
+        nvidia-cuda-toolkit \
+        pylint \
+        python3-autopep8 \
+        python3-matplotlib \
+        python3-pint \
+        python3-pycodestyle \
+        python3-tqdm \
+        $(cat /tmp/ubuntu-packages.txt) && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* && rm /tmp/ubuntu-packages.txt
+
+RUN bash /tmp/build-and-install-scafacos.sh
+
+ENV NVIDIA_VISIBLE_DEVICES all
+ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
+
+RUN useradd -m espresso
+USER espresso
+ENV HOME="/home/espresso"
+ENV PATH="${HOME}/.local/bin${PATH:+:$PATH}"
+RUN pip3 install --no-cache --user \
+  cmakelang==0.6.13 \
+  pre-commit==2.15.0 \
+  sphinx==4.5.0 \
+  sphinx-toggleprompt==0.0.5 \
+  sphinxcontrib-bibtex==2.4.2 \
+  numpydoc==0.7.0
+WORKDIR /home/espresso
