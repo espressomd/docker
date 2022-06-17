@@ -29,7 +29,7 @@ RUN useradd -m espresso
 USER espresso
 ENV HOME="/home/espresso"
 ENV PATH="${HOME}/.local/bin${PATH:+:$PATH}"
-RUN pip3 install --user \
+RUN pip3 install --no-cache --user \
   autopep8==1.5.0 \
   pycodestyle==2.5.0 \
   pylint==2.4.4 \
@@ -40,6 +40,7 @@ RUN pip3 install --user \
   sphinx==4.2.0 \
   sphinx-toggleprompt==0.0.5 \
   sphinxcontrib-bibtex==2.4.1 \
+  numpydoc==0.7.0 \
   scipy==1.7.1 \
   MDAnalysis==1.1.1
 WORKDIR /home/espresso
