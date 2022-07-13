@@ -30,5 +30,5 @@ RUN useradd -m espresso
 USER 1000
 ENV HOME="/home/espresso"
 ENV PATH="${HOME}/.local/bin${PATH:+:$PATH}"
-RUN pip3 install --no-cache --user scipy==1.6.0
+RUN pip3 install --no-cache --user scipy==1.6.0 cmake==3.17
 WORKDIR /home/espresso
