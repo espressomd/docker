@@ -4,9 +4,13 @@ COPY build-and-install-scafacos.sh /tmp
 COPY ubuntu-packages.txt /tmp
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-        doxygen \
-        gcc-10 g++-10 \
+        cmake-format \
         clang-12 clang-tidy-12 clang-format-12 llvm-12 \
+        doxygen \
+        ffmpeg \
+        gcc-10 g++-10 \
+        graphviz \
+        jupyter-notebook jupyter-nbconvert \
         libthrust-dev \
         nvidia-cuda-toolkit \
         pylint \
@@ -15,6 +19,7 @@ RUN apt-get update && \
         python3-pint \
         python3-pycodestyle \
         python3-tqdm \
+        texlive-base \
         $(cat /tmp/ubuntu-packages.txt) && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && rm /tmp/ubuntu-packages.txt
 
@@ -28,7 +33,6 @@ USER espresso
 ENV HOME="/home/espresso"
 ENV PATH="${HOME}/.local/bin${PATH:+:$PATH}"
 RUN pip3 install --no-cache --user \
-  cmakelang==0.6.13 \
   pre-commit==2.15.0 \
   sphinx==4.5.0 \
   sphinx-toggleprompt==0.0.5 \
