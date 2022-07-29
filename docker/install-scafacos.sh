@@ -3,6 +3,7 @@
 set -e
 
 cd /tmp
+
 git clone --recursive --branch dipoles https://github.com/scafacos/scafacos.git
 cd scafacos
 
@@ -22,12 +23,19 @@ git cherry-pick -n a752a05761f6624076373d7a6c33d1c80c2f85eb
 sed -i 's/ scafacos.pyx / /' python/Makefile.am
 
 ./bootstrap
-./configure --enable-shared --enable-portable-binary \
-	--with-internal-pfft --with-internal-pnfft \
-	--enable-fcs-solvers=direct,pnfft,p2nfft,p3m,ewald \
-	--disable-fcs-fortran --enable-fcs-dipoles
+mkdir build
+cd build
+../configure --enable-shared \
+             --enable-portable-binary \
+             --enable-fcs-dipoles \
+             --enable-fcs-solvers=direct,p2nfft,p3m,ewald \
+             --disable-fcs-fortran \
+             --with-internal-fftw=no \
+             --with-internal-pfft=no \
+             --with-internal-pnfft=no \
+             --prefix=/usr/local
 make -j $(nproc)
 make install
 cd
-rm -rf /tmp/scafacos /tmp/build-and-install-scafacos.sh
+rm -r /tmp/scafacos
 ldconfig

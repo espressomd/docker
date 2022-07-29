@@ -1,6 +1,8 @@
 FROM nvidia/cuda:11.0-devel-ubuntu20.04
 ENV DEBIAN_FRONTEND noninteractive
-COPY build-and-install-scafacos.sh /tmp
+COPY install-pfft.sh /tmp
+COPY install-pnfft.sh /tmp
+COPY install-scafacos.sh /tmp
 COPY ubuntu-packages.txt /tmp
 RUN rm /etc/apt/sources.list.d/cuda.list \
     && apt-key del 7fa2af80 \
@@ -12,7 +14,10 @@ RUN apt-get update && xargs -a /tmp/ubuntu-packages.txt apt-get install --no-ins
     libthrust-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN bash /tmp/build-and-install-scafacos.sh
+RUN bash /tmp/install-pfft.sh     && rm /tmp/install-pfft.sh && \
+    bash /tmp/install-pnfft.sh    && rm /tmp/install-pnfft.sh && \
+    bash /tmp/install-scafacos.sh && rm /tmp/install-scafacos.sh && \
+    ldconfig
 
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
