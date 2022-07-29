@@ -1,6 +1,8 @@
 FROM ubuntu:focal
 ENV DEBIAN_FRONTEND noninteractive
-COPY build-and-install-scafacos.sh /tmp
+COPY install-pfft.sh /tmp
+COPY install-pnfft.sh /tmp
+COPY install-scafacos.sh /tmp
 COPY ubuntu-packages.txt /tmp
 RUN apt-get update && xargs -a /tmp/ubuntu-packages.txt apt-get install --no-install-recommends -y \
     && apt-get install --no-install-recommends -y \
@@ -20,7 +22,10 @@ RUN apt-get update && xargs -a /tmp/ubuntu-packages.txt apt-get install --no-ins
     texlive-base \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN bash /tmp/build-and-install-scafacos.sh
+RUN bash /tmp/install-pfft.sh     && rm /tmp/install-pfft.sh && \
+    bash /tmp/install-pnfft.sh    && rm /tmp/install-pnfft.sh && \
+    bash /tmp/install-scafacos.sh && rm /tmp/install-scafacos.sh && \
+    ldconfig
 
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
