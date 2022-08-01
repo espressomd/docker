@@ -30,7 +30,7 @@ cd build
              --enable-fcs-dipoles \
              --enable-fcs-solvers=direct,p2nfft,p3m,ewald \
              --disable-fcs-fortran \
-             --with-internal-fftw=no \
+             --with-internal-fftw=yes \
              --with-internal-pfft=no \
              --with-internal-pnfft=no \
              --prefix=/usr/local
