@@ -31,8 +31,8 @@ cd build
              --enable-fcs-solvers=direct,p2nfft,p3m,ewald \
              --disable-fcs-fortran \
              --with-internal-fftw=yes \
-             --with-internal-pfft=no \
-             --with-internal-pnfft=no \
+             --with-internal-pfft=yes \
+             --with-internal-pnfft=yes \
              --prefix=/usr/local
 make -j $(nproc)
 make install
