@@ -9,10 +9,12 @@ cython3
 gfortran
 gdb
 git
+gnupg
 jq
 lcov
 libblas-dev
 libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev
+libdigest-sha-perl
 libfftw3-dev
 libfftw3-mpi-dev
 libgsl-dev
