@@ -9,9 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ['debian', 'fedora', 'cuda', 'ubuntu-20.04', 'ubuntu-22.04', 'ubuntu-wo-dependencies']
+        image: ['debian', 'fedora', 'ubuntu-22.04', 'ubuntu-wo-dependencies']
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@main
     - name: Build and deploy
       uses: ./.github/actions/docker
       with:
