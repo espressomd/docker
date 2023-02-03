@@ -12,7 +12,7 @@ cd pfft-${pfft_version}
 ./bootstrap.sh
 mkdir build
 cd build
-../configure --prefix=/usr/local
+../configure --prefix=/usr/local --enable-portable-binary
 make -j $(nproc)
 make install
 cd
