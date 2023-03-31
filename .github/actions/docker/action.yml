@@ -1,4 +1,3 @@
-# action.yml
 name: 'docker'
 description: 'Build and deploy docker images'
 inputs:
@@ -17,12 +16,6 @@ inputs:
   tag:
     description: 'Tag for the image'
     required: true
-  dockerhub_user:
-    description: 'Username on dockerhub for second deploy'
-    required: false
-  dockerhub_password:
-    description: 'Password for dockerhub registry.'
-    required: false
   build_args:
     description: 'List of build arguments.'
     required: false
@@ -35,6 +28,4 @@ runs:
     - ${{ inputs.password }}
     - ${{ inputs.event_name }}
     - ${{ inputs.tag }}
-    - ${{ inputs.dockerhub_user }}
-    - ${{ inputs.dockerhub_password }}
     - ${{ inputs.build_args }}

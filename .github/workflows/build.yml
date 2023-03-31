@@ -20,5 +20,3 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
         event_name: ${{ github.event_name }}
         tag: ${{ github.sha }}
-        dockerhub_user: ${{ secrets.DOCKERHUB_USERNAME }}
-        dockerhub_password: ${{ secrets.DOCKERHUB_TOKEN }}
