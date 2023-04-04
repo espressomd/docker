@@ -1,4 +1,4 @@
-FROM ubuntu:jammy
+FROM ubuntu:jammy AS image_base
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
         apt-utils \
@@ -27,6 +27,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+FROM image_base AS image_standalone
 RUN useradd -m espresso
 USER espresso
 WORKDIR /home/espresso
