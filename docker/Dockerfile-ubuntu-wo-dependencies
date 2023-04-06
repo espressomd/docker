@@ -1,7 +1,6 @@
-FROM ubuntu:jammy
-ENV DEBIAN_FRONTEND noninteractive
+FROM ubuntu:jammy AS image_base
 RUN apt-get update && \
-    apt-get install --no-install-recommends -y \
+    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
         apt-utils \
         build-essential \
         curl \
@@ -28,6 +27,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+FROM image_base AS image_standalone
 RUN useradd -m espresso
 USER espresso
 WORKDIR /home/espresso
