@@ -27,11 +27,12 @@ mkdir build
 cd build
 ../configure --enable-shared \
              --enable-portable-binary \
+             --with-gcc-arch=x86_64 \
              --enable-fcs-dipoles \
              --enable-fcs-solvers=direct,p2nfft,p3m,ewald \
              --disable-fcs-fortran \
-             --with-internal-fftw=yes \
-             --with-internal-pfft=yes \
+             --with-internal-fftw=no \
+             --with-internal-pfft=no \
              --with-internal-pnfft=yes \
              --prefix=/usr/local
 make -j $(nproc)
