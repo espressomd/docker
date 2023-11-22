@@ -22,8 +22,6 @@ RUN apt-get update && \
         gnupg \
         graphviz \
         jq \
-        jupyter-notebook \
-        jupyter-nbconvert \
         lcov \
         libblas-dev \
         libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev \
@@ -36,6 +34,7 @@ RUN apt-get update && \
         libopenmpi-dev \
         libthrust-dev \
         libtool \
+        npm \
         nvidia-cuda-toolkit \
         openmpi-bin \
         openssh-client \
@@ -76,9 +75,10 @@ ENV HOME="/home/espresso"
 ENV PATH="${HOME}/.local/bin${PATH:+:$PATH}"
 RUN pip3 install --no-cache --user \
   pre-commit==2.17.0 \
-  nbconvert==6.4.5 \
+  jupyterlab==4.0.9 \
+  nbconvert==6.5.1 \
   sphinx==4.5.0 \
-  sphinx-toggleprompt==0.2.0 \
-  sphinxcontrib-bibtex==2.5.0 \
+  sphinx-toggleprompt==0.4.0 \
+  sphinxcontrib-bibtex==2.6.1 \
   numpydoc==1.5.0
 WORKDIR /home/espresso
