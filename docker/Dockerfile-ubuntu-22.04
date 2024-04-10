@@ -1,6 +1,4 @@
 FROM ubuntu:jammy
-COPY install-pfft.sh /tmp
-COPY install-scafacos.sh /tmp
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
         apt-utils \
@@ -62,8 +60,13 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN bash /tmp/install-pfft.sh     && rm /tmp/install-pfft.sh && \
-    bash /tmp/install-scafacos.sh && rm /tmp/install-scafacos.sh && \
+COPY install-pfft.sh /tmp
+COPY install-scafacos.sh /tmp
+COPY install-kokkos.sh /tmp
+
+RUN sh /tmp/install-pfft.sh     && rm /tmp/install-pfft.sh && \
+    sh /tmp/install-scafacos.sh && rm /tmp/install-scafacos.sh && \
+    sh /tmp/install-kokkos.sh   && rm /tmp/install-kokkos.sh && \
     ldconfig
 
 ENV NVIDIA_VISIBLE_DEVICES all
