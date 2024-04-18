@@ -9,7 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ['debian', 'fedora', 'ubuntu-22.04', 'ubuntu-wo-dependencies']
+        image:
+        - debian
+        - fedora
+        - ubuntu
+        - ubuntu-wo-dependencies
     steps:
     - uses: actions/checkout@main
     - name: Build and deploy

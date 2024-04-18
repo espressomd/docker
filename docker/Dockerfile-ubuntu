@@ -1,0 +1,126 @@
+FROM ubuntu:noble
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+        apt-utils \
+        autoconf \
+        automake \
+        build-essential \
+        ccache \
+        clang-18 clang-tidy-18 clang-format-18 llvm-18 libclang-rt-18-dev \
+        cmake \
+        cmake-format \
+        curl \
+        cython3 \
+        doxygen \
+        ffmpeg \
+        gcc-12 g++-12 \
+        gcc-13 g++-13 \
+        gdb \
+        gfortran \
+        git \
+        gnupg \
+        graphviz \
+        ipython3 \
+        jq \
+        jupyter-client \
+        jupyter-core \
+        jupyter-nbconvert \
+        lcov \
+        libblas-dev \
+        libboost-dev \
+        libboost-filesystem-dev \
+        libboost-mpi-dev \
+        libboost-serialization-dev \
+        libboost-test-dev \
+        libdigest-sha-perl \
+        libfftw3-dev \
+        libfftw3-mpi-dev \
+        libgsl-dev \
+        libhdf5-openmpi-dev \
+        liblapack-dev \
+        libopenmpi-dev \
+        libthrust-dev \
+        libtool \
+        nvidia-cuda-toolkit \
+        openmpi-bin \
+        openssh-client \
+        perl \
+        pkg-config \
+        pre-commit \
+        python3 \
+        python3-dev \
+        pylint \
+        python3-coverage \
+        python3-dev \
+        python3-h5py \
+        python3-ipykernel \
+        python3-jinja2 \
+        python3-lxml \
+        python3-matplotlib \
+        python3-nbconvert \
+        python3-numpy \
+        python3-numpydoc \
+        python3-pint \
+        python3-pip \
+        python3-packaging \
+        python3-requests \
+        python3-scipy \
+        python3-setuptools \
+        python3-sympy \
+        python3-sphinx \
+        python3-sphinxcontrib.bibtex \
+        python3-tqdm \
+        python3-venv \
+        python3-vtk9 \
+        rsync \
+        texlive-base \
+        vim && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY install-pfft.sh /tmp
+COPY install-scafacos.sh /tmp
+COPY install-kokkos.sh /tmp
+
+RUN sh /tmp/install-pfft.sh     && rm /tmp/install-pfft.sh && \
+    sh /tmp/install-scafacos.sh && rm /tmp/install-scafacos.sh && \
+    sh /tmp/install-kokkos.sh   && rm /tmp/install-kokkos.sh && \
+    ldconfig
+
+ENV NVIDIA_VISIBLE_DEVICES all
+ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
+ENV JUPYTER_PLATFORM_DIRS 1
+
+COPY --chown=1000:1000 jupyter_nbconvert_config.json /tmp
+
+RUN userdel ubuntu && rm -rf /home/ubuntu && useradd -u 1000 -m espresso
+ENV HOME="/home/espresso"
+RUN echo | cpan && \
+    echo | cpan JSON::XS && \
+    chown -R espresso:espresso /home/espresso/.cpan/
+USER espresso
+ENV VIRTUAL_ENV "$HOME/venv"
+ENV PATH "$HOME/.local/bin:$VIRTUAL_ENV/bin:$PATH"
+RUN cd "${HOME}" && \
+  python3 -m venv --system-site-packages venv && \
+  . venv/bin/activate && \
+  python3 -m pip install --no-cache \
+    jupyterlab==4.0.13 \
+    pep8==1.7.1 \
+    autopep8==2.1.0 \
+    pycodestyle==2.11.1 \
+    sphinx-toggleprompt==0.5.2 && \
+  jupyter_config_root=$(jupyter --paths --json | jq ".config[0]") && \
+  jupyter_config_root=${jupyter_config_root#\"} && \
+  jupyter_config_root=${jupyter_config_root%\"} && \
+  jupyter_kernels_root=$(jupyter --paths --json | jq ".data[0]")/kernels && \
+  jupyter_kernels_root=${jupyter_kernels_root#\"} && \
+  jupyter_kernels_root=${jupyter_kernels_root%\"} && \
+  mkdir -p "${jupyter_config_root}" "${jupyter_kernels_root}" && \
+  mv "/tmp/jupyter_nbconvert_config.json" "${jupyter_config_root}/" && \
+  ln -s "${VIRTUAL_ENV}/share/jupyter/kernels/python3" "${jupyter_kernels_root}/python3" && \
+  deactivate && \
+  mkdir -p "${HOME}/.local/bin" && \
+  mkdir -p "${HOME}/.local/etc/alternatives" && \
+  mkdir -p "${HOME}/.local/var/lib/alternatives"
+WORKDIR /home/espresso
