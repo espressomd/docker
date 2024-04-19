@@ -1,4 +1,4 @@
-FROM fedora:36
+FROM fedora:40
 RUN dnf -y install \
   blas-devel \
   boost-devel \
@@ -7,6 +7,7 @@ RUN dnf -y install \
   cmake \
   environment-modules \
   fftw-devel \
+  fftw-mpich-devel \
   gcc \
   gcc-c++ \
   gdb \
@@ -18,8 +19,10 @@ RUN dnf -y install \
   python3 \
   python3-devel \
   python3-Cython \
+  python3-lxml \
   python3-numpy \
   python3-scipy \
+  python3-packaging \
   python3-pip \
   python3-setuptools \
   python3-h5py \

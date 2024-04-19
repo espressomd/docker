@@ -1,4 +1,4 @@
-FROM ubuntu:jammy AS image_base
+FROM ubuntu:noble AS image_base
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
         apt-utils \
@@ -7,10 +7,14 @@ RUN apt-get update && \
         ccache \
         cmake \
         cython3 \
-        gcc-11 g++-11 \
+        gcc-13 g++-13 \
         gdb \
         git \
-        libboost-dev libboost-serialization-dev libboost-mpi-dev libboost-filesystem-dev libboost-test-dev \
+        libboost-dev \
+        libboost-filesystem-dev \
+        libboost-mpi-dev \
+        libboost-serialization-dev \
+        libboost-test-dev \
         libopenmpi-dev \
         openssh-client \
         openmpi-bin \
@@ -19,6 +23,7 @@ RUN apt-get update && \
         python3-h5py \
         python3-lxml \
         python3-numpy \
+        python3-packaging \
         python3-pip \
         python3-scipy \
         python3-setuptools \
