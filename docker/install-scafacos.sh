@@ -37,6 +37,9 @@ cd build
              --prefix=/usr/local
 make -j $(nproc)
 make install
+# remove GCC version-specific library path to avoid library version mismatch at
+# link or runtime when a different GCC version was used to compile client code
+sed -i -r 's| -L/usr/lib/gcc/x86_64-linux-gnu/[0-9]+ | |' /usr/local/lib/pkgconfig/scafacos.pc
 cd
 rm -r /tmp/scafacos
 ldconfig

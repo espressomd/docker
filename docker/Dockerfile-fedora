@@ -13,6 +13,7 @@ RUN dnf -y install \
   gdb \
   git \
   hdf5-mpich-devel \
+  jq \
   lapack-devel \
   make \
   mpich-devel \
