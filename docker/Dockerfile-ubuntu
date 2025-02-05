@@ -6,7 +6,7 @@ RUN apt-get update && \
         automake \
         build-essential \
         ccache \
-        clang-18 clang-tidy-18 clang-format-18 llvm-18 libclang-rt-18-dev \
+        clang-19 clang-tidy-19 clang-format-19 llvm-19 libclang-rt-19-dev libomp-19-dev \
         cmake \
         cmake-format \
         curl \
@@ -14,7 +14,7 @@ RUN apt-get update && \
         doxygen \
         ffmpeg \
         gcc-12 g++-12 \
-        gcc-13 g++-13 \
+        gcc-14 g++-14 \
         gdb \
         gfortran \
         git \
@@ -76,6 +76,7 @@ RUN apt-get update && \
         python3-vtk9 \
         rsync \
         texlive-base \
+        unzip \
         vim && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -89,9 +90,9 @@ RUN sh /tmp/install-pfft.sh     && rm /tmp/install-pfft.sh && \
     sh /tmp/install-kokkos.sh   && rm /tmp/install-kokkos.sh && \
     ldconfig
 
-ENV NVIDIA_VISIBLE_DEVICES all
-ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
-ENV JUPYTER_PLATFORM_DIRS 1
+ENV NVIDIA_VISIBLE_DEVICES=all
+ENV NVIDIA_DRIVER_CAPABILITIES="compute,utility"
+ENV JUPYTER_PLATFORM_DIRS=1
 
 COPY --chown=1000:1000 jupyter_nbconvert_config.json /tmp
 
@@ -101,8 +102,8 @@ RUN echo | cpan && \
     echo | cpan JSON::XS && \
     chown -R espresso:espresso /home/espresso/.cpan/
 USER espresso
-ENV VIRTUAL_ENV "$HOME/venv"
-ENV PATH "$HOME/.local/bin:$VIRTUAL_ENV/bin:$PATH"
+ENV VIRTUAL_ENV="$HOME/venv"
+ENV PATH="$HOME/.local/bin:$VIRTUAL_ENV/bin:$PATH"
 RUN cd "${HOME}" && \
   python3 -m venv --system-site-packages venv && \
   . venv/bin/activate && \
