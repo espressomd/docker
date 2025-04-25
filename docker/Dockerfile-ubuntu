@@ -5,6 +5,7 @@ RUN apt-get update && \
         autoconf \
         automake \
         build-essential \
+        ca-certificates \
         ccache \
         clang-19 clang-tidy-19 clang-format-19 llvm-19 libclang-rt-19-dev libomp-19-dev \
         cmake \
@@ -41,6 +42,7 @@ RUN apt-get update && \
         libopenmpi-dev \
         libthrust-dev \
         libtool \
+        ninja-build \
         nvidia-cuda-toolkit \
         openmpi-bin \
         openssh-client \
