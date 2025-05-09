@@ -5,6 +5,7 @@ RUN apt-get update && \
         autoconf \
         automake \
         build-essential \
+        ca-certificates \
         ccache \
         clang-19 clang-tidy-19 clang-format-19 llvm-19 libclang-rt-19-dev libomp-19-dev \
         cmake \
@@ -41,6 +42,7 @@ RUN apt-get update && \
         libopenmpi-dev \
         libthrust-dev \
         libtool \
+        ninja-build \
         nvidia-cuda-toolkit \
         openmpi-bin \
         openssh-client \
@@ -83,11 +85,9 @@ RUN apt-get update && \
 
 COPY install-pfft.sh /tmp
 COPY install-scafacos.sh /tmp
-COPY install-kokkos.sh /tmp
 
 RUN sh /tmp/install-pfft.sh     && rm /tmp/install-pfft.sh && \
     sh /tmp/install-scafacos.sh && rm /tmp/install-scafacos.sh && \
-    sh /tmp/install-kokkos.sh   && rm /tmp/install-kokkos.sh && \
     ldconfig
 
 ENV NVIDIA_VISIBLE_DEVICES=all

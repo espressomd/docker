@@ -1,4 +1,4 @@
-FROM fedora:41
+FROM fedora:42
 RUN dnf -y install \
   blas-devel \
   boost-devel \
@@ -17,6 +17,8 @@ RUN dnf -y install \
   lapack-devel \
   make \
   mpich-devel \
+  ninja-build \
+  patch \
   python3 \
   python3-devel \
   python3-Cython \
