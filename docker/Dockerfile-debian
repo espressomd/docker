@@ -7,6 +7,7 @@ RUN apt-get update && \
         ccache \
         curl \
         cython3 \
+        diffutils \
         gcc-14 g++-14 \
         gdb \
         git \
@@ -18,6 +19,7 @@ RUN apt-get update && \
         libfftw3-dev \
         libfftw3-mpi-dev \
         libhdf5-openmpi-dev \
+        libopenmpi-dev \
         libpython3-dev \
         ninja-build \
         openmpi-bin \

@@ -5,6 +5,7 @@ RUN dnf -y install \
   boost-mpich-devel \
   ccache \
   cmake \
+  diffutils \
   environment-modules \
   fftw-devel \
   fftw-mpich-devel \
