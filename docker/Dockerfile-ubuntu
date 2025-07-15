@@ -7,11 +7,12 @@ RUN apt-get update && \
         build-essential \
         ca-certificates \
         ccache \
-        clang-19 clang-tidy-19 clang-format-19 llvm-19 libclang-rt-19-dev libomp-19-dev \
+        clang-19 clang-tidy-19 clang-format-19 llvm-19 libc++-19-dev libclang-rt-19-dev libomp-19-dev \
         cmake \
         cmake-format \
         curl \
         cython3 \
+        diffutils \
         doxygen \
         ffmpeg \
         gcc-12 g++-12 \
