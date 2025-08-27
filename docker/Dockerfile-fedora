@@ -1,4 +1,4 @@
-FROM fedora:42
+FROM fedora:42 AS image_base
 RUN dnf -y install \
   blas-devel \
   boost-devel \
@@ -34,6 +34,8 @@ RUN dnf -y install \
   which \
   zlib-devel \
   && dnf clean all
+
+FROM image_base AS image_standalone
 RUN useradd -m espresso
 USER 1000
 WORKDIR /home/espresso
