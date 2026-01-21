@@ -8,7 +8,7 @@ RUN apt-get update && \
         ccache \
         cmake \
         cython3 \
-        gcc-13 g++-13 \
+        gcc-13 g++-13 libstdc++-13-dev \
         gdb \
         git \
         libboost-dev \
