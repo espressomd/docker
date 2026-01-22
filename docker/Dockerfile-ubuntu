@@ -15,8 +15,8 @@ RUN apt-get update && \
         diffutils \
         doxygen \
         ffmpeg \
-        gcc-12 g++-12 \
-        gcc-14 g++-14 \
+        gcc-12 g++-12 libstdc++-12-dev \
+        gcc-14 g++-14 libstdc++-14-dev \
         gdb \
         gfortran \
         git \
@@ -74,6 +74,7 @@ RUN apt-get update && \
         python3-sympy \
         python3-sphinx \
         python3-sphinxcontrib.bibtex \
+        python3-sphinx-tabs \
         python3-tqdm \
         python3-venv \
         python3-vtk9 \

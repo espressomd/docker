@@ -1,4 +1,4 @@
-FROM fedora:42 AS image_base
+FROM fedora:43 AS image_base
 RUN dnf -y install \
   blas-devel \
   boost-devel \
