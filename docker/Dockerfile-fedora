@@ -13,11 +13,16 @@ RUN dnf -y install \
   gcc-c++ \
   gdb \
   git \
+  gsl-devel \
   hdf5-mpich-devel \
+  heffte-mpich-devel \
+  hwloc-devel \
+  kokkos-devel \
   lapack-devel \
   make \
   mpich-devel \
   ninja-build \
+  NLopt-devel \
   patch \
   python3 \
   python3-devel \
