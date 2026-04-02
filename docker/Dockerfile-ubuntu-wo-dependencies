@@ -12,7 +12,6 @@ RUN apt-get update && \
         gdb \
         git \
         libboost-dev \
-        libboost-filesystem-dev \
         libboost-mpi-dev \
         libboost-serialization-dev \
         libboost-test-dev \
