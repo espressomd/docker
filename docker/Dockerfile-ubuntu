@@ -113,6 +113,7 @@ RUN cd "${HOME}" && \
     pep8==1.7.1 \
     autopep8==2.1.0 \
     pycodestyle==2.11.1 \
+    cmake==4.2.3 \
     sphinx-toggleprompt==0.5.2 && \
   jupyter_config_root=$(jupyter --paths --json | jq -r ".config[0]") && \
   mkdir -p "${jupyter_config_root}" && \
