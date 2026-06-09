@@ -1,5 +1,6 @@
 FROM ubuntu:resolute AS image_base
 RUN apt-get update && \
+    echo "path-include=/usr/share/doc/libprrte-dev/*" >> /etc/dpkg/dpkg.cfg.d/excludes && \
     DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
         apt-utils \
         build-essential \
@@ -11,11 +12,13 @@ RUN apt-get update && \
         gcc-16 g++-16 libstdc++-16-dev \
         gdb \
         git \
+        gzip \
         libboost-dev \
         libboost-mpi-dev \
         libboost-serialization-dev \
         libboost-test-dev \
         libopenmpi-dev \
+        libprrte-dev \
         ninja-build \
         openssh-client \
         openmpi-bin \
@@ -30,6 +33,13 @@ RUN apt-get update && \
         python3-setuptools \
         python3-vtk9 \
         vim && \
+    if [ ! -f /usr/lib/x86_64-linux-gnu/prrte3/share/prte/help-prun.txt ]; then \
+        # fix a packaging issue: https://bugs.launchpad.net/ubuntu/+source/openmpi/+bug/2155666
+        mkdir -p /usr/lib/x86_64-linux-gnu/prrte3/share/prte && \
+        cp /usr/share/doc/libprrte-dev/help-schizo-ompi.txt /usr/lib/x86_64-linux-gnu/prrte3/share/prte/ && \
+        cp /usr/share/doc/libprrte-dev/help-prun.txt.gz /usr/lib/x86_64-linux-gnu/prrte3/share/prte/ && \
+        gzip -d /usr/lib/x86_64-linux-gnu/prrte3/share/prte/help-prun.txt.gz ; \
+    fi && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
