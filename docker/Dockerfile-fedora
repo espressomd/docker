@@ -1,4 +1,4 @@
-FROM fedora:44 AS image_base
+FROM fedora:45 AS image_base
 RUN dnf -y install \
   blas-devel \
   boost-devel \
@@ -17,7 +17,6 @@ RUN dnf -y install \
   hdf5-mpich-devel \
   heffte-mpich-devel \
   hwloc-devel \
-  kokkos-devel \
   lapack-devel \
   make \
   mpich-devel \
@@ -37,6 +36,7 @@ RUN dnf -y install \
   vim \
   which \
   zlib-devel \
+  && rpm -e --nodeps rocm-llvm-static \
   && dnf clean all
 
 FROM image_base AS image_standalone

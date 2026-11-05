@@ -9,9 +9,9 @@ event_name=$4
 tag=$5
 
 echo "Log in to registry."
-echo "${password}" | docker login -u "${username}" --password-stdin docker.pkg.github.com || exit 1
+echo "${password}" | docker login -u "${username}" --password-stdin ghcr.io || exit 1
 
-full_tag="docker.pkg.github.com/${username}/${project}/${image}:${tag}"
+full_tag="ghcr.io/${username}/${project}/${image}:${tag}"
 dockerfile="docker/Dockerfile-${image}"
 full_tag_github_action=""
 if grep -q "FROM image_base AS image_standalone" "${dockerfile}"; then
