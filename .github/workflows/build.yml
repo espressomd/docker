@@ -5,6 +5,10 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   images:
     runs-on: ubuntu-latest

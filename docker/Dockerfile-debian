@@ -12,13 +12,13 @@ RUN apt-get update && \
         gdb \
         git \
         libboost-dev \
-        libboost-filesystem-dev \
         libboost-mpi-dev \
         libboost-serialization-dev \
         libboost-test-dev \
         libfftw3-dev \
         libfftw3-mpi-dev \
         libhdf5-openmpi-dev \
+        libnlopt-cxx-dev \
         libopenmpi-dev \
         libpython3-dev \
         ninja-build \

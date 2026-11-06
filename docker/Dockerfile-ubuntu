@@ -1,13 +1,14 @@
-FROM ubuntu:noble
+FROM ubuntu:resolute
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+    echo "path-include=/usr/share/doc/libprrte-dev/help-*" >> /etc/dpkg/dpkg.cfg.d/excludes && \
+    DEBIAN_FRONTEND=noninteractive TZ=Europe/Berlin apt-get install --no-install-recommends -y \
         apt-utils \
         autoconf \
         automake \
         build-essential \
         ca-certificates \
         ccache \
-        clang-19 clang-tidy-19 clang-format-19 llvm-19 libc++-19-dev libclang-rt-19-dev libomp-19-dev \
+        clang-22 clang-tidy-22 clang-format-22 llvm-22 libc++-22-dev libclang-rt-22-dev libomp-22-dev \
         cmake \
         cmake-format \
         curl \
@@ -15,13 +16,14 @@ RUN apt-get update && \
         diffutils \
         doxygen \
         ffmpeg \
-        gcc-12 g++-12 libstdc++-12-dev \
-        gcc-14 g++-14 libstdc++-14-dev \
+        gcc-13 g++-13 libstdc++-13-dev \
+        gcc-15 g++-15 libstdc++-15-dev \
         gdb \
         gfortran \
         git \
         gnupg \
         graphviz \
+        gzip \
         ipython3 \
         jq \
         jupyter-client \
@@ -39,7 +41,9 @@ RUN apt-get update && \
         libgsl-dev \
         libhdf5-openmpi-dev \
         liblapack-dev \
+        libnlopt-cxx-dev  \
         libopenmpi-dev \
+        libprrte-dev \
         libthrust-dev \
         libtool \
         ninja-build \
@@ -52,21 +56,23 @@ RUN apt-get update && \
         pylint \
         python3 \
         python3-ase \
+        python3-autopep8 \
         python3-coverage \
         python3-dev \
         python3-h5py \
         python3-ipykernel \
-        python3-ipywidgets \
         python3-jinja2 \
         python3-lxml \
         python3-matplotlib \
         python3-nbconvert \
         python3-numpy \
         python3-numpydoc \
+        python3-packaging \
         python3-pandas \
+        python3-pep8 \
         python3-pint \
         python3-pip \
-        python3-packaging \
+        python3-pycodestyle \
         python3-requests \
         python3-scipy \
         python3-setuptools \
@@ -81,6 +87,13 @@ RUN apt-get update && \
         texlive-base \
         unzip \
         vim && \
+    if [ ! -f /usr/lib/x86_64-linux-gnu/prrte3/share/prte/help-prun.txt ]; then \
+        # fix a packaging issue: https://bugs.launchpad.net/ubuntu/+source/openmpi/+bug/2155666
+        mkdir -p /usr/lib/x86_64-linux-gnu/prrte3/share/prte && \
+        cp /usr/share/doc/libprrte-dev/help-schizo-ompi.txt /usr/lib/x86_64-linux-gnu/prrte3/share/prte/ && \
+        cp /usr/share/doc/libprrte-dev/help-prun.txt.gz /usr/lib/x86_64-linux-gnu/prrte3/share/prte/ && \
+        gzip -d /usr/lib/x86_64-linux-gnu/prrte3/share/prte/help-prun.txt.gz ; \
+    fi && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -109,17 +122,10 @@ RUN cd "${HOME}" && \
   python3 -m venv --system-site-packages venv && \
   . venv/bin/activate && \
   python3 -m pip install --no-cache \
-    jupyterlab==4.0.13 \
-    pep8==1.7.1 \
-    autopep8==2.1.0 \
-    pycodestyle==2.11.1 \
-    cmake==4.2.3 \
-    sphinx-toggleprompt==0.5.2 && \
+    jupyterlab==4.5.11 \
+    sphinx-toggleprompt==0.6.0 && \
   jupyter_config_root=$(jupyter --paths --json | jq -r ".config[0]") && \
   mkdir -p "${jupyter_config_root}" && \
   mv "/tmp/jupyter_nbconvert_config.json" "${jupyter_config_root}/" && \
-  deactivate && \
-  mkdir -p "${HOME}/.local/bin" && \
-  mkdir -p "${HOME}/.local/etc/alternatives" && \
-  mkdir -p "${HOME}/.local/var/lib/alternatives"
+  deactivate
 WORKDIR /home/espresso
